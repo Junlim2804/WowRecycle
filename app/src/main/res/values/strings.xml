@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">WowRecycle</string>
+    <string name="title_activity_second">SecondActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_event">Event</string>
+    <string name="title_book">Book</string>
+    <string name="title_reward">Event</string>
+    <string name="title_profile">Profile</string>
+
+</resources>
