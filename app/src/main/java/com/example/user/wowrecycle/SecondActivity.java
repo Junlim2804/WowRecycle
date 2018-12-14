@@ -3,6 +3,8 @@ package com.example.user.wowrecycle;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -16,25 +18,35 @@ public class SecondActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFragment=null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
+                    selectedFragment=new HomeFragment();
+                 //   mTextMessage.setText(R.string.title_home);
+
+                    break;
                 case R.id.navigation_event:
-                    mTextMessage.setText(R.string.title_event);
-                    return true;
+
+                  //  mTextMessage.setText(R.string.title_event);
+                    selectedFragment=new EventFragment();
+                    break;
                 case R.id.navigation_book:
-                    mTextMessage.setText(R.string.title_book);
-                    return true;
+                    selectedFragment=new BookFragment();
+                 //   mTextMessage.setText(R.string.title_book);
+                    break;
                 case R.id.navigation_reward:
-                    mTextMessage.setText(R.string.title_reward);
-                    return true;
+                 //   mTextMessage.setText(R.string.title_reward);
+                    break;
                 case R.id.navigation_profile:
-                    mTextMessage.setText(R.string.title_profile);
-                    return true;
+                 //   mTextMessage.setText(R.string.title_profile);
+                    break;
+
             }
-            return false;
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
+            return true;
         }
+
+
     };
 
     @Override
