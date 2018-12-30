@@ -17,5 +17,6 @@
     <string name="drawer_history">History</string>
     <string name="navd_schedule">Schedule</string>
     <string name="news1">News 1</string>
+    <string name="tv_getplace">Get Place</string>
 
 </resources>
