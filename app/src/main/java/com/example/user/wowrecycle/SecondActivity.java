@@ -3,50 +3,44 @@ package com.example.user.wowrecycle;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 public class SecondActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment=null;
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    selectedFragment=new HomeFragment();
-                 //   mTextMessage.setText(R.string.title_home);
-
-                    break;
+                    transaction.replace(R.id.content,new HomeFragment()).commit();
+                    return true;
                 case R.id.navigation_event:
-
-                  //  mTextMessage.setText(R.string.title_event);
-                    selectedFragment=new EventFragment();
-                    break;
+                    transaction.replace(R.id.content,new EventFragment()).commit();
+                    return true;
                 case R.id.navigation_book:
-                    selectedFragment=new BookFragment();
-                 //   mTextMessage.setText(R.string.title_book);
-                    break;
+                    transaction.replace(R.id.content,new BookFragment()).commit();
+                    return true;
                 case R.id.navigation_reward:
-                 //   mTextMessage.setText(R.string.title_reward);
-                    break;
+                    transaction.replace(R.id.content,new RewardFragment()).commit();
+                    return true;
                 case R.id.navigation_profile:
-                 //   mTextMessage.setText(R.string.title_profile);
-                    break;
+                    transaction.replace(R.id.content,new ProfileFragment()).commit();
+                    return true;
+
 
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
-            return true;
+            return false;
         }
-
-
     };
 
     @Override
@@ -54,7 +48,7 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
