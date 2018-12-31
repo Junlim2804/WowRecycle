@@ -3,7 +3,9 @@ package com.example.user.wowrecycle;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,15 +36,7 @@ public class RewardFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RewardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static RewardFragment newInstance(String param1, String param2) {
         RewardFragment fragment = new RewardFragment();
         Bundle args = new Bundle();
@@ -88,21 +82,25 @@ public class RewardFragment extends Fragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+
+        // Find the view pager that will allow the user to swipe between fragments
+        ViewPager viewPager = (ViewPager) getView().findViewById(R.id.viewpager);
+
+        // Create an adapter that knows which fragment should be shown on each page
+        // using getFragmentManager() will work too
+        Fragment1PagerAdapter adapter = new Fragment1PagerAdapter(mContext.getSupportFragmentManager(), mContext);
+
+        // Set the adapter onto the view pager
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = (TabLayout) getView().findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
