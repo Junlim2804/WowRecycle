@@ -18,7 +18,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Username"
-        android:inputType="text|textCapCharacters|textPersonName"
+        android:inputType="text|textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/ePassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
