@@ -90,17 +90,7 @@ public class BookFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    public void onClick(View v)
-    {
-        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-        try{
-            startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-        }
-    }
+
 
 
 
@@ -156,6 +146,7 @@ public class BookFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
+
     public void onMapReady(final GoogleMap mMap) {
 
         // Add a marker in Sydney, Australia, and move the camera.
@@ -177,7 +168,20 @@ public class BookFragment extends Fragment implements OnMapReadyCallback {
                         .position(latlng)
                         .icon(BitmapDescriptorFactory
                                 .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                System.out.println(latlng);
+                PlacePicker.IntentBuilder builder=new PlacePicker.IntentBuilder();
+                Intent intent = null;
+                try {
+                    intent = builder.build(getActivity());
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                }
+                // Start the Intent by requesting a result, identified by a request code.
+                startActivityForResult(intent, PLACE_PICKER_REQUEST);
+
+
+
 
             }
         });
