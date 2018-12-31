@@ -22,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -155,13 +156,59 @@ public class BookFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onMapReady(GoogleMap mMap) {
-        
-        // Add a marker in Sydney, Australia, and move the camera.
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+    public void onMapReady(final GoogleMap mMap) {
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,16.0f));
+        // Add a marker in Sydney, Australia, and move the camera.
+        LatLng sydney = new LatLng(3.2162302, 101.7267724);
+
+        final Marker[] marker = {mMap.addMarker(new MarkerOptions().position(sydney).title("Your Location").draggable(true))};
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,5));
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng latlng) {
+                // TODO Auto-generated method stub
+
+                if (marker[0] != null) {
+                    marker[0].remove();
+                }
+                marker[0] = mMap.addMarker(new MarkerOptions()
+                        .position(latlng)
+                        .icon(BitmapDescriptorFactory
+                                .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                System.out.println(latlng);
+
+            }
+        });
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+        public boolean onMarkerClick(final Marker marker) {
+                if (marker != null) {
+                    marker.remove();
+                }
+
+
+            // Retrieve the data from the marker.
+            Integer clickCount = (Integer) marker.getTag();
+
+            // Check if a click count was set, then display the click count.
+            if (clickCount != null) {
+                clickCount = clickCount + 1;
+                marker.setTag(clickCount);
+                Toast.makeText(getActivity(),
+                        marker.getTitle() +
+                                " has been clicked " + clickCount + " times.",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            // Return false to indicate that we have not consumed the event and that we wish
+            // for the default behavior to occur (which is for the camera to move such that the
+            // marker is centered and for the marker's info window to open, if it has one).
+            return false;
+        }
+
+        });
     }
 
 
