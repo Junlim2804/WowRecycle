@@ -2,6 +2,7 @@ package com.example.user.wowrecycle;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,13 +15,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.w3c.dom.Text;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -72,28 +81,40 @@ public class BookFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //return new SecondActivity(this);
-       // get_Place =(TextView)findViewById(R.id.tvGetPlace);
-        get_Place.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                Intent intent;
-               // try{
-                    //intent = builder.build(getApplicationContext());
-                    //startActivityForResult(intent, PLACE_PICKER_REQUEST);
-              //  }catch(GooglePlayServicesNotAvailableException e){
-                   // e.printStackTrace();
-               // }
 
-            }
-        });
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+    public void onClick(View v)
+    {
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        try{
+            startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data,getActivity());
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,8 +129,6 @@ public class BookFragment extends Fragment implements OnMapReadyCallback {
             ft.replace(R.id.map, mapFragment).commit();
         }
         mapFragment.getMapAsync(this);
-        /*SupportMapFragment mapFragment = (SupportMapFragment)getFragmentManager().findFragmentById(R.id.map1);
-        mapFragment.getMapAsync(this);*/
         return v;
     }
 
@@ -137,14 +156,61 @@ public class BookFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        /*map = googleMap;
-        LatLng pp = new LatLng(11.5448729, 104.8921688);
-        MarkerOptions option = new MarkerOptions();
-        option.position(pp).title("Phnom Peth");
-        map.addMarker(option);
-        map.moveCamera(CameraUpdateFactory.newLatLng(pp));*/
+    public void onMapReady(final GoogleMap mMap) {
+
+        // Add a marker in Sydney, Australia, and move the camera.
+        LatLng sydney = new LatLng(3.2162302, 101.7267724);
+
+        final Marker[] marker = {mMap.addMarker(new MarkerOptions().position(sydney).title("Your Location").draggable(true))};
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,5));
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng latlng) {
+                // TODO Auto-generated method stub
+
+                if (marker[0] != null) {
+                    marker[0].remove();
+                }
+                marker[0] = mMap.addMarker(new MarkerOptions()
+                        .position(latlng)
+                        .icon(BitmapDescriptorFactory
+                                .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                System.out.println(latlng);
+
+            }
+        });
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(final Marker marker) {
+                if (marker != null) {
+                    marker.remove();
+                }
+
+
+                // Retrieve the data from the marker.
+                Integer clickCount = (Integer) marker.getTag();
+
+                // Check if a click count was set, then display the click count.
+                if (clickCount != null) {
+                    clickCount = clickCount + 1;
+                    marker.setTag(clickCount);
+                    Toast.makeText(getActivity(),
+                            marker.getTitle() +
+                                    " has been clicked " + clickCount + " times.",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                // Return false to indicate that we have not consumed the event and that we wish
+                // for the default behavior to occur (which is for the camera to move such that the
+                // marker is centered and for the marker's info window to open, if it has one).
+                return false;
+            }
+
+        });
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
