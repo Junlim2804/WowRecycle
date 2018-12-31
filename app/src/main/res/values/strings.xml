@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">WowRecycle2</string>
+    <string name="app_name">WOW RECYCLE</string>
     <string name="title_home">Home</string>
     <string name="title_event">Event</string>
     <string name="title_book">Book</string>
     <string name="title_reward">Reward</string>
     <string name="title_profile">Profile</string>
-    <string name="title_activity_second">second</string>
+    <string name="title_activity_second">WOW Recycle</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_button">Home Button</string>

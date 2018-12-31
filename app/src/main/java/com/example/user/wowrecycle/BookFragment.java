@@ -2,6 +2,7 @@ package com.example.user.wowrecycle;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,13 +15,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.w3c.dom.Text;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -30,14 +38,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * to handle interaction events.
  * Use the {@link BookFragment#newInstance} factory method to
  * create an instance of this fragment.
+ // TODO: Rename parameter arguments, choose names that match
+ // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+ private static final String ARG_PARAM1 = "param1";
+ private static final String ARG_PARAM2 = "param2";
+ GoogleMap map;
+ private TextView get_Place;
  */
 public class BookFragment extends Fragment implements OnMapReadyCallback {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    GoogleMap map;
-    private TextView get_Place;
     int PLACE_PICKER_REQUEST =1;
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -72,28 +80,40 @@ public class BookFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        get_Place =(TextView)findViewById(R.id.tvGetPlace);
-        get_Place.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                Intent intent;
-                try{
-                    intent = builder.build(getApplicationContext());
-                    startActivityForResult(intent, PLACE_PICKER_REQUEST);
-                }catch(GooglePlayServicesNotAvailableException e){
-                    e.printStackTrace();
-                }
 
-            }
-        });
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+    public void onClick(View v)
+    {
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        try{
+            startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data,getActivity());
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,8 +128,6 @@ public class BookFragment extends Fragment implements OnMapReadyCallback {
             ft.replace(R.id.map, mapFragment).commit();
         }
         mapFragment.getMapAsync(this);
-        /*SupportMapFragment mapFragment = (SupportMapFragment)getFragmentManager().findFragmentById(R.id.map1);
-        mapFragment.getMapAsync(this);*/
         return v;
     }
 
@@ -137,14 +155,15 @@ public class BookFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        /*map = googleMap;
-        LatLng pp = new LatLng(11.5448729, 104.8921688);
-        MarkerOptions option = new MarkerOptions();
-        option.position(pp).title("Phnom Peth");
-        map.addMarker(option);
-        map.moveCamera(CameraUpdateFactory.newLatLng(pp));*/
+    public void onMapReady(GoogleMap mMap) {
+
+        // Add a marker in Sydney, Australia, and move the camera.
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,16.0f));
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
