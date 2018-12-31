@@ -8,12 +8,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPageAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
 
 
     private Context context;
 
-    public ViewPageAdapter(FragmentManager fm, Context mContext){
+    public ViewPagerAdapter(FragmentManager fm, Context mContext){
         super(fm);
         context = mContext;
 
