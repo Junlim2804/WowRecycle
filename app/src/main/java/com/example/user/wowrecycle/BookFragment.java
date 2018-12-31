@@ -38,14 +38,14 @@ import static android.app.Activity.RESULT_OK;
  * to handle interaction events.
  * Use the {@link BookFragment#newInstance} factory method to
  * create an instance of this fragment.
- // TODO: Rename parameter arguments, choose names that match
- // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
- private static final String ARG_PARAM1 = "param1";
- private static final String ARG_PARAM2 = "param2";
- GoogleMap map;
- private TextView get_Place;
  */
 public class BookFragment extends Fragment implements OnMapReadyCallback {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    GoogleMap map;
+    private TextView get_Place;
     int PLACE_PICKER_REQUEST =1;
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -156,7 +156,7 @@ public class BookFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap mMap) {
-
+        
         // Add a marker in Sydney, Australia, and move the camera.
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
