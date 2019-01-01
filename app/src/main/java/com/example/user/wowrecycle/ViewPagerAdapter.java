@@ -10,8 +10,8 @@ import java.util.List;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-
     private Context context;
+
 
     public ViewPagerAdapter(FragmentManager fm, Context mContext){
         super(fm);
@@ -19,7 +19,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     }
 
-    @Override
+
+
     public Fragment getItem(int position){
         if (position == 0){
             return new FragmentBrowse();
@@ -37,9 +38,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
         switch(position){
             case 0:
-                return context.getResources().getString(R.string.app_name);
+                return context.getResources().getString(R.string.tab_browse);
             case 1:
-                return context.getResources().getString(R.string.app_name);
+                return context.getResources().getString(R.string.tab_myRewards);
             default:
                 return null;
         }

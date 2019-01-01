@@ -18,5 +18,9 @@
     <string name="navd_schedule">Schedule</string>
     <string name="news1">News 1</string>
     <string name="tv_getplace">Get Place</string>
+    <string name="reward_points">Points</string>
+    <string name="button_view">View</string>
+    <string name="tab_browse">Browse</string>
+    <string name="tab_myRewards">My Rewards</string>
 
 </resources>
