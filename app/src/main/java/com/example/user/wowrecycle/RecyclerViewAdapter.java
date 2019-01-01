@@ -19,9 +19,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Context mContext;
     List<Reward> mData;
 
-    public RecyclerViewAdapter(Context mContext, List<Reward> mData) {
+    public RecyclerViewAdapter(Context mContext, List<Reward> data) {
         this.mContext = mContext;
-        this.mData = mData;
+        this.mData = data;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.tv_desc.setText(mData.get(position).getDesc());
         holder.btn_view.setText(mData.get(position).getView());
-        holder.iv_reward.setImageResource(mData.get(position).getPhoto());
+       holder.iv_reward.setImageResource(mData.get(position).getPhoto());
 
 
 
@@ -45,7 +45,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+
+        return mData.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{

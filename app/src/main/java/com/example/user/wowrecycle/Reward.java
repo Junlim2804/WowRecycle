@@ -11,9 +11,9 @@ public class Reward {
     }
 
     public Reward(int photo, String desc, String view) {
-        Photo = photo;
-        Desc = desc;
-        View = view;
+        this.Photo = photo;
+        this.Desc = desc;
+        this.View = view;
     }
 
     //getter and setter

@@ -29,10 +29,13 @@ public class FragmentBrowse extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.browse_fragment, container,false);
-        myRecyclerView = (RecyclerView)view.findViewById(R.id.reward_recyclerview);
+        myRecyclerView = (RecyclerView)view.findViewById(R.id.reward_rv);
         RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(getContext(),listReward);
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        myRecyclerView.setLayoutManager(linearLayoutManager);
+
         myRecyclerView.setAdapter(recyclerAdapter);
+
         return view;
     }
 

@@ -11,6 +11,8 @@ import java.util.List;
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private Context context;
+    private final List<Fragment> lstFragment=new ArrayList<>();
+    private final List<String> lstTitle=new ArrayList<>();
 
 
     public ViewPagerAdapter(FragmentManager fm, Context mContext){
@@ -21,13 +23,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
 
 
+
     public Fragment getItem(int position){
-        if (position == 0){
-            return new FragmentBrowse();
-        }
-        else{
-            return new FragmentMyRewards();
-        }
+        return lstFragment.get(position);
     }
 
     @Override
@@ -35,14 +33,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
+       return lstTitle.get(position);
+    }
 
-        switch(position){
-            case 0:
-                return context.getResources().getString(R.string.tab_browse);
-            case 1:
-                return context.getResources().getString(R.string.tab_myRewards);
-            default:
-                return null;
-        }
+    public void addFragment(Fragment fragment,String title)
+    {
+        lstFragment.add(fragment);
+        lstTitle.add(title);
     }
 }

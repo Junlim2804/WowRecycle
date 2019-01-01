@@ -37,10 +37,17 @@ public class RewardFragment extends Fragment {
         // Create an adapter that knows which fragment should be shown on each page
         // using getFragmentManager() will work too
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(),mContext);
+        adapter.addFragment(new FragmentBrowse(),"Browse");
+        adapter.addFragment(new FragmentMyRewards(),"My Reward");
         viewPager.setAdapter(adapter);
 
        TabLayout tabLayout = (TabLayout) getView().findViewById(R.id.sliding_tabs);
        tabLayout.setupWithViewPager(viewPager);
+
+
+
+
+
     }
 
     @Override
