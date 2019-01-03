@@ -28,7 +28,7 @@ public class SecondActivity extends AppCompatActivity {
                     transaction.replace(R.id.content,new EventFragment()).commit();
                     return true;
                 case R.id.navigation_book:
-                    transaction.replace(R.id.content,new BookFragment()).commit();
+                    transaction.replace(R.id.content,new BookingFragment()).commit();
                     return true;
                 case R.id.navigation_reward:
                     transaction.replace(R.id.content,new RewardFragment()).commit();

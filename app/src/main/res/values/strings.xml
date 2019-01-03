@@ -6,7 +6,7 @@
     <string name="title_reward">Reward</string>
     <string name="title_profile">Profile</string>
     <string name="title_activity_second">WOW Recycle</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_button">Home Button</string>
     <string name="event_button">Event Button</string>
@@ -22,5 +22,6 @@
     <string name="button_view">View</string>
     <string name="tab_browse">Browse</string>
     <string name="tab_myRewards">My Rewards</string>
+    <string name="pick_date">Date</string>
 
 </resources>
