@@ -14,13 +14,13 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> {
 
     Context mContext;
-    List<Reward> mData;
+    List<event> mData;
 
 
-    public RecyclerViewAdapter(Context mContext, List<Reward> data) {
+    public EventAdapter(Context mContext, List<event> data) {
         this.mContext = mContext;
         this.mData = data;
     }
@@ -28,7 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
-        v = LayoutInflater.from(mContext).inflate(R.layout.item_reward,parent,false);
+        v = LayoutInflater.from(mContext).inflate(R.layout.item_event,parent,false);
         MyViewHolder vHolder = new MyViewHolder(v);
         return vHolder;
     }
@@ -36,9 +36,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.tv_desc.setText(mData.get(position).getDesc());
+        holder.iv_event.setImageResource(mData.get(position).getBackground());
+        holder.tv_desc.setText(mData.get(position).getEventDesc());
         holder.btn_view.setText(mData.get(position).getView());
-        holder.iv_reward.setImageResource(mData.get(position).getPhoto());
+
 
 
 
@@ -54,13 +55,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         private TextView tv_desc;
         private Button btn_view;
-        private ImageView iv_reward;
+        private ImageView iv_event;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_desc = (TextView)itemView.findViewById(R.id.reward_desc);
-            btn_view = (Button)itemView.findViewById(R.id.reward_view);
-            iv_reward = (ImageView)itemView.findViewById(R.id.reward_image);
+            tv_desc = (TextView)itemView.findViewById(R.id.event_desc);
+            btn_view = (Button)itemView.findViewById(R.id.event_view);
+            iv_event = (ImageView)itemView.findViewById(R.id.event_image);
         }
     }
 }
