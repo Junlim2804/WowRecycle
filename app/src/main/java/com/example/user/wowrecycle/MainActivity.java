@@ -90,6 +90,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        final TextView txtView = this.findViewById(R.id.tvregister);
+        txtView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+            }
+        });
     }
 
     private void validate(final String userName, final String userPassword){
