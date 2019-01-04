@@ -23,5 +23,8 @@
     <string name="tab_browse">Browse</string>
     <string name="tab_myRewards">My Rewards</string>
     <string name="pick_date">Date</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
 
 </resources>
