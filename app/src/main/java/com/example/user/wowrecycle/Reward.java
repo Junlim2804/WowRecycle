@@ -41,4 +41,7 @@ public class Reward {
     public void setView(String view) {
         View = view;
     }
+
+
+
 }

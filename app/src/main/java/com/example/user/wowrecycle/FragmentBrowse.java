@@ -16,8 +16,9 @@ import java.util.List;
 
 public class FragmentBrowse extends Fragment {
     View view;
-    private RecyclerView myRecyclerView;
     private List<Reward> listReward;
+    private RecyclerView myRecyclerView;
+
 
 
     public FragmentBrowse(){
