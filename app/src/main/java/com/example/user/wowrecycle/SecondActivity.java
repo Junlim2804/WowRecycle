@@ -63,17 +63,21 @@ private ActionBarDrawerToggle mToggle;
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.snav_profile:
-                    transaction.replace(R.id.content,new ProfileFragment()).commit();
-                    return true;
+                    Intent i = new Intent(SecondActivity.this, SubProfileActivity.class);
+                    startActivity(i);
+                    break;
+
                 case R.id.snav_history:
                     transaction.replace(R.id.content,new SubHistory()).commit();
                     return true;
+
                 case R.id.snav_logout:
                     Intent intent = new Intent(SecondActivity.this,MainActivity.class);
                     session.setLogin(false);
                     SQLiteHandler db= new SQLiteHandler(getApplicationContext());
                     db.deleteUsers();
                     startActivity(intent);
+
 
             }
             return false;

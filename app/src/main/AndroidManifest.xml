@@ -32,8 +32,13 @@
             android:name=".SecondActivity"
             android:label="@string/title_activity_second" />
         <activity
-            android:name=".RegisterActivity"
-            android:label="@string/title_activity_second" />
+        android:name=".RegisterActivity"
+        android:label="@string/title_activity_second" />
+
+        <activity
+            android:name=".SubProfileActivity"
+            android:label="@string/title_editprofile"
+            android:parentActivityName=".SecondActivity"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
