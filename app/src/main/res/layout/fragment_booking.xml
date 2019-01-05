@@ -26,7 +26,7 @@
         android:layout_marginBottom="8dp"
         android:text="Select Location"
         app:layout_constraintBottom_toBottomOf="@+id/textView5"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/btnLocation"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -85,11 +85,11 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnLocation"
         android:layout_width="144dp"
         android:layout_height="36dp"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="38dp"
         android:text="Pick Location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -150,7 +150,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/btnLocation"
         app:layout_constraintVertical_bias="0.657" />
 
 </android.support.constraint.ConstraintLayout>
