@@ -1,6 +1,8 @@
 package com.example.user.wowrecycle;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -39,6 +41,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
+    public static final String FILE_NAME="com.example.user.wowrecycle";
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
@@ -48,8 +51,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 holder.btn_view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,new RewardDetails()).commit();
+                        Fragment fr=new RewardDetails();
+                        SharedPreferences pref = v.getContext().getSharedPreferences(FILE_NAME,0);
+                        SharedPreferences.Editor editor=pref.edit();
+                        editor.putString("tnc",mData.get(position).getTnc());
+                        editor.commit();
+                        ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,fr).commit();
 
                         Toast.makeText(mContext, "Clicked at view" + position + mData.get(position).getDesc(), Toast.LENGTH_SHORT).show();
             }
