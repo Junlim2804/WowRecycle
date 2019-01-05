@@ -45,7 +45,7 @@ public class FragmentBrowse extends Fragment {
         super.onCreate(savedInstanceState);
 
         listReward = new ArrayList<>();
-        listReward.add(new Reward(R.drawable.reward1, "Nuggets", "View","Blah", "Blah"));
+        listReward.add(new Reward(R.drawable.reward1, "Nuggets", "View","Get 20pcs McNuggets at McDonals for 200 points", "Limited to 20 redemptions per day."));
         listReward.add(new Reward(R.drawable.reward2, "Subway", "View","blah","a"));
         listReward.add(new Reward(R.drawable.reward3, "KFC", "View","blah","b"));
         listReward.add(new Reward(R.drawable.reward1, "Nuggets", "View","blah","c"));

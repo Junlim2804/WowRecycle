@@ -81,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:text="News"
                         android:textAlignment="center"
-                        android:textColor="@color/color3" />
+                        android:textColor="@color/color4" />
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
