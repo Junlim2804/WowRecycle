@@ -5,6 +5,7 @@ public class Reward {
     private int Photo;
     private String Desc;
     private String View;
+    
 
     public Reward(){
 
