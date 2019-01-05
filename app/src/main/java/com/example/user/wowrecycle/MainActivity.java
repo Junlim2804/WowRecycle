@@ -101,14 +101,22 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
         });
-    }
-
-    private void validate(final String userName, final String userPassword){
         // SQLite database handler
         db = new SQLiteHandler(getApplicationContext());
 
         // Session manager
         session = new SessionManager(getApplicationContext());
+
+        if (session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            startActivity(intent);
+
+        }
+    }
+
+    private void validate(final String userName, final String userPassword){
+
         String tag_string_req = "req_login";
 
         pDialog.setMessage("Logging in ...");
