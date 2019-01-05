@@ -44,11 +44,11 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.NavigationView
-
+        android:id="@+id/sidenavigation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/color5"
+        android:background="@color/color1"
         app:itemIconTint="@color/color3"
         app:itemTextColor="@color/color4"
         app:menu="@menu/drawermenu">

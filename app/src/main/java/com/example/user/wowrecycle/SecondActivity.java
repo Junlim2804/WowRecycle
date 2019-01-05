@@ -3,6 +3,7 @@ package com.example.user.wowrecycle;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -42,23 +43,59 @@ private ActionBarDrawerToggle mToggle;
                     return true;
 
 
+
+
             }
             return false;
         }
     };
 
+
+
+    private NavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelected
+            = new NavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            switch (item.getItemId()) {
+                case R.id.snav_profile:
+                    transaction.replace(R.id.content,new ProfileFragment()).commit();
+                    return true;
+                case R.id.snav_history:
+                    transaction.replace(R.id.content,new SubHistory()).commit();
+                    return true;
+
+            }
+            return false;
+        }
+    };
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+
+        NavigationView sidenavigation = (NavigationView) findViewById(R.id.sidenavigation);
+        sidenavigation.setNavigationItemSelectedListener(mOnNavigationItemSelected);
+
+
         mDrawerLayout = (DrawerLayout)findViewById(R.id.container);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open, R.string.close);
+
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -68,4 +105,7 @@ private ActionBarDrawerToggle mToggle;
        }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }
