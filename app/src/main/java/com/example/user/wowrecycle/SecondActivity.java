@@ -1,5 +1,6 @@
 package com.example.user.wowrecycle;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -58,6 +59,7 @@ private ActionBarDrawerToggle mToggle;
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FragmentManager fragmentManager = getSupportFragmentManager();
+            SessionManager session = new SessionManager(getApplicationContext());
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.snav_profile:
@@ -66,6 +68,12 @@ private ActionBarDrawerToggle mToggle;
                 case R.id.snav_history:
                     transaction.replace(R.id.content,new SubHistory()).commit();
                     return true;
+                case R.id.snav_logout:
+                    Intent intent = new Intent(SecondActivity.this,MainActivity.class);
+                    session.setLogin(false);
+                    SQLiteHandler db= new SQLiteHandler(getApplicationContext());
+                    db.deleteUsers();
+                    startActivity(intent);
 
             }
             return false;
