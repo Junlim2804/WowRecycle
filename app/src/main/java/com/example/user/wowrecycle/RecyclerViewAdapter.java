@@ -2,6 +2,10 @@ package com.example.user.wowrecycle;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,17 +38,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return vHolder;
     }
 
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         holder.tv_desc.setText(mData.get(position).getDesc());
         holder.btn_view.setText(mData.get(position).getView());
         holder.iv_reward.setImageResource(mData.get(position).getPhoto());
-        holder.btn_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                holder.btn_view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                Toast.makeText(mContext, "CLicked at view" + position, Toast.LENGTH_SHORT).show();
+                        ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,new RewardDetails()).commit();
+
+                        Toast.makeText(mContext, "Clicked at view" + position + mData.get(position).getDesc(), Toast.LENGTH_SHORT).show();
             }
         });
 
