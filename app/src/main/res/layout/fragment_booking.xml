@@ -17,7 +17,7 @@
             android:gravity="fill_vertical">
 
             <TextView
-                android:id="@+id/txtLocaiton"
+                android:id="@+id/lblLocation"
                 android:layout_height="match_parent"
                 android:text="Select Location"
 
@@ -38,13 +38,13 @@
             android:gravity="fill_vertical">
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/lblWeight"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Weight (approm)" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/txtWeight"
                 android:layout_height="match_parent"
 
                 android:ems="10"
@@ -56,13 +56,13 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/datedata"
+                android:id="@+id/lblDate"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Select Date" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/datedata"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
 
@@ -74,11 +74,9 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txtTime"
+                android:id="@+id/lblTime"
 
                 android:layout_height="match_parent"
-
-
 
 
                 android:text="Time" />
@@ -98,7 +96,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txtRemark"
+                android:id="@+id/lblRemarks"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
 
@@ -119,7 +117,7 @@
             android:layout_height="match_parent" >
 
             <TextView
-                android:id="@+id/txtPhoto"
+                android:id="@+id/lblPhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
 

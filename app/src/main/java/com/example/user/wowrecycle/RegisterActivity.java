@@ -1,6 +1,5 @@
 package com.example.user.wowrecycle;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         inputFullName = (EditText) findViewById(R.id.eUsername);
         inputEmail = (EditText) findViewById(R.id.eemail);
-        inputPassword = (EditText) findViewById(R.id.ePassword);
+        inputPassword = (EditText) findViewById(R.id.txtPassword);
         btnRegister = (Button) findViewById(R.id.btn_signup);
 
 
