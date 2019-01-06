@@ -2,6 +2,7 @@ package com.example.user.wowrecycle;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.support.v4.app.DialogFragment;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -25,10 +26,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -52,7 +56,7 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class BookingFragment extends DialogFragment {
-    private Button btnsetLocation;
+    private EditText setLocation,timeData,dateData;
     private Button btnSubmitBook;
     private static int RESULT_LOAD_IMG = 4;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL = 2;
@@ -62,8 +66,8 @@ public class BookingFragment extends DialogFragment {
     String imageString;
 
     private static final String TAG = "BookingFragment";
-    private TextView dateData;
     private DatePickerDialog.OnDateSetListener mDataSetListener;
+    private TimePickerDialog mTimePicker;
     int PLACE_PICKER_REQUEST =1;
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -72,6 +76,7 @@ public class BookingFragment extends DialogFragment {
                 Place place = PlacePicker.getPlace(data,getActivity());
                 String toastMsg = String.format("Place: %s", place.getName());
                 Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_LONG).show();
+                setLocation.setText(place.getAddress());
             }
         }
         else if(requestCode==REQUEST_IMAGE_CAPTURE)
@@ -121,7 +126,7 @@ public class BookingFragment extends DialogFragment {
                 // result of the request.
             }
         }
-        dateData=(TextView)v.findViewById(R.id.datedata);
+        dateData=(EditText)v.findViewById(R.id.dateData);
         dateData.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 Calendar c = Calendar.getInstance();
@@ -132,8 +137,24 @@ public class BookingFragment extends DialogFragment {
                 dialog.show();
             }
         });
-        btnsetLocation=(Button)v.findViewById((R.id.btnLocation));
-        btnsetLocation.setOnClickListener(new View.OnClickListener(){
+        timeData=(EditText) v.findViewById(R.id.timedata);
+        timeData.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        timeData.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
+        setLocation=(EditText) v.findViewById((R.id.txt_setLocation));
+        setLocation.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 PlacePicker.IntentBuilder builder=new PlacePicker.IntentBuilder();
                 Intent intent = null;
@@ -154,11 +175,13 @@ public class BookingFragment extends DialogFragment {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month=month+1;
                 Log.d(TAG,"onDateSet:mm/dd/yyyy:"+month+"/"+dayOfMonth+"/"+"year");
-                String date=month+"/"+dayOfMonth+"/"+year;
+                String date=month+"-"+dayOfMonth+"-"+year;
                 dateData.setText(date);
             }
 
         };
+
+
 
         uploader=(ImageView)v.findViewById(R.id.item_image);
         uploader.setOnClickListener(new View.OnClickListener(){
@@ -174,10 +197,16 @@ public class BookingFragment extends DialogFragment {
         });
 
         btnSubmitBook=(Button)v.findViewById((R.id.btnUpload));
+        final EditText edtxtRemark=v.findViewById(R.id.edtxtRemark);
         btnSubmitBook.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-
-               uploadBookDetail(imageString,"2019-1-12","PV20","LTJ","remark");
+                SQLiteHandler db = new SQLiteHandler(getActivity());
+                HashMap<String, String> user=db.getUserDetails();
+                String uname=user.get("name");
+                Toast.makeText(getActivity(),
+                        uname, Toast.LENGTH_LONG).show();
+               uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
+                       ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString());
 
             }
         });
@@ -186,7 +215,7 @@ public class BookingFragment extends DialogFragment {
     }
 
 
-    private void uploadBookDetail(final String image,final String date,final String address,final String name,final String remark){
+    private void uploadBookDetail(final String image,final String date,final String time,final String address,final String name,final String remark){
 
         String tag_string_req = "req_addbooking";
 
@@ -242,6 +271,7 @@ public class BookingFragment extends DialogFragment {
                 params.put("address",address);
                 params.put("image",image);
                 params.put("date", date);
+                params.put("time",time);
                 params.put("remark", remark);
                 return params;
             }

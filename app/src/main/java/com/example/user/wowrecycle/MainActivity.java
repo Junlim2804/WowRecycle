@@ -139,9 +139,15 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                     } else {
                         // Error in login. Get the error message
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+                        counter--;
+                        Attempt.setText("Number of attempts remaining: " + String.valueOf(counter));
+                        if (counter == 0) {
+                            Login.setEnabled(false);
+                            String errorMsg = jObj.getString("error_msg");
+                            Toast.makeText(getApplicationContext(),
+                                    errorMsg, Toast.LENGTH_LONG).show();
+
+                        }
                     }
                 } catch (JSONException e) {
                     // JSON error
