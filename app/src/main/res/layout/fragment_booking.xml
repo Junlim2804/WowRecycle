@@ -136,7 +136,11 @@
 
     </TableLayout>
 
-
+    <Button
+        android:id="@+id/btnUpload"
+        android:layout_width="166dp"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 
 </LinearLayout>

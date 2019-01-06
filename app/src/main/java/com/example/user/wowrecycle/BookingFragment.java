@@ -2,8 +2,9 @@ package com.example.user.wowrecycle;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
-
+import android.support.v4.app.DialogFragment;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,20 +31,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
 
 public class BookingFragment extends DialogFragment {
     private Button btnsetLocation;
-
+    private Button btnSubmitBook;
     private static int RESULT_LOAD_IMG = 4;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL = 2;
     private static int REQUEST_IMAGE_CAPTURE=3;
@@ -163,7 +173,83 @@ public class BookingFragment extends DialogFragment {
             }
         });
 
+        btnSubmitBook=(Button)v.findViewById((R.id.btnUpload));
+        btnSubmitBook.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+
+               uploadBookDetail(imageString,"2019-1-12","PV20","LTJ","remark");
+
+            }
+        });
+
         return v;
+    }
+
+
+    private void uploadBookDetail(final String image,final String date,final String address,final String name,final String remark){
+
+        String tag_string_req = "req_addbooking";
+
+
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_BOOK, new Response.Listener<String>() {
+
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(AppController.TAG, "Login Response: " + response.toString());
+
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    Toast.makeText(getActivity(),
+                            response.toString(), Toast.LENGTH_LONG).show();
+                    // Check for error node in json
+                    if (!error) {
+
+
+
+                    } else {
+
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getActivity(),
+                                errorMsg+"1", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Json error: " + e.getMessage()+"2", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(AppController.TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getActivity(),
+                        error.getMessage()+"3", Toast.LENGTH_LONG).show();
+
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", name);
+                params.put("address",address);
+                params.put("image",image);
+                params.put("date", date);
+                params.put("remark", remark);
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
 }

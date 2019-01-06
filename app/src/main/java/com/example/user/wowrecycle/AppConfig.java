@@ -6,4 +6,6 @@ public class AppConfig {
 
     // Server user register url
     public static String URL_REGISTER = "https://wwwwowrecyclecom.000webhostapp.com/register.php";
+
+    public static String URL_BOOK = "https://wwwwowrecyclecom.000webhostapp.com/insertImage.php";
 }
