@@ -42,6 +42,7 @@ public class ProfileFragment extends Fragment {
     private ImageView imageViewPhoto;
     private Button btnRefresh;
     private TextView txtDateProfile;
+    private TextView profileBookDetial;
     private static List<BookDetail> BookArrayList=new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class ProfileFragment extends Fragment {
         //Window = getWindow();
 
     }
-    private TextView profileBookDetial;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class ProfileFragment extends Fragment {
                             for(int i=0; i < response.length();i++){
                                 JSONObject imageResponse = (JSONObject) response.get(i);
                                 String name = imageResponse.getString("name");
-                                String date = imageResponse.getString(no "bookdate");
+                                String date = imageResponse.getString("bookdate");
                                 String address = imageResponse.getString("address");
                                 String image = imageResponse.getString("image");
                                 String remark = imageResponse.getString("remark");

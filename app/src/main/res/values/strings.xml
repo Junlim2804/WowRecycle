@@ -37,7 +37,10 @@
     <string name="profile_cancel">Cancel</string>
     <string name="booking_details">Booking Details</string>
     <string name="title_editprofile">Edit Profile</string>
-
+    <string name="date_select">Please Select Date</string>
+    <string name="place_select">Please Select Location</string>
+    <string name="time_select">Please Select Time</string>
+    <string name="submit_book">Submit Request</string>
     <!-- navigation drawer item labels -->
     <string-array name="nav_drawer_labels">
 
