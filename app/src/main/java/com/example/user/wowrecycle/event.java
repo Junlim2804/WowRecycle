@@ -4,14 +4,16 @@ public class event {
     int background;
     String eventDesc;
     String view;
+    String url;
 
     public event() {
     }
 
-    public event(int background, String eventDesc, String view) {
+    public event(int background, String eventDesc, String view, String url) {
         this.background = background;
         this.eventDesc = eventDesc;
         this.view = view;
+        this.url = url;
     }
 
     public int getBackground() {
@@ -36,5 +38,13 @@ public class event {
 
     public void setView(String view) {
         this.view = view;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

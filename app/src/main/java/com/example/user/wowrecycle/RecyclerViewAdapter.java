@@ -40,7 +40,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return vHolder;
     }
 
-
     public static final String FILE_NAME="com.example.user.wowrecycle";
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
@@ -55,10 +54,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         SharedPreferences pref = v.getContext().getSharedPreferences(FILE_NAME,0);
                         SharedPreferences.Editor editor=pref.edit();
                         editor.putString("tnc",mData.get(position).getTnc());
+                        editor.putString("detail",mData.get(position).getDetail());
                         editor.commit();
                         ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,fr).commit();
 
-                        Toast.makeText(mContext, "Clicked at view" + position + mData.get(position).getDesc(), Toast.LENGTH_SHORT).show();
+
             }
         });
 
