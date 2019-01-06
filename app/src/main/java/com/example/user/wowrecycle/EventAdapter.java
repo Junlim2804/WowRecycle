@@ -28,11 +28,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     Context mContext;
     List<event> mData;
 
-    public void browser1(View view){
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-        view.getContext().startActivity(browserIntent);
-    }
-
 
     public EventAdapter(Context mContext, List<event> data) {
         this.mContext = mContext;

@@ -95,7 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Booking Details"
+                        android:text="@string/lblBookingDetails"
                         android:textColor="#000"
                         android:textSize="18sp" />
 

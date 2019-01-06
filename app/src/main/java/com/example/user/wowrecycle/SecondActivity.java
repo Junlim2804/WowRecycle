@@ -62,15 +62,17 @@ private ActionBarDrawerToggle mToggle;
             FragmentManager fragmentManager = getSupportFragmentManager();
             SessionManager session = new SessionManager(getApplicationContext());
             FragmentTransaction transaction = fragmentManager.beginTransaction();
+            Intent i;
             switch (item.getItemId()) {
                 case R.id.snav_profile:
-                    Intent i = new Intent(SecondActivity.this, SubProfileActivity.class);
+                    i = new Intent(SecondActivity.this, SubProfileActivity.class);
                     startActivity(i);
                     break;
 
                 case R.id.snav_history:
-                    transaction.replace(R.id.content,new SubHistory()).commit();
-                    return true;
+                    i = new Intent(SecondActivity.this, HistoryActivity.class);
+                    startActivity(i);
+                    break;
 
                 case R.id.snav_logout:
                     Intent intent = new Intent(SecondActivity.this,MainActivity.class);

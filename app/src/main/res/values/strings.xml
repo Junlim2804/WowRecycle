@@ -37,6 +37,14 @@
     <string name="profile_cancel">Cancel</string>
     <string name="booking_details">Booking Details</string>
     <string name="title_editprofile">Edit Profile</string>
+    <string name="lblBookingDetails">Booking Details</string>
+    <string name="btn_view">View</string>
+    <string name="lblDate">Date</string>
+    <string name="txtDate">Date</string>
+    <string name="txtLocation">Location</string>
+    <string name="txtWeight">Weight</string>
+    <string name="txtRemarks">Remarks</string>
+
 
     <!-- navigation drawer item labels -->
     <string-array name="nav_drawer_labels">
