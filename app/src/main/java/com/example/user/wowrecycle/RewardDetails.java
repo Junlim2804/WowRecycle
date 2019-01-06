@@ -16,6 +16,7 @@ import org.w3c.dom.Text;
 
 public class RewardDetails extends Fragment {
     private TextView txttnc;
+    private TextView txtdetail;
 
 
     public RewardDetails() {
@@ -34,9 +35,13 @@ public class RewardDetails extends Fragment {
         Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_reward_details, container, false);
         txttnc=(TextView)v.findViewById(R.id.tv_tnc);
+        txtdetail=(TextView)v.findViewById(R.id.tv_details);
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(RecyclerViewAdapter.FILE_NAME, 0);
         String tnc=sharedPreferences.getString("tnc","no detail");
+        String detail=sharedPreferences.getString("detail", "no detail");
         txttnc.setText(tnc);
+        txtdetail.setText(detail);
         return v;
     }
 
