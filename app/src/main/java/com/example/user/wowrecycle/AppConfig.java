@@ -8,4 +8,5 @@ public class AppConfig {
     public static String URL_REGISTER = "https://wwwwowrecyclecom.000webhostapp.com/register.php";
 
     public static String URL_BOOK = "https://wwwwowrecyclecom.000webhostapp.com/insertImage.php";
+    public static String URL_GETBOOKDETAIL = "https://wwwwowrecyclecom.000webhostapp.com/selectImage.php";
 }
