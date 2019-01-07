@@ -1,14 +1,13 @@
 <resources>
-    <string name="app_name">WOW RECYCLE</string>
-    <string name="title_home">Home</string>
+    <string name="app_name" translatable="false">WOW RECYCLE</string>
     <string name="title_event">Event</string>
     <string name="title_book">Book</string>
     <string name="title_reward">Reward</string>
     <string name="title_profile">Profile</string>
-    <string name="title_activity_second">WOW Recycle</string>
+    <string name="title_activity_second" translatable="false">WOW Recycle</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="home_button">Home Button</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_home">Home Button</string>
     <string name="event_button">Event Button</string>
     <string name="book_button">Book Button</string>
     <string name="profile_button">Profile Button</string>
@@ -55,8 +54,15 @@
     <string name="private_info">Private Information</string>
 
 
-    <string name="DATABASENAME">wow_db</string>
+
     <string name="lblPoints">Points Available</string>
     <string name="upload">upload</string>
+    <string name="DATABASENAME" translatable="false">wow_db</string>
+    <string name="Location">Select Location</string>
+    <string name="weightAppx">Approximate Weight</string>
+    <string name="Time">Time</string>
+    <string name="addPhoto">Photo</string>
+    <string name="hintWeight">in kg</string>
+
 
 </resources>
