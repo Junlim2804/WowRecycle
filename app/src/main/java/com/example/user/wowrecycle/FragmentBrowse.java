@@ -2,10 +2,12 @@ package com.example.user.wowrecycle;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,13 +31,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class FragmentBrowse extends Fragment {
     View view;
     private List<Reward> listReward;
     private RecyclerView myRecyclerView;
     private static int currentPoint=0;
     ProgressDialog progressDialog;
-
 
     public FragmentBrowse(){
 
@@ -121,5 +124,8 @@ public class FragmentBrowse extends Fragment {
         listReward.add(new Reward(R.drawable.reward2, 100, "View","blah","d"));
         listReward.add(new Reward(R.drawable.reward3, 100, "View","blah","e"));
 
+
     }
+
+
 }

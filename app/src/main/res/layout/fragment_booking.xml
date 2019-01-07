@@ -30,7 +30,8 @@
                 android:ems="10"
                 android:focusable="false"
                 android:hint="@string/place_select"
-                android:inputType="textPersonName" />
+                android:inputType="textMultiLine"
+                android:singleLine="true" />
 
 
         </TableRow>

@@ -34,19 +34,24 @@ private ActionBarDrawerToggle mToggle;
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    transaction.replace(R.id.content,new HomeFragment()).commit();
+                    transaction.replace(R.id.content,new HomeFragment()).
+                            addToBackStack(null).commit();
                     return true;
                 case R.id.navigation_event:
-                    transaction.replace(R.id.content,new EventFragment()).commit();
+                    transaction.replace(R.id.content,new EventFragment()).
+                            addToBackStack(null).commit();
                     return true;
                 case R.id.navigation_book:
-                    transaction.replace(R.id.content,new BookingFragment()).commit();
+                    transaction.replace(R.id.content,new BookingFragment()).
+                            addToBackStack(null).commit();
                     return true;
                 case R.id.navigation_reward:
-                    transaction.replace(R.id.content,new RewardFragment()).commit();
+                    transaction.replace(R.id.content,new RewardFragment()).
+                            addToBackStack(null).commit();
                     return true;
                 case R.id.navigation_profile:
-                    transaction.replace(R.id.content,new ProfileFragment()).commit();
+                    transaction.replace(R.id.content,new ProfileFragment()).
+                            addToBackStack(null).commit();
                     return true;
 
 

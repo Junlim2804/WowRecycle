@@ -155,7 +155,7 @@ public class BookingFragment extends DialogFragment {
                 mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        timeData.setText( selectedHour + ":" + selectedMinute);
+                        timeData.setText( String.format("%02d:%02d",selectedHour, selectedMinute));
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -308,13 +308,6 @@ public class BookingFragment extends DialogFragment {
             List<User> allUsers=wowDatabase.userDao().loadAllUsers();
             uname=allUsers.get(0).getName();
             return null;
-
         }
-
-
-
-
-
     }
-
 }
