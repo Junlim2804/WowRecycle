@@ -29,12 +29,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.example.user.wowrecycle.AppController.TAG;
+
 public class FragmentBrowse extends Fragment {
     View view;
     private List<Reward> listReward;
     private RecyclerView myRecyclerView;
     private static int currentPoint=0;
     ProgressDialog progressDialog;
+    RecyclerViewAdapter recyclerAdapter;
+    private static String GET_URL = "https://wwwwowrecyclecom.000webhostapp.com/select_course.php";
+    RequestQueue queue;
 
 
     public FragmentBrowse(){
@@ -48,14 +53,16 @@ public class FragmentBrowse extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.browse_fragment, container,false);
         myRecyclerView = (RecyclerView)view.findViewById(R.id.reward_rv);
-        RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(getContext(),listReward);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        myRecyclerView.setLayoutManager(linearLayoutManager);
+        listReward = new ArrayList<>();
+
+        downloadReward(getActivity(), AppConfig.URL_REWARD);
+
+
+
 
         textView=(TextView)view.findViewById(R.id.tmp_point);
         getBonus(getActivity(),AppConfig.URL_GETPOINTS);
         textView.setText(currentPoint+"");
-        myRecyclerView.setAdapter(recyclerAdapter);
 
         return view;
     }
@@ -109,17 +116,79 @@ public class FragmentBrowse extends Fragment {
 
         queue.add(jsonObjectRequest);
     }
+
+    private void downloadReward(Context context, String url) {
+        // Instantiate the RequestQueue
+        queue = Volley.newRequestQueue(context);
+        //progressDialog = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", true);
+        //if (!progressDialog.isShowing())
+         //   progressDialog.setMessage("Syn with server...");
+        //progressDialog.show();
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+                url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            listReward.clear();
+                            Toast.makeText(getContext(), response.length()+"", Toast.LENGTH_LONG).show();
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject rewardResponse = (JSONObject) response.get(i);
+                                //int photo = rewardResponse.getInt("rewardimg");
+                                int points = rewardResponse.getInt("points");
+                                String detail = rewardResponse.getString("detail");
+                                String tnc = rewardResponse.getString("tnc");
+                                Reward reward = new Reward(0,points, detail,tnc);
+                                listReward.add(reward);//Add a new course to List
+
+                            }
+                            loadReward(listReward);
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
+                        } catch (Exception e) {
+                            Toast.makeText(getContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                        if (progressDialog.isShowing())
+                            progressDialog.dismiss();
+                    }
+                });
+
+        // Set the tag on the request.
+        jsonObjectRequest.setTag(TAG);
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
+    }
+
+    public void loadReward(List<Reward> r)
+    {
+        recyclerAdapter = new RecyclerViewAdapter(getContext(),r);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        myRecyclerView.setLayoutManager(linearLayoutManager);
+        myRecyclerView.setAdapter(recyclerAdapter);
+
+
+    }
+/*
+    private void loadReward() {
+        final RewardAdapter adapter = new RewardAdapter(this, R.layout.content_main, listReward);
+        listViewCourse.setAdapter(adapter);
+        Toast.makeText(getApplicationContext(), "Count :" + caList.size(), Toast.LENGTH_LONG).show();
+    }*/
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        listReward = new ArrayList<>();
-        listReward.add(new Reward(R.drawable.reward1, 100, "View","Get 20pcs McNuggets at McDonals for 200 points", "Limited to 20 redemptions per day."));
-        listReward.add(new Reward(R.drawable.reward2, 200, "View","blah","a"));
-        listReward.add(new Reward(R.drawable.reward3, 100, "View","blah","b"));
-        listReward.add(new Reward(R.drawable.reward1, 100, "View","blah","c"));
-        listReward.add(new Reward(R.drawable.reward2, 100, "View","blah","d"));
-        listReward.add(new Reward(R.drawable.reward3, 100, "View","blah","e"));
+
 
     }
 }
