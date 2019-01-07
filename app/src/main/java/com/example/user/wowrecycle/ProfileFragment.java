@@ -122,7 +122,7 @@ public class ProfileFragment extends Fragment {
                                 String remark = imageResponse.getString("remark");
                                 BookDetail bk=new BookDetail(name,address,image,date,remark);
 
-                                Toast.makeText(getActivity(), "ADD 1", Toast.LENGTH_SHORT).show();
+
                                 BookArrayList.add(bk);
                             }
 

@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            Toast.makeText(context,"Home Fragment Attached", Toast.LENGTH_SHORT).show();
+
         }
     }
 

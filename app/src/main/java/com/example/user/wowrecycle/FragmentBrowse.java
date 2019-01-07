@@ -95,7 +95,7 @@ public class FragmentBrowse extends Fragment {
                            if(response.length()>0){
                                 JSONObject res = (JSONObject) response.get(0);
                                 currentPoint = res.getInt("points");
-                                Toast.makeText(getActivity(), currentPoint+"", Toast.LENGTH_SHORT).show();
+
                             }
 
 
@@ -134,7 +134,7 @@ public class FragmentBrowse extends Fragment {
                     public void onResponse(JSONArray response) {
                         try {
                             listReward.clear();
-                            Toast.makeText(getContext(), response.length()+"", Toast.LENGTH_LONG).show();
+
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject rewardResponse = (JSONObject) response.get(i);
                                 String photo = rewardResponse.getString("photo");
