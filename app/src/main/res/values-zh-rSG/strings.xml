@@ -59,4 +59,5 @@
     <string name="lbltnc">附加条件</string>
     <string name="tv_tnc">附加条件</string>
     <string name="textViewType">种类</string>
+    <string name="record_type">资料种类</string>
 </resources>
