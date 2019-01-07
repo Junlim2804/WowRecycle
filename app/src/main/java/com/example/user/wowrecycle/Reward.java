@@ -21,6 +21,13 @@ public class Reward {
         this.Tnc = tnc;
     }
 
+    public Reward(int photo, int points, String detail, String tnc) {
+        Photo = photo;
+        Points = points;
+        Detail = detail;
+        Tnc = tnc;
+    }
+
     //getter and setter
 
     public int getPhoto() {
