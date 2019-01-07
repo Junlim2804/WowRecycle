@@ -10,7 +10,7 @@ public class AppConfig {
     public static String URL_BOOK = "https://wwwwowrecyclecom.000webhostapp.com/insertImage.php";
     public static String URL_GETBOOKDETAIL = "https://wwwwowrecyclecom.000webhostapp.com/selectImage.php";
     public static String URL_GETPOINTS = "https://wwwwowrecyclecom.000webhostapp.com/getPoint.php";
-
+    public static String URL_UPDATEUSER="wwwwowrecyclecom.000webhostapp.com/UpdateUser.php";
     public static String URL_REWARD = "https://wwwwowrecyclecom.000webhostapp.com/select_reward.php";
     
 }

@@ -1,4 +1,9 @@
 <resources>
+    <string-array name="type_array">
+        <item>Metal</item>
+        <item>Plastic</item>
+        <item>Paper</item>
+    </string-array>
     <string name="app_name" translatable="false">WOW RECYCLE</string>
     <string name="title_event">Event</string>
     <string name="title_book">Book</string>
@@ -70,6 +75,7 @@
     <string name="tv_details">Details</string>
     <string name="lbltnc">Details</string>
     <string name="tv_tnc">Terms and Conditions</string>
+    <string name="textViewType">Type</string>
 
 
 </resources>
