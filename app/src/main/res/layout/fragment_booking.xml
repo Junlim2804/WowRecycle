@@ -20,7 +20,7 @@
                 android:id="@+id/lblLocation"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Select Location"
+                android:text="@string/Location"
                 android:textAlignment="center" />
 
             <EditText
@@ -45,13 +45,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Weight (approm)" />
+                android:text="@string/weightAppx" />
 
             <EditText
                 android:id="@+id/txtWeight"
                 android:layout_height="match_parent"
                 android:ems="10"
-                android:hint="in kg"
+                android:hint="@string/hintWeight"
                 android:inputType="number" />
         </TableRow>
 
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Select Date" />
+                android:text="@string/lblDate" />
 
             <EditText
                 android:id="@+id/dateData"
@@ -88,7 +88,7 @@
 
 
                 android:gravity="center_vertical"
-                android:text="Time" />
+                android:text="@string/Time" />
 
             <EditText
                 android:id="@+id/timedata"
@@ -111,7 +111,7 @@
                 android:layout_height="match_parent"
 
                 android:gravity="center_vertical"
-                android:text="Remarks" />
+                android:text="@string/txtRemarks" />
 
             <EditText
                 android:id="@+id/edtxtRemark"
@@ -133,7 +133,7 @@
                 android:layout_height="match_parent"
 
                 android:gravity="center_vertical"
-                android:text="Photo" />
+                android:text="@string/addPhoto" />
 
             <ImageView
                 android:id="@+id/item_image"
