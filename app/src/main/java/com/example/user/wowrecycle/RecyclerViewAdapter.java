@@ -44,7 +44,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
-        holder.tv_desc.setText(mData.get(position).getDesc());
+        holder.tv_points.setText(mData.get(position).getPoints()+"");
         holder.btn_view.setText(mData.get(position).getView());
         holder.iv_reward.setImageResource(mData.get(position).getPhoto());
                 holder.btn_view.setOnClickListener(new View.OnClickListener() {
@@ -75,13 +75,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tv_desc;
+        private TextView tv_points;
         private Button btn_view;
         private ImageView iv_reward;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_desc = (TextView)itemView.findViewById(R.id.reward_desc);
+            tv_points = (TextView)itemView.findViewById(R.id.reward_points_need);
             btn_view = (Button)itemView.findViewById(R.id.reward_view);
             iv_reward = (ImageView)itemView.findViewById(R.id.reward_image);
         }
