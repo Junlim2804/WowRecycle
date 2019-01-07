@@ -4,21 +4,23 @@ public class History{
 
     private String location;
     private String date;
-    private String weight;
+    private int weight;
     private String remarks;
-    private int photo;
+    private String photo;
+    private String type;
 
 
     public History(){
 
     }
 
-    public History(String location, String date, String weight, String remarks, int photo) {
+    public History(String location, String date, int weight, String remarks, String photo, String type) {
         this.location = location;
         this.date = date;
         this.weight = weight;
         this.remarks = remarks;
         this.photo = photo;
+        this.type = type;
     }
 
     public String getLocation() {
@@ -37,11 +39,11 @@ public class History{
         this.date = date;
     }
 
-    public String getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
@@ -53,11 +55,19 @@ public class History{
         this.remarks = remarks;
     }
 
-    public int getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(int photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
