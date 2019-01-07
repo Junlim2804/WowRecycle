@@ -1,4 +1,9 @@
 <resources>
+    <string-array name="type_array">
+        <item>Metal</item>
+        <item>Plastic</item>
+        <item>Paper</item>
+    </string-array>
     <string name="app_name" translatable="false">WOW RECYCLE</string>
     <string name="title_event">Event</string>
     <string name="title_book">Book</string>

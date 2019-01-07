@@ -29,11 +29,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -52,7 +54,9 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -63,9 +67,9 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class BookingFragment extends DialogFragment {
-    private EditText setLocation,timeData,dateData;
+    private EditText setLocation,timeData,dateData,editTextWeight;
 
-    private static String uname;
+    private static String uname,defaddress;
     private Button btnSubmitBook;
     private static int RESULT_LOAD_IMG = 4;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL = 2;
@@ -77,6 +81,8 @@ public class BookingFragment extends DialogFragment {
     private static final String TAG = "BookingFragment";
     private DatePickerDialog.OnDateSetListener mDataSetListener;
     private TimePickerDialog mTimePicker;
+    private Spinner spinner;
+    private ArrayAdapter<CharSequence> adapter;
     int PLACE_PICKER_REQUEST =1;
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -135,6 +141,12 @@ public class BookingFragment extends DialogFragment {
                 // result of the request.
             }
         }
+        editTextWeight=(EditText)v.findViewById(R.id.txtWeight);
+
+        spinner = (Spinner)v.findViewById(R.id.spinner);
+        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.type_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         dateData=(EditText)v.findViewById(R.id.dateData);
         dateData.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
@@ -163,6 +175,11 @@ public class BookingFragment extends DialogFragment {
             }
         });
         setLocation=(EditText) v.findViewById((R.id.txt_setLocation));
+        wowDatabase = Room.databaseBuilder(getActivity(),
+                AppDatabase.class,"wow_db" ).build();
+        new UserAsyncTask().execute();
+        setLocation.setText(defaddress);
+
         setLocation.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 PlacePicker.IntentBuilder builder=new PlacePicker.IntentBuilder();
@@ -212,16 +229,15 @@ public class BookingFragment extends DialogFragment {
                 //SQLiteHandler db = new SQLiteHandler(getActivity());
                // HashMap<String, String> user=db.getUserDetails();
                // String uname=user.get("name");
-                 wowDatabase = Room.databaseBuilder(getActivity(),
-                        AppDatabase.class,"wow_db" ).build();
 
-                new UserAsyncTask().execute();
+
+               // new UserAsyncTask().execute();
 
 
                 Toast.makeText(getActivity(),
                         uname, Toast.LENGTH_LONG).show();
                uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
-                       ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString());
+                       ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
 
             }
         });
@@ -230,7 +246,8 @@ public class BookingFragment extends DialogFragment {
     }
 
 
-    private void uploadBookDetail(final String image,final String date,final String time,final String address,final String name,final String remark){
+    private void uploadBookDetail(final String image,final String date,final String time,final String address,final String name,
+                                  final String remark,final String quantity,final String type){
 
         String tag_string_req = "req_addbooking";
 
@@ -288,6 +305,8 @@ public class BookingFragment extends DialogFragment {
                 params.put("date", date);
                 params.put("time",time);
                 params.put("remark", remark);
+                params.put("quantity",quantity);
+                params.put("type",type);
                 return params;
             }
 
@@ -307,6 +326,7 @@ public class BookingFragment extends DialogFragment {
         protected Void doInBackground(Void... Voids) {
             List<User> allUsers=wowDatabase.userDao().loadAllUsers();
             uname=allUsers.get(0).getName();
+            defaddress=allUsers.get(0).getAddress();
             return null;
         }
     }

@@ -38,6 +38,22 @@
 
         <TableRow
             android:layout_width="match_parent"
+            android:layout_height="58dp">
+
+            <TextView
+                android:id="@+id/texrViewType"
+                android:layout_width="52dp"
+                android:layout_height="match_parent"
+                android:text="@string/textViewType" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="fill_vertical">
 
@@ -139,8 +155,9 @@
             <ImageView
                 android:id="@+id/item_image"
 
-                android:layout_height="match_parent"
+                android:layout_width="117dp"
 
+                android:layout_height="80dp"
                 android:adjustViewBounds="true"
                 app:srcCompat="@drawable/ic_photo_camera_black_24dp" />
         </TableRow>

@@ -59,7 +59,7 @@ public class EventFragment extends Fragment {
 
         downloadEvent(getActivity(), AppConfig.URL_EVENT);
 
-        myRecyclerView.setAdapter(recyclerAdapter);
+
 
 
 
