@@ -2,6 +2,7 @@ package com.example.user.wowrecycle;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.example.user.wowrecycle.AppController.TAG;
 
 public class FragmentBrowse extends Fragment {
@@ -40,7 +42,6 @@ public class FragmentBrowse extends Fragment {
     RecyclerViewAdapter recyclerAdapter;
     private static String GET_URL = "https://wwwwowrecyclecom.000webhostapp.com/select_reward.php";
     RequestQueue queue;
-
 
     public FragmentBrowse(){
 
@@ -58,11 +59,12 @@ public class FragmentBrowse extends Fragment {
         downloadReward(getActivity(), AppConfig.URL_REWARD);
 
 
-
-
         textView=(TextView)view.findViewById(R.id.tmp_point);
         getBonus(getActivity(),AppConfig.URL_GETPOINTS);
         textView.setText(currentPoint+"");
+
+        Bundle args = new Bundle();
+        args.putString("currentPoint", textView.toString());
 
         return view;
     }
@@ -191,4 +193,5 @@ public class FragmentBrowse extends Fragment {
 
 
     }
+
 }

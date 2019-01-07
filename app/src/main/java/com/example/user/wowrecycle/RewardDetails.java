@@ -8,6 +8,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -54,8 +55,23 @@ public class RewardDetails extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int pointHave = Integer.parseInt(getArguments().getString("currentPoint"));
+                int pointNeed = Integer.parseInt(txtPoints.getText().toString());
+                String message = "";
+                if(pointHave >= pointNeed)
+                {
+                    pointHave = pointHave - pointNeed;
+                    message = String.format("Reward claimed. You have %d left", pointHave);
+                    //update point left to database
+
+                }
+                else
+                {
+                    message = "Reward failed to claim. Please check your points.";
+
+                }
                 Toast.makeText(getActivity(),
-                        "hello", Toast.LENGTH_LONG).show();
+                        message, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -77,12 +93,6 @@ public class RewardDetails extends Fragment {
         imgPhoto.setImageBitmap(decodedByte);
         return v;
     }
-
-
-
-
-
-
 
 
 }

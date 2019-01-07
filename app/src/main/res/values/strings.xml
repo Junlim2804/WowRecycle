@@ -58,11 +58,12 @@
     <string name="lblPoints">Points Available</string>
     <string name="upload">upload</string>
     <string name="DATABASENAME" translatable="false">wow_db</string>
-    <string name="Location">Select Location</string>
-    <string name="weightAppx">Approximate Weight</string>
+    <string name="Location">Location</string>
+    <string name="weightAppx">Weight</string>
     <string name="Time">Time</string>
     <string name="addPhoto">Photo</string>
     <string name="hintWeight">in kg</string>
+    <string name="Refresh">Refresh</string>
 
 
 </resources>
