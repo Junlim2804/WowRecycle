@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,14 +41,11 @@ public class RewardFragment extends Fragment {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(),mContext);
         adapter.addFragment(new FragmentBrowse(),"Browse");
         adapter.addFragment(new FragmentMyRewards(),"My Reward");
+
         viewPager.setAdapter(adapter);
 
        TabLayout tabLayout = (TabLayout) getView().findViewById(R.id.sliding_tabs);
        tabLayout.setupWithViewPager(viewPager);
-
-
-
-
 
     }
 
@@ -55,5 +54,8 @@ public class RewardFragment extends Fragment {
         mContext=(FragmentActivity) activity;
         super.onAttach(activity);
     }
+
+
+
 
 }
