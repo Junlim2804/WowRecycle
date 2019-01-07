@@ -77,8 +77,8 @@
     <string name="tv_tnc">Terms and Conditions</string>
     <string name="record_type">Record Type</string>
     <string name="textViewType">Type</string>
-
-
+    <string name="back">back</string>
+    <string name="redeemResource">Redeem!</string>
 
 
 </resources>
