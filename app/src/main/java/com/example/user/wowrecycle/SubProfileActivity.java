@@ -50,9 +50,10 @@ public class SubProfileActivity extends AppCompatActivity {
     private EditText email,fullname,ic,phoneno,address;
     private TextView username,changephoto;
     private Button btnSubmit;
+    private static User curUser;
     private static String uname;
     private Bitmap currentImage;
-    private String imageString;
+    private String imageString,uid;
     private ImageView profilePic;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,20 +82,24 @@ public class SubProfileActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                UpdateUser();
             }
         });
 
 
     }
     private ProgressDialog pDialog;
-    private void UpdateUser(final String name, final String email,
-                              final String password) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_update";
+    private void UpdateUser() {
 
+        String tag_string_req = "req_update";
         pDialog.setMessage("Updating");
         pDialog.show();
+        final String in_email=email.getText().toString();
+        final String in_fullname=fullname.getText().toString();
+        final String in_hpno=phoneno.getText().toString();
+        final String in_ic=ic.getText().toString();
+        final String in_address=address.getText().toString();
+
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 AppConfig.URL_UPDATEUSER, new Response.Listener<String>() {
@@ -103,26 +108,23 @@ public class SubProfileActivity extends AppCompatActivity {
             public void onResponse(String response) {
 
                 Log.d(TAG, "Update Response: " + response.toString());
-                pDialog.hide();
+
 
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
+                    pDialog.dismiss();
                     if (!error) {
-                        // User successfully stored in MySQL
-                        // Now store the user in sqlite
-                        String uid = jObj.getString("uid");
+                        curUser.setEmail(in_email);
+                        curUser.setImageString(imageString);
+                        curUser.setFullname(in_fullname);
+                        curUser.setHpno(in_hpno);
+                        curUser.setIc(in_ic);
+                        curUser.setAddress(in_address);
 
-                        JSONObject user = jObj.getJSONObject("user");
-                        String name = user.getString("name");
-                        String email = user.getString("email");
-                        String created_at = user
-                                .getString("created_at");
 
-                        // Inserting row in users table
-                       // db.addUser(name, email, uid, created_at);
-
-                        Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
+                        new UpdateUserAsyncTask(curUser).execute();
+                        Toast.makeText(getApplicationContext(), "Succesful update", Toast.LENGTH_LONG).show();
 
                         // Launch login activity
                         finish();
@@ -130,23 +132,26 @@ public class SubProfileActivity extends AppCompatActivity {
 
 
                     } else {
-
+                        pDialog.dismiss();
                         // Error occurred in registration. Get the error
                         // message
                         String errorMsg = jObj.getString("error_msg");
                         Toast.makeText(getApplicationContext(),
                                 errorMsg, Toast.LENGTH_LONG).show();
+                        //new UserAsyncTask().execute();
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-
+                pDialog.hide();
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Registration Error: " + error.getMessage());
+                Log.e(TAG, "Update Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
                pDialog.hide();
@@ -157,10 +162,13 @@ public class SubProfileActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("name", name);
-                params.put("email", email);
-                params.put("password", password);
-
+                params.put("uniqueid", uid);
+                params.put("email", in_email);
+                params.put("fullname",in_fullname);
+                params.put("ic",in_ic);
+                params.put("hpno",in_hpno);
+                params.put("address",in_address);
+                params.put("image",imageString);
                 return params;
             }
 
@@ -202,15 +210,18 @@ public class SubProfileActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... Voids) {
             List<User> allUsers=wowDatabase.userDao().loadAllUsers();
+            curUser=allUsers.get(0);
+            uid=allUsers.get(0).getUid();
             username.setText(allUsers.get(0).getName());
             email.setText(allUsers.get(0).getEmail());
             fullname.setText(allUsers.get(0).getFullname());
             ic.setText(allUsers.get(0).getIc());
             phoneno.setText(allUsers.get(0).getHpno());
             address.setText(allUsers.get(0).getAddress());
+            imageString=allUsers.get(0).getImageString();
             Bitmap bitmap;
             try{
-                byte [] encodeByte=Base64.decode(allUsers.get(0).getImageString(),Base64.DEFAULT);
+                byte [] encodeByte=Base64.decode(imageString,Base64.DEFAULT);
 
                 InputStream inputStream  = new ByteArrayInputStream(encodeByte);
                  bitmap= BitmapFactory.decodeStream(inputStream);
@@ -221,6 +232,26 @@ public class SubProfileActivity extends AppCompatActivity {
 
             }
             profilePic.setImageBitmap(bitmap);
+            return null;
+
+        }
+
+
+
+
+
+    }
+
+    private class UpdateUserAsyncTask extends AsyncTask<Void,Void,Void> {
+        private User user;
+        public UpdateUserAsyncTask(User user) {
+            this.user=user;
+        }
+
+        @Override
+        protected Void doInBackground(Void... Voids) {
+            wowDatabase.userDao().updateUser(this.user);
+
             return null;
 
         }
