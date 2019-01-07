@@ -18,7 +18,7 @@
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageViewProfilePic"
             android:layout_width="159dp"
             android:layout_height="118dp"
             android:layout_gravity="center"
@@ -26,7 +26,7 @@
             android:src="@mipmap/ic_launcher_round" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/change_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -124,12 +124,12 @@
             android:textColorHint="#000000" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnUpdateDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/loginbutton"
-            android:text="Done"
+            android:text="@string/upload"
             android:textColor="#000" />
 
     </LinearLayout>

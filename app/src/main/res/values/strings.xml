@@ -56,5 +56,6 @@
 
 
     <string name="DATABASENAME">wow_db</string>
+    <string name="upload">upload</string>
 
 </resources>
