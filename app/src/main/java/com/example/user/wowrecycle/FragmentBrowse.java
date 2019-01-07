@@ -40,8 +40,11 @@ public class FragmentBrowse extends Fragment {
     private static int currentPoint=0;
     ProgressDialog progressDialog;
     RecyclerViewAdapter recyclerAdapter;
+    public static final String FILE_NAME = "com.example.user.wowrecycle";
+    public SharedPreferences sharedPreferences;
     private static String GET_URL = "https://wwwwowrecyclecom.000webhostapp.com/select_reward.php";
     RequestQueue queue;
+    int itemPosition;
 
     public FragmentBrowse(){
 
@@ -63,8 +66,13 @@ public class FragmentBrowse extends Fragment {
         getBonus(getActivity(),AppConfig.URL_GETPOINTS);
         textView.setText(currentPoint+"");
 
-        Bundle args = new Bundle();
-        args.putString("currentPoint", textView.toString());
+        sharedPreferences = getActivity().getSharedPreferences(FILE_NAME, 0);
+        itemPosition = myRecyclerView.getChildLayoutPosition(view);
+
+        /*Bundle bundle = new Bundle();
+        bundle.putString("currentPoint", textView.toString());
+        RewardDetails rewardDetails = new RewardDetails();
+        rewardDetails.setArguments(bundle);*/
 
         return view;
     }
@@ -191,7 +199,17 @@ public class FragmentBrowse extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("pointAvailable", Integer.parseInt(textView.getText().toString()));
+        editor.putInt("rewardIndex", itemPosition);
+        editor.commit();
+    }
+
+
 
 }

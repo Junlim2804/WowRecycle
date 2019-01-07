@@ -19,8 +19,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -29,7 +38,7 @@ public class RewardDetails extends Fragment {
     private TextView txtdetail;
     private TextView txtPoints;
     private ImageView imgPhoto;
-
+    public static final String FILE_NAME = "com.example.user.wowrecycle";
 
     public RewardDetails() {
         // Required empty public constructor
@@ -55,14 +64,20 @@ public class RewardDetails extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pointHave = Integer.parseInt(getArguments().getString("currentPoint"));
-                int pointNeed = Integer.parseInt(txtPoints.getText().toString());
+
+                SharedPreferences sharedPref = getActivity().getSharedPreferences(FILE_NAME, 0);
+                int rewardIndex = sharedPref.getInt("rewardIndex",0);
+                int pointHave = sharedPref.getInt("pointAvailable",0);
+                int pointNeed = Integer.valueOf(txtPoints.getText().toString());
                 String message = "";
                 if(pointHave >= pointNeed)
                 {
                     pointHave = pointHave - pointNeed;
                     message = String.format("Reward claimed. You have %d left", pointHave);
                     //update point left to database
+                    //redirect to my rewards page
+                    //if redeem rewards table exists then insert table (reward id)
+
 
                 }
                 else
@@ -93,6 +108,6 @@ public class RewardDetails extends Fragment {
         imgPhoto.setImageBitmap(decodedByte);
         return v;
     }
-
+    
 
 }
