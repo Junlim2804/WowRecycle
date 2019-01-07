@@ -3,11 +3,14 @@ package com.example.user.wowrecycle;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +29,10 @@ import static com.example.user.wowrecycle.RecyclerViewAdapter.FILE_NAME;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> {
 
     Context mContext;
-    List<event> mData;
+    List<Event> mData;
 
 
-    public EventAdapter(Context mContext, List<event> data) {
+    public EventAdapter(Context mContext, List<Event> data) {
         this.mContext = mContext;
         this.mData = data;
     }
@@ -48,9 +51,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
-        holder.iv_event.setImageResource(mData.get(position).getBackground());
+
+
+       // holder.iv_event.setImageResource(mData.get(position).getBackground());
+
+        byte[] decodedString = Base64.decode(mData.get(position).getBackground(),Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,
+                0, decodedString.length);
+        if (decodedByte != null) {
+            holder.iv_event.setImageBitmap(decodedByte);
+        }
         holder.tv_desc.setText(mData.get(position).getEventDesc());
-        holder.btn_view.setText(mData.get(position).getView());
+        //holder.btn_view.setText(mData.get(position).getView());
 
         holder.btn_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +88,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-
         return mData.size();
     }
 

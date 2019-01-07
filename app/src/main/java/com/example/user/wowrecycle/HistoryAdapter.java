@@ -2,6 +2,8 @@ package com.example.user.wowrecycle;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,11 +49,17 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
         holder.tv_location.setText(mData.get(position).getLocation());
         holder.tv_date.setText(mData.get(position).getDate());
-        holder.tv_weight.setText(mData.get(position).getWeight());
+        holder.tv_weight.setText(mData.get(position).getWeight()+"");
         holder.tv_remarks.setText(mData.get(position).getRemarks());
-        holder.iv_item.setImageResource(mData.get(position).getPhoto());
+        //holder.iv_item.setImageResource(mData.get(position).getPhoto());
+        byte[] decodedString = Base64.decode(mData.get(position).getPhoto(),Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,
+                0, decodedString.length);
+        if (decodedByte != null) {
+            holder.iv_item.setImageBitmap(decodedByte);
+        }
 
-
+        holder.tv_type.setText(mData.get(position).getType());
     }
 
     @Override
@@ -66,6 +75,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         private TextView tv_weight;
         private TextView tv_remarks;
         private ImageView iv_item;
+        private TextView tv_type;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +84,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             tv_weight = (TextView)itemView.findViewById(R.id.record_weight);
             tv_remarks = (TextView)itemView.findViewById(R.id.record_remarks);
             iv_item = (ImageView)itemView.findViewById(R.id.record_image);
+            tv_type = (TextView)itemView.findViewById(R.id.record_type);
         }
     }
 }
