@@ -3,6 +3,9 @@ package com.example.user.wowrecycle;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.arch.lifecycle.LiveData;
+import android.arch.persistence.room.Room;
+import android.os.AsyncTask;
 import android.support.v4.app.DialogFragment;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -39,6 +42,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.user.wowrecycle.DataSource.AppDatabase;
+import com.example.user.wowrecycle.Entity.User;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -48,8 +53,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
@@ -57,6 +64,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class BookingFragment extends DialogFragment {
     private EditText setLocation,timeData,dateData;
+
+    private static String uname;
     private Button btnSubmitBook;
     private static int RESULT_LOAD_IMG = 4;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL = 2;
@@ -64,7 +73,7 @@ public class BookingFragment extends DialogFragment {
     private ImageView uploader;
     Bitmap bitmap;
     String imageString;
-
+    private  AppDatabase wowDatabase;
     private static final String TAG = "BookingFragment";
     private DatePickerDialog.OnDateSetListener mDataSetListener;
     private TimePickerDialog mTimePicker;
@@ -200,9 +209,15 @@ public class BookingFragment extends DialogFragment {
         final EditText edtxtRemark=v.findViewById(R.id.edtxtRemark);
         btnSubmitBook.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                SQLiteHandler db = new SQLiteHandler(getActivity());
-                HashMap<String, String> user=db.getUserDetails();
-                String uname=user.get("name");
+                //SQLiteHandler db = new SQLiteHandler(getActivity());
+               // HashMap<String, String> user=db.getUserDetails();
+               // String uname=user.get("name");
+                 wowDatabase = Room.databaseBuilder(getActivity(),
+                        AppDatabase.class,"wow_db" ).build();
+
+                new UserAsyncTask().execute();
+
+
                 Toast.makeText(getActivity(),
                         uname, Toast.LENGTH_LONG).show();
                uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
@@ -249,7 +264,7 @@ public class BookingFragment extends DialogFragment {
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Json error: " + e.getMessage()+"2", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -259,7 +274,7 @@ public class BookingFragment extends DialogFragment {
             public void onErrorResponse(VolleyError error) {
                 Log.e(AppController.TAG, "Login Error: " + error.getMessage());
                 Toast.makeText(getActivity(),
-                        error.getMessage()+"3", Toast.LENGTH_LONG).show();
+                        error.getMessage(), Toast.LENGTH_LONG).show();
 
             }
         }) {
@@ -280,6 +295,26 @@ public class BookingFragment extends DialogFragment {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private class UserAsyncTask extends AsyncTask<Void,Void,Void> {
+
+        public UserAsyncTask() {
+
+    }
+
+        @Override
+        protected Void doInBackground(Void... Voids) {
+            List<User> allUsers=wowDatabase.userDao().loadAllUsers();
+            uname=allUsers.get(0).getName();
+            return null;
+
+        }
+
+
+
+
+
     }
 
 }

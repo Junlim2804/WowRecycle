@@ -51,6 +51,10 @@
     <string name="time_select">Please Select Time</string>
     <string name="submit_book">Submit Request</string>
     <string name="btn_redeem">REDEEM</string>
+    <string name="change_pro_pic">Change Profile Picture</string>
+    <string name="private_info">Private Information</string>
 
+
+    <string name="DATABASENAME">wow_db</string>
 
 </resources>

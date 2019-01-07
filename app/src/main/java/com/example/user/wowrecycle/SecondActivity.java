@@ -1,6 +1,8 @@
 package com.example.user.wowrecycle;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,6 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.user.wowrecycle.DataSource.AppDatabase;
+import com.example.user.wowrecycle.Entity.User;
 
 public class SecondActivity extends AppCompatActivity {
 private DrawerLayout mDrawerLayout;
@@ -77,8 +82,9 @@ private ActionBarDrawerToggle mToggle;
                 case R.id.snav_logout:
                     Intent intent = new Intent(SecondActivity.this,MainActivity.class);
                     session.setLogin(false);
-                    SQLiteHandler db= new SQLiteHandler(getApplicationContext());
-                    db.deleteUsers();
+                    wowDatabase = Room.databaseBuilder(getApplicationContext(),
+                            AppDatabase.class, getString(R.string.DATABASENAME)).build();
+                    new UserAsyncTask().execute();
                     startActivity(intent);
 
 
@@ -86,8 +92,22 @@ private ActionBarDrawerToggle mToggle;
             return false;
         }
     };
+    AppDatabase  wowDatabase;
+    private class UserAsyncTask extends AsyncTask<Void,Void,Void> {
+
+        public UserAsyncTask() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            wowDatabase.userDao().deleteAll();
+            return null;
+        }
 
 
+
+    }
 
 
 

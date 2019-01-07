@@ -1,8 +1,10 @@
 package com.example.user.wowrecycle;
 
 import android.app.ProgressDialog;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,7 +19,8 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
+import com.example.user.wowrecycle.DataSource.AppDatabase;
+import com.example.user.wowrecycle.Entity.User;
 
 
 import org.json.JSONException;
@@ -34,7 +37,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private SessionManager session;
-    private SQLiteHandler db;
+    //private SQLiteHandler db;
     private EditText Username;
     private EditText Password;
     private TextView FPassword;
@@ -43,10 +46,14 @@ public class MainActivity extends AppCompatActivity {
     private int counter = 5;
     private ProgressDialog pDialog;
 
+    private AppDatabase wowDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        wowDatabase = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, getString(R.string.DATABASENAME)).build();
         // Progress dialog
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
@@ -82,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // SQLite database handler
-        db = new SQLiteHandler(getApplicationContext());
+        //db = new SQLiteHandler(getApplicationContext());
 
         // Session manager
         session = new SessionManager(getApplicationContext());
@@ -129,9 +136,16 @@ public class MainActivity extends AppCompatActivity {
                         String email = user.getString("email");
                         String created_at = user
                                 .getString("created_at");
-
+                        String fullname=user.getString("fullName");
+                        int bonusPoint=user.getInt("bonusPoint");
+                        String hpNo=user.getString("hpNo");
+                        String ic=user.getString("icNo");
+                        String hpno=user.getString("hpNo");
+                        String address=user.getString("address")
+                        User loguser=new User(uid,email,name,fullname,ic,bonusPoint,address,hpno);
                         // Inserting row in users table
-                        db.addUser(name, email, uid, created_at);
+                        //db.addUser(name, email, uid, created_at);
+                        new UserAsyncTask(loguser).execute();
 
                         // Launch main activity
                         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
@@ -205,6 +219,22 @@ public class MainActivity extends AppCompatActivity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    private class UserAsyncTask extends AsyncTask<Void,Void,Void> {
+        private User user;
+        public UserAsyncTask(User user) {
+            this.user=user;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            wowDatabase.userDao().insertUser(user);
+            return null;
+        }
+
+
+
     }
 
 }
