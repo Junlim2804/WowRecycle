@@ -1,26 +1,32 @@
 package com.example.user.wowrecycle;
 
-public class event {
-    int background;
+public class Event {
+    String background;
     String eventDesc;
     String view;
     String url;
 
-    public event() {
+    public Event() {
     }
 
-    public event(int background, String eventDesc, String view, String url) {
+    public Event(String background, String eventDesc, String view, String url) {
         this.background = background;
         this.eventDesc = eventDesc;
         this.view = view;
         this.url = url;
     }
 
-    public int getBackground() {
+    public Event(String background, String eventDesc, String url) {
+        this.background = background;
+        this.eventDesc = eventDesc;
+        this.url = url;
+    }
+
+    public String getBackground() {
         return background;
     }
 
-    public void setBackground(int background) {
+    public void setBackground(String background) {
         this.background = background;
     }
 
