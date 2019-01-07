@@ -12,5 +12,5 @@ public class AppConfig {
     public static String URL_GETPOINTS = "https://wwwwowrecyclecom.000webhostapp.com/getPoint.php";
     public static String URL_UPDATEUSER = "https://wwwwowrecyclecom.000webhostapp.com/getPoint.php";
     public static String URL_REWARD = "https://wwwwowrecyclecom.000webhostapp.com/select_reward.php";
-    public static String URL_UPDATEUSER = "http://wwwwowrecyclecom.000webhostapp.com/UpdateUser.php";
+    
 }

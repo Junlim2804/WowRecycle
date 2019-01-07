@@ -22,43 +22,43 @@
             android:src="@drawable/reward1" />
 
         <TextView
-            android:id="@+id/lblPoints"
+            android:id="@+id/lblPointsRequired"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lblPoints"
-            android:textStyle="bold"/>
+            android:text="@string/lblPointsRequired"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_points"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:text="TextView" />
+            android:text="@string/tv_points" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/lblRewardDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Detail Information"
+            android:text="@string/lblRewardDetails"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_details"
             android:layout_width="match_parent"
             android:layout_height="81dp"
-            android:text="TextView" />
+            android:text="@string/tv_details" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/lblTnc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Terms and Conditions"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_tnc"
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:text="TextView" />
+            android:text="@string/tv_tnc" />
 
         <Button
             android:id="@+id/btn_redeem"
