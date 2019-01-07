@@ -22,6 +22,13 @@
             android:src="@drawable/reward1" />
 
         <TextView
+            android:id="@+id/lblPoints"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lblPoints"
+            android:textStyle="bold"/>
+
+        <TextView
             android:id="@+id/tv_points"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

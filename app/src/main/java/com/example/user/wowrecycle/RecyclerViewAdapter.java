@@ -55,6 +55,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         SharedPreferences.Editor editor=pref.edit();
                         editor.putString("tnc",mData.get(position).getTnc());
                         editor.putString("detail",mData.get(position).getDetail());
+                        editor.putString("points",mData.get(position).getPoints()+"");
                         editor.commit();
                         ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,fr).commit();
 
