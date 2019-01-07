@@ -2,7 +2,7 @@ package com.example.user.wowrecycle;
 
 public class Reward {
 
-    private int Photo;
+    private String Photo;
     private int Points;
     private String View;
     private String Detail;
@@ -13,7 +13,7 @@ public class Reward {
 
     }
 
-    public Reward(int photo, int points, String view, String detail, String tnc) {
+    public Reward(String photo, int points, String view, String detail, String tnc) {
         this.Photo = photo;
         this.Points = points;
         this.View = view;
@@ -21,7 +21,7 @@ public class Reward {
         this.Tnc = tnc;
     }
 
-    public Reward(int photo, int points, String detail, String tnc) {
+    public Reward(String photo, int points, String detail, String tnc) {
         Photo = photo;
         Points = points;
         Detail = detail;
@@ -30,11 +30,11 @@ public class Reward {
 
     //getter and setter
 
-    public int getPhoto() {
+    public String getPhoto() {
         return Photo;
     }
 
-    public void setPhoto(int photo) {
+    public void setPhoto(String photo) {
         Photo = photo;
     }
 

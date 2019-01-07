@@ -38,7 +38,7 @@ public class FragmentBrowse extends Fragment {
     private static int currentPoint=0;
     ProgressDialog progressDialog;
     RecyclerViewAdapter recyclerAdapter;
-    private static String GET_URL = "https://wwwwowrecyclecom.000webhostapp.com/select_course.php";
+    private static String GET_URL = "https://wwwwowrecyclecom.000webhostapp.com/select_reward.php";
     RequestQueue queue;
 
 
@@ -135,12 +135,12 @@ public class FragmentBrowse extends Fragment {
                             Toast.makeText(getContext(), response.length()+"", Toast.LENGTH_LONG).show();
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject rewardResponse = (JSONObject) response.get(i);
-                                //int photo = rewardResponse.getInt("rewardimg");
+                                String photo = rewardResponse.getString("photo");
                                 int points = rewardResponse.getInt("points");
                                 String detail = rewardResponse.getString("detail");
                                 String tnc = rewardResponse.getString("tnc");
-                                Reward reward = new Reward(0,points, detail,tnc);
-                                listReward.add(reward);//Add a new course to List
+                                Reward reward = new Reward(photo , points, detail, tnc);
+                                listReward.add(reward);
 
                             }
                             loadReward(listReward);

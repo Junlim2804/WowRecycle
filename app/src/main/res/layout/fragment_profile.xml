@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/cover"
+        android:id="@+id/iv_reward"
         android:layout_width="385dp"
         android:layout_height="174dp"
         android:scaleType="centerCrop"
@@ -26,11 +26,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/pp"
-        app:layout_constraintBottom_toBottomOf="@+id/cover"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_reward"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cover"
+        app:layout_constraintTop_toBottomOf="@+id/iv_reward"
         app:layout_constraintVertical_bias="0.402" />
 
     <TextView
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/pp"
-        app:layout_constraintTop_toBottomOf="@+id/cover" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_reward" />
 
     <TextView
         android:id="@+id/textView2"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cover"
+        app:layout_constraintTop_toBottomOf="@+id/iv_reward"
         app:layout_constraintVertical_bias="0.742">
 
         <android.support.v7.widget.CardView
