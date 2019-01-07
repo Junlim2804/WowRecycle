@@ -57,5 +57,6 @@
 
     <string name="DATABASENAME">wow_db</string>
     <string name="lblPoints">Points Available</string>
+    <string name="upload">upload</string>
 
 </resources>

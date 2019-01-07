@@ -184,7 +184,7 @@ public class BookingFragment extends DialogFragment {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month=month+1;
                 Log.d(TAG,"onDateSet:mm/dd/yyyy:"+month+"/"+dayOfMonth+"/"+"year");
-                String date=month+"-"+dayOfMonth+"-"+year;
+                String date=year+"-"+month+"-"+dayOfMonth;
                 dateData.setText(date);
             }
 
