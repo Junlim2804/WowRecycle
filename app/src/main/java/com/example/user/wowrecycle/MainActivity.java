@@ -142,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
                         String ic=user.getString("icNo");
                         String hpno=user.getString("hpNo");
                         String address=user.getString("address");
-                        User loguser=new User(uid,email,name,fullname,ic,bonusPoint,address,hpno);
+                        String imageString=user.getString("image");
+                        User loguser=new User(uid,email,name,fullname,ic,bonusPoint,address,hpno,imageString);
                         // Inserting row in users table
                         //db.addUser(name, email, uid, created_at);
                         new UserAsyncTask(loguser).execute();

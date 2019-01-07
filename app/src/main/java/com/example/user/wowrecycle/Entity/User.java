@@ -17,8 +17,17 @@ public class User {
     private String ic;
     private int bonus;
     private String address;
+    private String imageString;
 
     public User() {
+    }
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
     }
 
     public User(@NonNull String uid, String email, String name) {
@@ -36,7 +45,7 @@ public class User {
         this.hpno = hpno;
     }
 
-    public User(@NonNull String uid, String email, String name, String fullname, String ic, int bonus, String address, String hpno) {
+    public User(@NonNull String uid, String email, String name, String fullname, String ic, int bonus, String address, String hpno,String imageString) {
         this.uid = uid;
         this.email = email;
         this.name = name;
@@ -45,6 +54,7 @@ public class User {
         this.ic = ic;
         this.bonus = bonus;
         this.address = address;
+        this.imageString=imageString;
     }
 
     @NonNull
