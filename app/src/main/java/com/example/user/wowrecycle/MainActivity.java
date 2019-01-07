@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         String hpNo=user.getString("hpNo");
                         String ic=user.getString("icNo");
                         String hpno=user.getString("hpNo");
-                        String address=user.getString("address")
+                        String address=user.getString("address");
                         User loguser=new User(uid,email,name,fullname,ic,bonusPoint,address,hpno);
                         // Inserting row in users table
                         //db.addUser(name, email, uid, created_at);

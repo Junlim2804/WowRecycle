@@ -22,7 +22,7 @@
 
             <TextView
 
-                android:id="@+id/reward_desc"
+                android:id="@+id/reward_points_need"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
