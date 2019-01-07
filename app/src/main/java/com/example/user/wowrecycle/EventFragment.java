@@ -54,15 +54,9 @@ public class EventFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_event, container,false);
         myRecyclerView = (RecyclerView)view.findViewById(R.id.event_rv);
 
-
         listEvent = new ArrayList<>();
 
         downloadEvent(getActivity(), AppConfig.URL_EVENT);
-
-
-
-
-
         return view;
     }
 
