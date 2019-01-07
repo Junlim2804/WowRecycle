@@ -52,4 +52,10 @@
     <string name="lblPoints">存有积分</string>
     <string name="upload">上载</string>
     <string name="Refresh">更新</string>
+    <string name="lblPointsRequired">所需积分</string>
+    <string name="tv_points">所需积分</string>
+    <string name="lblRewardDetails">资料</string>
+    <string name="tv_details">资料</string>
+    <string name="lbltnc">附加条件</string>
+    <string name="tv_tnc">附加条件</string>
 </resources>

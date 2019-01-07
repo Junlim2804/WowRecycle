@@ -2,6 +2,8 @@ package com.example.user.wowrecycle;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +48,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         holder.tv_points.setText(mData.get(position).getPoints()+"");
-        holder.btn_view.setText(mData.get(position).getView());
-        holder.iv_reward.setImageResource(mData.get(position).getPhoto());
+        //holder.btn_view.setText(mData.get(position).getView());
+
+
+        byte[] decodedString = Base64.decode(mData.get(position).getPhoto(),Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,
+                0, decodedString.length);
+        if (decodedByte != null) {
+            holder.iv_reward.setImageBitmap(decodedByte);
+        }
+
+
                 holder.btn_view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -55,6 +67,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         SharedPreferences.Editor editor=pref.edit();
                         editor.putString("tnc",mData.get(position).getTnc());
                         editor.putString("detail",mData.get(position).getDetail());
+                        editor.putString("photo",mData.get(position).getPhoto());
                         editor.putString("points",mData.get(position).getPoints()+"");
                         editor.commit();
                         ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,fr).commit();
@@ -85,6 +98,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_points = (TextView)itemView.findViewById(R.id.reward_points_need);
             btn_view = (Button)itemView.findViewById(R.id.reward_view);
             iv_reward = (ImageView)itemView.findViewById(R.id.reward_image);
+
+
+
         }
     }
 }
