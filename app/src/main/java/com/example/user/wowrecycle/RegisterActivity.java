@@ -1,7 +1,9 @@
 package com.example.user.wowrecycle;
 
 import android.app.ProgressDialog;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,6 +16,8 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.user.wowrecycle.DataSource.AppDatabase;
+import com.example.user.wowrecycle.Entity.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,13 +35,15 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText inputPassword;
     private ProgressDialog pDialog;
     private SessionManager session;
-    private SQLiteHandler db;
+    private AppDatabase wowDatabase;
+   // private SQLiteHandler db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        wowDatabase = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class,"wow_db" ).build();
         inputFullName = (EditText) findViewById(R.id.eUsername);
         inputEmail = (EditText) findViewById(R.id.eemail);
         inputPassword = (EditText) findViewById(R.id.txtPassword);
@@ -52,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
 
         // SQLite database handler
-        db = new SQLiteHandler(getApplicationContext());
+        //db = new SQLiteHandler(getApplicationContext());
 
         // Check if user is already logged in or not
         /*
@@ -118,16 +124,18 @@ public class RegisterActivity extends AppCompatActivity {
                         String email = user.getString("email");
                         String created_at = user
                                 .getString("created_at");
-
+                        User loguser=new User(uid,email,name);
+                        new UserAsyncTask(loguser).execute();
+                        session.setLogin(true);
                         // Inserting row in users table
-                        db.addUser(name, email, uid, created_at);
+                        //db.addUser(name, email, uid, created_at);
 
-                        Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "User successfully registered.", Toast.LENGTH_LONG).show();
 
                         // Launch login activity
                         Intent intent = new Intent(
                                 RegisterActivity.this,
-                                MainActivity.class);
+                                SubProfileActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
@@ -179,5 +187,21 @@ public class RegisterActivity extends AppCompatActivity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    private class UserAsyncTask extends AsyncTask<Void,Void,Void> {
+        private User user;
+        public UserAsyncTask(User user) {
+            this.user=user;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            wowDatabase.userDao().insertUser(user);
+            return null;
+        }
+
+
+
     }
 }
