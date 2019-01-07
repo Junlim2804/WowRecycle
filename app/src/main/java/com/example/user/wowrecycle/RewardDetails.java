@@ -32,6 +32,8 @@ import org.w3c.dom.Text;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.example.user.wowrecycle.AppController.TAG;
+
 
 public class RewardDetails extends Fragment {
     private TextView txttnc;
@@ -77,8 +79,6 @@ public class RewardDetails extends Fragment {
                     //update point left to database
                     //redirect to my rewards page
                     //if redeem rewards table exists then insert table (reward id)
-
-
                 }
                 else
                 {
@@ -108,6 +108,7 @@ public class RewardDetails extends Fragment {
         imgPhoto.setImageBitmap(decodedByte);
         return v;
     }
-    
+
+
 
 }
