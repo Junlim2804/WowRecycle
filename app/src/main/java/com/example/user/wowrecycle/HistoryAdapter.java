@@ -1,6 +1,8 @@
 package com.example.user.wowrecycle;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +27,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.user.wowrecycle.Entity.User;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> {
 
@@ -55,6 +68,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         holder.tv_date.setText(mData.get(position).getDate());
         holder.tv_weight.setText(mData.get(position).getWeight()+"");
         holder.tv_remarks.setText(mData.get(position).getRemarks());
+
         //holder.iv_item.setImageResource(mData.get(position).getPhoto());
         byte[] decodedString = Base64.decode(mData.get(position).getPhoto(),Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,
@@ -64,11 +78,23 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         }
 
         holder.tv_type.setText(mData.get(position).getType());
+
         //holder.btn_cancel.setText(mData.get(position).getType());
+        if(mData.get(position).getDone())
+        {
+            holder.btn_cancel.setVisibility(View.GONE);
+            holder.tv_status.setText("WOW RECYCLED");
+        }
+        else
+        {
+            holder.tv_status.setText("WAITING TO WOW");
+        }
+
         holder.btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Hello", Toast.LENGTH_SHORT).show();
+
+                cancelDetail(mData.get(position).getUname(),mData.get(position).getTime(),mData.get(position).getDate());
 
 
 
@@ -79,6 +105,71 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         });
     }
 
+
+    private void cancelDetail(final String bookname, final String bookTime,final String bookdate){
+
+        String tag_string_req = "req_bookname";
+        final ProgressDialog pDialog;
+        pDialog=new ProgressDialog(mContext);
+        pDialog.setCancelable(false);
+        pDialog.setMessage("Canceling");
+        pDialog.show();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_CANCEL, new Response.Listener<String>() {
+
+
+            @Override
+            public void onResponse(String response) {
+
+
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+
+                    if (!error) {
+
+
+
+                        Toast.makeText(mContext, "sucecesful Cancel", Toast.LENGTH_LONG).show();
+                        pDialog.dismiss();
+                    }
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                    Toast.makeText(mContext, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    pDialog.dismiss();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(AppController.TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(mContext,
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                pDialog.hide();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", bookname);
+                params.put("time",bookTime);
+                params.put("date",bookdate);
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
    // public void open(View view){
      //   AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
      //   alertDialogBuilder.setMessage("Are you sure, You wanted to make decision");
@@ -118,6 +209,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         private ImageView iv_item;
         private TextView tv_type;
         private TextView btn_cancel;
+        private TextView tv_status;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -128,6 +220,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             iv_item = (ImageView)itemView.findViewById(R.id.record_image);
             tv_type = (TextView)itemView.findViewById(R.id.record_type);
             btn_cancel = (TextView)itemView.findViewById(R.id.record_cancel);
+            tv_status=(TextView)itemView.findViewById(R.id.txtStatus);
+
         }
     }
 }
