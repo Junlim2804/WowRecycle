@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         listNews = new ArrayList<>();
-        listNews.add(new News(R.drawable.news1, "Ecosurety & Recycling Technologies Strike New Partnership", "https://ciwm-journal.co.uk/ecosurety-recycling-technologies-strike-new-partnership/"));
+        //listNews.add(new News(R.drawable.news1, "Ecosurety & Recycling Technologies Strike New Partnership", "https://ciwm-journal.co.uk/ecosurety-recycling-technologies-strike-new-partnership/"));
         listNews.add(new News(R.drawable.news2, "NZ's rule in the Mlaysian plastics dumping ground","https://www.nzgeo.com/audio/nzs-role-in-the-malaysian-plastics-dumping-ground/"));
         listNews.add(new News(R.drawable.news3, "Plastic waste: Govt forms committee to look into recycling industry", "https://www.cnbc.com/2018/04/22/plastic-pollution-firms-and-governments-fight-waste.html"));
         listNews.add(new News(R.drawable.news4, "Proper programme needed to recycle plastics, glass", "https://www.nst.com.my/opinion/letters/2017/06/244621/proper-programme-needed-recycle-plastics-glass"));

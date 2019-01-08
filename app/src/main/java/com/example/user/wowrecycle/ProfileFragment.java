@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 
 public class ProfileFragment extends Fragment {
@@ -84,7 +85,13 @@ public class ProfileFragment extends Fragment {
 
         wowDatabase = Room.databaseBuilder(getActivity(),
                 AppDatabase.class, getString(R.string.DATABASENAME)).build();
-        new UserAsyncTask().execute();
+        try {
+            new UserAsyncTask().execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //View root = inflater.inflate(R.layout.fragment_profile, null);
 
 

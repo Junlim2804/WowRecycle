@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,6 +43,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 
@@ -100,13 +103,25 @@ public class SubProfileActivity extends AppCompatActivity {
     private void UpdateUser() {
 
         String tag_string_req = "req_update";
-        pDialog.setMessage("Updating");
-        pDialog.show();
+        if(imageString==null)
+        {
+
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.noimage);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] imageBytes = baos.toByteArray();
+            imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+        }
+
         final String in_email=email.getText().toString();
         final String in_fullname=fullname.getText().toString();
         final String in_hpno=phoneno.getText().toString();
         final String in_ic=ic.getText().toString();
         final String in_address=address.getText().toString();
+        pDialog.setMessage("Updating");
+        pDialog.show();
+
 
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -121,7 +136,7 @@ public class SubProfileActivity extends AppCompatActivity {
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
-                    pDialog.dismiss();
+
                     if (!error) {
                         curUser.setEmail(in_email);
                         curUser.setImageString(imageString);
@@ -130,13 +145,17 @@ public class SubProfileActivity extends AppCompatActivity {
                         curUser.setIc(in_ic);
                         curUser.setAddress(in_address);
 
-
-                        new UpdateUserAsyncTask(curUser).execute();
+                        pDialog.dismiss();
+                        pDialog.setMessage("Loading Please Wait");
+                        pDialog.show();
+                        new UpdateUserAsyncTask(curUser).execute().get();
+                        pDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Succesful update", Toast.LENGTH_LONG).show();
 
                         // Launch login activity
                         finish();
-                        startActivity(getIntent());
+                        Intent i=new Intent(SubProfileActivity.this,SecondActivity.class);
+                        startActivity(i);
 
 
                     } else {
@@ -152,6 +171,10 @@ public class SubProfileActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
                 }
                 pDialog.hide();
             }
@@ -227,19 +250,22 @@ public class SubProfileActivity extends AppCompatActivity {
             phoneno.setText(allUsers.get(0).getHpno());
             address.setText(allUsers.get(0).getAddress());
             imageString=allUsers.get(0).getImageString();
-            Bitmap bitmap;
-            try{
-                byte [] encodeByte=Base64.decode(imageString,Base64.DEFAULT);
 
-                InputStream inputStream  = new ByteArrayInputStream(encodeByte);
-                 bitmap= BitmapFactory.decodeStream(inputStream);
+                Bitmap bitmap;
+                try {
+                    byte[] encodeByte = Base64.decode(imageString, Base64.DEFAULT);
 
-            }catch(Exception e){
-                e.getMessage();
-                return null;
+                    InputStream inputStream = new ByteArrayInputStream(encodeByte);
+                    bitmap = BitmapFactory.decodeStream(inputStream);
 
-            }
-            profilePic.setImageBitmap(bitmap);
+                } catch (Exception e) {
+                    e.getMessage();
+                    return null;
+
+                }
+
+                profilePic.setImageBitmap(bitmap);
+
             return null;
 
         }
