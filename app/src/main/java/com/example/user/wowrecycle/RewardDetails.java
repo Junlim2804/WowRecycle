@@ -117,7 +117,7 @@ public class RewardDetails extends Fragment {
                 }
                 Toast.makeText(getActivity(),message, Toast.LENGTH_LONG).show();
                // getFragmentManager().beginTransaction().replace(android.R.id.content,new FragmentBrowse()).commit();
-                ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,new FragmentBrowse()).commit();
+                ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,new RewardFragment()).commit();
             }
         });
 

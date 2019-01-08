@@ -41,6 +41,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 
 public class SubProfileActivity extends AppCompatActivity {
@@ -77,12 +78,19 @@ public class SubProfileActivity extends AppCompatActivity {
         });
         wowDatabase = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, getString(R.string.DATABASENAME)).build();
-        new UserAsyncTask().execute();
+        try {
+            new UserAsyncTask().execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         btnSubmit=findViewById(R.id.btnUpdateDetail);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UpdateUser();
+                Intent i=new Intent(SubProfileActivity.this,SecondActivity.class);
             }
         });
 
