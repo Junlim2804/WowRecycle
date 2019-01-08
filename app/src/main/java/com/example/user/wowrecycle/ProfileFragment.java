@@ -1,15 +1,18 @@
 package com.example.user.wowrecycle;
 
 import android.app.ProgressDialog;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,8 +56,8 @@ public class ProfileFragment extends Fragment {
 
     private AppDatabase wowDatabase;
     private final static int RESULT_LOAD_IMAGE=1;
-    private EditText email,fullname,ic,phoneno,address;
-    private TextView username,changephoto;
+    private EditText email,ic,phoneno,address;
+    private TextView username,changephoto,fullname;
     private Button btnSubmit;
     private static User curUser;
     private static String uname;
@@ -73,8 +76,17 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //View root = inflater.inflate(R.layout.fragment_profile, null);
         View v=inflater.inflate(R.layout.fragment_profile, container, false);
+
+        fullname = v.findViewById(R.id.profile_fullname);
+        username = v.findViewById(R.id.profile_username);
+        profilePic = v.findViewById(R.id.profile_picture);
+
+        wowDatabase = Room.databaseBuilder(getActivity(),
+                AppDatabase.class, getString(R.string.DATABASENAME)).build();
+        new UserAsyncTask().execute();
+        //View root = inflater.inflate(R.layout.fragment_profile, null);
+
 
         downloadBookDetail(getActivity(),AppConfig.URL_GETBOOKDETAIL);
         profileBookDetial=(TextView)v.findViewById(R.id.profileBookDetail);
@@ -165,7 +177,7 @@ public class ProfileFragment extends Fragment {
         queue.add(jsonObjectRequest);
     }
     public void onViewCreated(View view, Bundle saveInstanceState){
-        //imageViewPhoto = view.findViewById(R.layout.activity_main);
+        //imageViewPhoto = view.findViewById(R.layout.fragment_profile);
 
     }
 
@@ -180,13 +192,11 @@ public class ProfileFragment extends Fragment {
         protected Void doInBackground(Void... Voids) {
             List<User> allUsers=wowDatabase.userDao().loadAllUsers();
             curUser=allUsers.get(0);
-            uid=allUsers.get(0).getUid();
-            username.setText(allUsers.get(0).getName());
-            email.setText(allUsers.get(0).getEmail());
+
+
+
             fullname.setText(allUsers.get(0).getFullname());
-            ic.setText(allUsers.get(0).getIc());
-            phoneno.setText(allUsers.get(0).getHpno());
-            address.setText(allUsers.get(0).getAddress());
+            username.setText(allUsers.get(0).getName());
             imageString=allUsers.get(0).getImageString();
             Bitmap bitmap;
             try{
@@ -203,11 +213,12 @@ public class ProfileFragment extends Fragment {
             profilePic.setImageBitmap(bitmap);
             return null;
 
+            }
+
         }
 
 
 
 
-
     }
-}
+
