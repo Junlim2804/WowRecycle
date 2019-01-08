@@ -183,17 +183,17 @@ public class BookingFragment extends DialogFragment {
 
         setLocation.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                    Intent intent = null;
-                    try {
-                        intent = builder.build(getActivity());
-                    } catch (GooglePlayServicesRepairableException e) {
-                        e.printStackTrace();
-                    } catch (GooglePlayServicesNotAvailableException e) {
-                        e.printStackTrace();
-                    }
-                    // Start the Intent by requesting a result, identified by a request code.
-                    startActivityForResult(intent, PLACE_PICKER_REQUEST);
+                PlacePicker.IntentBuilder builder=new PlacePicker.IntentBuilder();
+                Intent intent = null;
+                try {
+                    intent = builder.build(getActivity());
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                }
+                // Start the Intent by requesting a result, identified by a request code.
+                startActivityForResult(intent, PLACE_PICKER_REQUEST);
             }
 
         });
@@ -253,6 +253,17 @@ public class BookingFragment extends DialogFragment {
                     uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
                     ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
                 }
+
+                /*Toast.makeText(getActivity(),
+                        uname, Toast.LENGTH_LONG).show();
+                String tempRemark=edtxtRemark.getText().toString();
+                if(tempRemark==null)
+                {
+                    tempRemark=" ";
+                }
+               uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
+                       ,setLocation.getText().toString(),uname,tempRemark,editTextWeight.getText().toString(),spinner.getSelectedItem().toString());*/
+
             }
         });
 

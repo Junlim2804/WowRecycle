@@ -54,15 +54,9 @@ public class EventFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_event, container,false);
         myRecyclerView = (RecyclerView)view.findViewById(R.id.event_rv);
 
-
         listEvent = new ArrayList<>();
 
         downloadEvent(getActivity(), AppConfig.URL_EVENT);
-
-
-
-
-
         return view;
     }
 
@@ -82,7 +76,7 @@ public class EventFragment extends Fragment {
                     public void onResponse(JSONArray response) {
                         try {
                             listEvent.clear();
-                            Toast.makeText(getContext(), response.length()+"", Toast.LENGTH_LONG).show();
+                      
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject eventResponse = (JSONObject) response.get(i);
                                 String background = eventResponse.getString("background");
