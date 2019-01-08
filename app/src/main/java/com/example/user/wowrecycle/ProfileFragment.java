@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,10 +25,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.user.wowrecycle.DataSource.AppDatabase;
+import com.example.user.wowrecycle.Entity.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +50,18 @@ public class ProfileFragment extends Fragment {
     private TextView txtDateProfile;
     private TextView profileBookDetial;
     private static List<BookDetail> BookArrayList=new ArrayList<>();
+
+    private AppDatabase wowDatabase;
+    private final static int RESULT_LOAD_IMAGE=1;
+    private EditText email,fullname,ic,phoneno,address;
+    private TextView username,changephoto;
+    private Button btnSubmit;
+    private static User curUser;
+    private static String uname;
+    private Bitmap currentImage;
+    private String imageString,uid;
+    private ImageView profilePic;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +166,48 @@ public class ProfileFragment extends Fragment {
     }
     public void onViewCreated(View view, Bundle saveInstanceState){
         //imageViewPhoto = view.findViewById(R.layout.activity_main);
+
+    }
+
+
+    private class UserAsyncTask extends AsyncTask<Void,Void,Void> {
+
+        public UserAsyncTask() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... Voids) {
+            List<User> allUsers=wowDatabase.userDao().loadAllUsers();
+            curUser=allUsers.get(0);
+            uid=allUsers.get(0).getUid();
+            username.setText(allUsers.get(0).getName());
+            email.setText(allUsers.get(0).getEmail());
+            fullname.setText(allUsers.get(0).getFullname());
+            ic.setText(allUsers.get(0).getIc());
+            phoneno.setText(allUsers.get(0).getHpno());
+            address.setText(allUsers.get(0).getAddress());
+            imageString=allUsers.get(0).getImageString();
+            Bitmap bitmap;
+            try{
+                byte [] encodeByte=Base64.decode(imageString,Base64.DEFAULT);
+
+                InputStream inputStream  = new ByteArrayInputStream(encodeByte);
+                bitmap= BitmapFactory.decodeStream(inputStream);
+
+            }catch(Exception e){
+                e.getMessage();
+                return null;
+
+            }
+            profilePic.setImageBitmap(bitmap);
+            return null;
+
+        }
+
+
+
+
 
     }
 }
