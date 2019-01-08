@@ -54,5 +54,7 @@ public class HomeFragment extends Fragment {
         listNews.add(new News(R.drawable.news5, "Where do old clothes go?", "https://www.thestar.com.my/lifestyle/features/2015/02/16/where-do-old-clothes-go/"));
 
 
+
+
     }
 }

@@ -15,6 +15,7 @@ public class News {
         this.newsUrl = newsUrl;
     }
 
+
     public int getNewsPicture() {
         return newsPicture;
     }
