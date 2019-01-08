@@ -1,107 +1,58 @@
 package com.example.user.wowrecycle;
 
-import android.content.Context;
-import android.net.Uri;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
+    View view;
+    private RecyclerView myRecyclerView;
+    private List<News> listNews;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
+    public HomeFragment(){
 
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    public HomeFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
 
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+
+    @Nullable
+    @Override
+
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_home, container,false);
+        myRecyclerView = (RecyclerView)view.findViewById(R.id.news_rv);
+       NewsAdapter recyclerAdapter = new NewsAdapter(getContext(),listNews);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        myRecyclerView.setLayoutManager(linearLayoutManager);
+
+        myRecyclerView.setAdapter(recyclerAdapter);
+
+        return view;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
+        listNews = new ArrayList<>();
+        listNews.add(new News(R.drawable.news1, "Ecosurety & Recycling Technologies Strike New Partnership", "https://ciwm-journal.co.uk/ecosurety-recycling-technologies-strike-new-partnership/"));
+        listNews.add(new News(R.drawable.news2, "NZ's rule in the Mlaysian plastics dumping ground","https://www.nzgeo.com/audio/nzs-role-in-the-malaysian-plastics-dumping-ground/"));
+        listNews.add(new News(R.drawable.news3, "Plastic waste: Govt forms committee to look into recycling industry", "https://www.cnbc.com/2018/04/22/plastic-pollution-firms-and-governments-fight-waste.html"));
+        listNews.add(new News(R.drawable.news4, "Proper programme needed to recycle plastics, glass", "https://www.nst.com.my/opinion/letters/2017/06/244621/proper-programme-needed-recycle-plastics-glass"));
+        listNews.add(new News(R.drawable.news5, "Where do old clothes go?", "https://www.thestar.com.my/lifestyle/features/2015/02/16/where-do-old-clothes-go/"));
 
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-
-        void onFragmentInteraction(Uri uri);
     }
 }
