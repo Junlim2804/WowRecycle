@@ -236,8 +236,13 @@ public class BookingFragment extends DialogFragment {
 
                 Toast.makeText(getActivity(),
                         uname, Toast.LENGTH_LONG).show();
+                String tempRemark=edtxtRemark.getText().toString();
+                if(tempRemark==null)
+                {
+                    tempRemark=" ";
+                }
                uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
-                       ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
+                       ,setLocation.getText().toString(),uname,tempRemark,editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
 
             }
         });

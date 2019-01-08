@@ -76,9 +76,10 @@
     <string name="lbltnc">Details</string>
     <string name="tv_tnc">Terms and Conditions</string>
     <string name="record_type">Record Type</string>
+    <string name="btn_back">Back</string>
+    <string name="redeemReward">My Reward</string>
     <string name="textViewType">Type</string>
-    <string name="back">back</string>
-    <string name="redeemResource">Redeem!</string>
+
 
 
 </resources>

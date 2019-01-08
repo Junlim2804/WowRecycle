@@ -122,13 +122,11 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
 
-                    // Check for error node in json
+
                     if (!error) {
-                        // user successfully logged in
-                        // Create login session
+
                         session.setLogin(true);
 
-                        // Now store the user in SQLite
                         String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
