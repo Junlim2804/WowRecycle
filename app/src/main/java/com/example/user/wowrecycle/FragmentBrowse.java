@@ -1,8 +1,10 @@
 package com.example.user.wowrecycle;
 
 import android.app.ProgressDialog;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.user.wowrecycle.DataSource.AppDatabase;
+import com.example.user.wowrecycle.Entity.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,6 +33,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.user.wowrecycle.AppController.TAG;
@@ -42,6 +47,8 @@ public class FragmentBrowse extends Fragment {
     RecyclerViewAdapter recyclerAdapter;
     public static final String FILE_NAME = "com.example.user.wowrecycle";
     public SharedPreferences sharedPreferences;
+    private static String uname;
+    private AppDatabase wowDatabase;
     private static String GET_URL = "https://wwwwowrecyclecom.000webhostapp.com/select_reward.php";
     RequestQueue queue;
     int itemPosition;
@@ -60,14 +67,21 @@ public class FragmentBrowse extends Fragment {
         listReward = new ArrayList<>();
 
         downloadReward(getActivity(), AppConfig.URL_REWARD);
-
-
+        wowDatabase = Room.databaseBuilder(getActivity(),
+                AppDatabase.class, getString(R.string.DATABASENAME)).build();
+        try {
+            new UserAsyncTask().execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         textView=(TextView)view.findViewById(R.id.tmp_point);
-        getBonus(getActivity(),AppConfig.URL_GETPOINTS);
+       // getBonus(getActivity(),AppConfig.URL_GETPOINTS);
         textView.setText(currentPoint+"");
 
         sharedPreferences = getActivity().getSharedPreferences(FILE_NAME, 0);
-        itemPosition = myRecyclerView.getChildLayoutPosition(view);
+        //itemPosition = myRecyclerView.getChildLayoutPosition(view);
 
         /*Bundle bundle = new Bundle();
         bundle.putString("currentPoint", textView.toString());
@@ -77,60 +91,12 @@ public class FragmentBrowse extends Fragment {
         return view;
     }
 
-    private void getBonus(Context context, String url)
-    {
-        progressDialog = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", true);
-        SQLiteHandler db = new SQLiteHandler(getActivity());
-        HashMap<String, String> user=db.getUserDetails();
-        //String uname=user.get("name");
-        String uname="BK";
-        RequestQueue queue = Volley.newRequestQueue(context);
-        url=url+"?name="+uname;
-         if (!progressDialog.isShowing())
-             progressDialog.setMessage("Syn with server...");
-          progressDialog.show();
 
-        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-
-
-                        try{
-                            //Clear list
-
-
-                           if(response.length()>0){
-                                JSONObject res = (JSONObject) response.get(0);
-                                currentPoint = res.getInt("points");
-
-                            }
-
-
-                               if (progressDialog.isShowing())
-                                    progressDialog.dismiss();
-
-                        }catch (Exception e){
-                            Toast.makeText(getActivity(), "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(getActivity(), "Error:" + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
-                         if (progressDialog.isShowing())
-                            progressDialog.dismiss();
-                    }
-                });
-
-        queue.add(jsonObjectRequest);
-    }
 
     private void downloadReward(Context context, String url) {
         // Instantiate the RequestQueue
         queue = Volley.newRequestQueue(context);
-        //progressDialog = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", true);
+        progressDialog = ProgressDialog.show(getActivity(), "Checking Reward", "Please wait...", true);
         //if (!progressDialog.isShowing())
          //   progressDialog.setMessage("Syn with server...");
         //progressDialog.show();
@@ -201,12 +167,29 @@ public class FragmentBrowse extends Fragment {
 
     }
 
+    private class UserAsyncTask extends AsyncTask<Void,Void,Void> {
+
+        public UserAsyncTask() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... Voids) {
+            List<User> allUsers=wowDatabase.userDao().loadAllUsers();
+            uname=allUsers.get(0).getName();
+            currentPoint=allUsers.get(0).getBonus();
+            return null;
+        }
+    }
+
     @Override
     public void onPause() {
         super.onPause();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("pointAvailable", Integer.parseInt(textView.getText().toString()));
         editor.putInt("rewardIndex", itemPosition);
+        editor.putString("uname",uname);
+
         editor.commit();
     }
 
