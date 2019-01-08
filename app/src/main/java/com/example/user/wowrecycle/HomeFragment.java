@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container,false);
         myRecyclerView = (RecyclerView)view.findViewById(R.id.news_rv);
-       NewsAdapter recyclerAdapter = new NewsAdapter(getContext(),listNews);
+        NewsAdapter recyclerAdapter = new NewsAdapter(getContext(),listNews);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(linearLayoutManager);
 

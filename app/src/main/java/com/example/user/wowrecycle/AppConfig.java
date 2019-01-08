@@ -15,6 +15,7 @@ public class AppConfig {
     public static String URL_EVENT= "https://wwwwowrecyclecom.000webhostapp.com/select_event.php";
     public static String URL_HISTORY= "https://wwwwowrecyclecom.000webhostapp.com/history.php";
     public static String URL_REDEEM= "https://wwwwowrecyclecom.000webhostapp.com/redeem.php";
+    public static String URL_CANCEL= "https://wwwwowrecyclecom.000webhostapp.com/cancelBook.php";
 
 
 }

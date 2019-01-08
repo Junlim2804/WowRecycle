@@ -5,17 +5,45 @@ public class History{
     private String location;
     private String date;
     private int weight;
+    private String time;
     private String remarks;
     private String photo;
     private String type;
     private String button;
+    private Boolean done;
+    private String uname;
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getUname() {
+        return uname;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
+    }
+
+
+
+    public Boolean getDone() {
+        return done;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
+    }
 
     public History(){
 
     }
 
-    public History(String location, String date, int weight, String remarks, String photo, String type, String button) {
+    public History(String uname,String location, String date, String time,int weight, String remarks, String photo, String type, String button,Boolean done) {
         this.location = location;
         this.date = date;
         this.weight = weight;
@@ -23,6 +51,9 @@ public class History{
         this.photo = photo;
         this.type = type;
         this.button = button;
+        this.done=done;
+        this.time=time;
+        this.uname=uname;
     }
 
     public String getLocation() {

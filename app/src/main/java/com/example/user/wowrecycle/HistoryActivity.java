@@ -1,7 +1,9 @@
 package com.example.user.wowrecycle;
 
 import android.app.ProgressDialog;
+import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +17,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.user.wowrecycle.DataSource.AppDatabase;
+import com.example.user.wowrecycle.Entity.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.example.user.wowrecycle.AppController.TAG;
 
@@ -30,7 +35,9 @@ public class HistoryActivity extends AppCompatActivity {
     private RecyclerView myRecyclerView;
     HistoryAdapter recyclerAdapter;
     RequestQueue queue;
+    private AppDatabase wowDatabase;
     ProgressDialog progressDialog;
+    private String uname;
 
 
     @Override
@@ -40,13 +47,21 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
         myRecyclerView = findViewById(R.id.record_rv);
         listHistory = new ArrayList<>();
+        wowDatabase = Room.databaseBuilder(this,
+                AppDatabase.class, "wow_db").build();
+        try {
+            new UserAsyncTask().execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         downloadHistory(this, AppConfig.URL_HISTORY);
 
         //listHistory.add(new History("abc","abc",1,"lala","R.drawable.reward2","lala"));
         //listHistory.add(new History("abc","abc",2,"lala","R.drawable.reward2","lala");
-       // listHistory.add(new History("abc","abc",3,"lala","R.drawable.reward2","lala");
-       // listHistory.add(new History("abc","abc",4,"lala","R.drawable.reward2","lala");
-
+        // listHistory.add(new History("abc","abc",3,"lala","R.drawable.reward2","lala");
+        // listHistory.add(new History("abc","abc",4,"lala","R.drawable.reward2","lala");
 
 
     }
@@ -61,7 +76,7 @@ public class HistoryActivity extends AppCompatActivity {
         //progressDialog.show();
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
-                url,
+                url + "?name=" + uname,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -72,11 +87,20 @@ public class HistoryActivity extends AppCompatActivity {
                                 JSONObject eventResponse = (JSONObject) response.get(i);
                                 String location = eventResponse.getString("location");
                                 String date = eventResponse.getString("date");
+                                String time=eventResponse.getString("time");
                                 int weight = eventResponse.getInt("weight");
                                 String remarks = eventResponse.getString("remarks");
                                 String photo = eventResponse.getString("photo");
-                                String type= eventResponse.getString("type");
-                                History history = new History(location, date, weight, remarks, photo, type,null);
+
+                                String type = eventResponse.getString("type");
+                                int test=eventResponse.getInt("done");
+                                boolean done=false;
+                                if(test==1)
+                                {
+                                    done=true;
+                                }
+
+                                History history = new History(uname,location, date,time, weight, remarks, photo, type, null,done);
                                 listHistory.add(history);
 
                             }
@@ -84,7 +108,7 @@ public class HistoryActivity extends AppCompatActivity {
                             if (progressDialog.isShowing())
                                 progressDialog.dismiss();
                         } catch (Exception e) {
-                           // Toast.makeText(getContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                            // Toast.makeText(getContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
                             if (progressDialog.isShowing())
                                 progressDialog.dismiss();
                         }
@@ -106,16 +130,28 @@ public class HistoryActivity extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    public void loadHistory(List<History> h)
-    {
+    public void loadHistory(List<History> h) {
 
 
-
-        recyclerAdapter = new HistoryAdapter(this,h);
+        recyclerAdapter = new HistoryAdapter(this, h);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         myRecyclerView.setLayoutManager(linearLayoutManager);
         myRecyclerView.setAdapter(recyclerAdapter);
 
 
+    }
+
+    private class UserAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        public UserAsyncTask() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... Voids) {
+            List<User> allUsers = wowDatabase.userDao().loadAllUsers();
+            uname = allUsers.get(0).getName();
+            return null;
+        }
     }
 }
