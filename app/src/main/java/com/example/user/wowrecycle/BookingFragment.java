@@ -24,6 +24,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -90,7 +91,7 @@ public class BookingFragment extends DialogFragment {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data,getActivity());
                 String toastMsg = String.format("Place: %s", place.getName());
-                Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_LONG).show();
                 setLocation.setText(place.getAddress());
             }
         }
@@ -182,17 +183,17 @@ public class BookingFragment extends DialogFragment {
 
         setLocation.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                PlacePicker.IntentBuilder builder=new PlacePicker.IntentBuilder();
-                Intent intent = null;
-                try {
-                    intent = builder.build(getActivity());
-                } catch (GooglePlayServicesRepairableException e) {
-                    e.printStackTrace();
-                } catch (GooglePlayServicesNotAvailableException e) {
-                    e.printStackTrace();
-                }
-                // Start the Intent by requesting a result, identified by a request code.
-                startActivityForResult(intent, PLACE_PICKER_REQUEST);
+                    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                    Intent intent = null;
+                    try {
+                        intent = builder.build(getActivity());
+                    } catch (GooglePlayServicesRepairableException e) {
+                        e.printStackTrace();
+                    } catch (GooglePlayServicesNotAvailableException e) {
+                        e.printStackTrace();
+                    }
+                    // Start the Intent by requesting a result, identified by a request code.
+                    startActivityForResult(intent, PLACE_PICKER_REQUEST);
             }
 
         });
@@ -229,16 +230,29 @@ public class BookingFragment extends DialogFragment {
                 //SQLiteHandler db = new SQLiteHandler(getActivity());
                // HashMap<String, String> user=db.getUserDetails();
                // String uname=user.get("name");
-
-
                // new UserAsyncTask().execute();
 
-
-                Toast.makeText(getActivity(),
-                        uname, Toast.LENGTH_LONG).show();
-               uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
-                       ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
-
+                if(setLocation.getText().toString().matches("")){
+                    Toast.makeText(getActivity(), "Please fill in the location", Toast.LENGTH_LONG).show();
+                }
+                else if (spinner.getSelectedItem().toString().equals(null)) {
+                    Toast.makeText(getActivity(), "Please select the type of recycled item", Toast.LENGTH_LONG).show();
+                }
+                else if (editTextWeight.getText().toString().matches("")) {
+                    Toast.makeText(getActivity(), "Please fill in the weight of recycled item", Toast.LENGTH_LONG).show();
+                }
+                else if (dateData.getText().toString().matches("")) {
+                    Toast.makeText(getActivity(), "Please fill in the date", Toast.LENGTH_LONG).show();
+                }
+                else if (timeData.getText().toString().matches("")) {
+                    Toast.makeText(getActivity(), "Please fill in the time", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(getActivity(),
+                          "Request Submitted", Toast.LENGTH_LONG).show();
+                    uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
+                    ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
+                }
             }
         });
 
@@ -281,7 +295,7 @@ public class BookingFragment extends DialogFragment {
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             }
