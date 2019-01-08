@@ -128,7 +128,7 @@ public class ProfileFragment extends Fragment {
     private void downloadBookDetail(Context context, String url) {
         //mPostCommentResponse.requestStarted();
         RequestQueue queue = Volley.newRequestQueue(context);
-        url=url+"?name="+"LTJ";
+        url=url+"?name="+uname;
       //  if (!progressDialog.isShowing())
       //     progressDialog.setMessage("Syn with server...");
       //  progressDialog.show();
@@ -193,7 +193,7 @@ public class ProfileFragment extends Fragment {
             List<User> allUsers=wowDatabase.userDao().loadAllUsers();
             curUser=allUsers.get(0);
 
-
+            uname=allUsers.get(0).getName();
 
             fullname.setText(allUsers.get(0).getFullname());
             username.setText(allUsers.get(0).getName());
