@@ -76,7 +76,7 @@ public class HistoryActivity extends AppCompatActivity {
                                 String remarks = eventResponse.getString("remarks");
                                 String photo = eventResponse.getString("photo");
                                 String type= eventResponse.getString("type");
-                                History history = new History(location, date, weight, remarks, photo, type);
+                                History history = new History(location, date, weight, remarks, photo, type,null);
                                 listHistory.add(history);
 
                             }
@@ -108,6 +108,8 @@ public class HistoryActivity extends AppCompatActivity {
 
     public void loadHistory(List<History> h)
     {
+
+
 
         recyclerAdapter = new HistoryAdapter(this,h);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

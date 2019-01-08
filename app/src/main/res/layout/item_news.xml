@@ -34,7 +34,7 @@
                 android:paddingRight="@dimen/album_title_padding"
                 android:textColor="@color/color5"
                 android:textSize="@dimen/album_title" />
-            
+
 
         </RelativeLayout>
 

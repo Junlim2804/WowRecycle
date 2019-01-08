@@ -8,19 +8,21 @@ public class History{
     private String remarks;
     private String photo;
     private String type;
+    private String button;
 
 
     public History(){
 
     }
 
-    public History(String location, String date, int weight, String remarks, String photo, String type) {
+    public History(String location, String date, int weight, String remarks, String photo, String type, String button) {
         this.location = location;
         this.date = date;
         this.weight = weight;
         this.remarks = remarks;
         this.photo = photo;
         this.type = type;
+        this.button = button;
     }
 
     public String getLocation() {
@@ -70,4 +72,14 @@ public class History{
     public void setType(String type) {
         this.type = type;
     }
+
+    public String getButton() {
+        return button;
+    }
+
+    public void setButton(String button) {
+        this.button = button;
+    }
+
+
 }

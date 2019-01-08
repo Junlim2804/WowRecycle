@@ -1,9 +1,13 @@
 package com.example.user.wowrecycle;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -60,7 +64,44 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         }
 
         holder.tv_type.setText(mData.get(position).getType());
+        //holder.btn_cancel.setText(mData.get(position).getType());
+        holder.btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "Hello", Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+            }
+        });
     }
+
+   // public void open(View view){
+     //   AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+     //   alertDialogBuilder.setMessage("Are you sure, You wanted to make decision");
+       //         alertDialogBuilder.setPositiveButton("yes",
+         //               new DialogInterface.OnClickListener() {
+           //                 @Override
+             //               public void onClick(DialogInterface arg0, int arg1) {
+               //                 Toast.makeText(MainActivity.this,"You clicked yes
+                 //                       button",Toast.LENGTH_LONG).show();
+                   //         }
+                     //   });
+
+      //  alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+        //    @Override
+          //  public void onClick(DialogInterface dialog, int which) {
+            //    finish();
+          //}
+        //});
+
+       // AlertDialog alertDialog = alertDialogBuilder.create();
+        //alertDialog.show();
+   // }
+
 
     @Override
     public int getItemCount() {
@@ -76,6 +117,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         private TextView tv_remarks;
         private ImageView iv_item;
         private TextView tv_type;
+        private TextView btn_cancel;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,6 +127,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             tv_remarks = (TextView)itemView.findViewById(R.id.record_remarks);
             iv_item = (ImageView)itemView.findViewById(R.id.record_image);
             tv_type = (TextView)itemView.findViewById(R.id.record_type);
+            btn_cancel = (TextView)itemView.findViewById(R.id.record_cancel);
         }
     }
 }
