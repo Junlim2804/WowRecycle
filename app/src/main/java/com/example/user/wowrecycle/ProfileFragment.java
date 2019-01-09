@@ -94,9 +94,9 @@ public class ProfileFragment extends Fragment {
         }
         //View root = inflater.inflate(R.layout.fragment_profile, null);
 
-
-        downloadBookDetail(getActivity(),AppConfig.URL_GETBOOKDETAIL);
         profileBookDetial=(TextView)v.findViewById(R.id.profileBookDetail);
+        downloadBookDetail(getActivity(),AppConfig.URL_GETBOOKDETAIL);
+
         btnRefresh=(Button)v.findViewById(R.id.refreshBookDetail);
         txtDateProfile=(TextView)v.findViewById(R.id.txtDateProfile);
         imageViewPhoto=(ImageView)v.findViewById(R.id.imgBookProfile);
@@ -122,12 +122,7 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-        if(BookArrayList.size()!=0)
-        profileBookDetial.setText(BookArrayList.toString());
-        else
-            profileBookDetial.setText("empty");
-        // Inflate the layout for this fragment
-
+     
         return v;
 
     }

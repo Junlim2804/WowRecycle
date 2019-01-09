@@ -1,10 +1,12 @@
 package com.example.user.wowrecycle;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Room;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v4.app.DialogFragment;
 import android.app.Dialog;
@@ -23,6 +25,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -68,7 +71,7 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class BookingFragment extends DialogFragment {
-    private EditText setLocation,timeData,dateData,editTextWeight;
+    private EditText setLocation,timeData,dateData,editTextWeight,edtxtRemark;
     //TODO column size change after request should clear all input
     private static String uname,defaddress;
     private Button btnSubmitBook;
@@ -223,8 +226,12 @@ public class BookingFragment extends DialogFragment {
             }
         });
 
+
+
         btnSubmitBook=(Button)v.findViewById((R.id.btnUpload));
-        final EditText edtxtRemark=v.findViewById(R.id.edtxtRemark);
+        edtxtRemark=v.findViewById(R.id.edtxtRemark);
+
+
         btnSubmitBook.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 //SQLiteHandler db = new SQLiteHandler(getActivity());
@@ -249,8 +256,7 @@ public class BookingFragment extends DialogFragment {
                 }
                 else {
 
-                    uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
-                    ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
+                    Submit();
                 }
 
                 /*Toast.makeText(getActivity(),
@@ -292,7 +298,9 @@ public class BookingFragment extends DialogFragment {
                    // Toast.makeText(getActivity(),esponse.toString(), Toast.LENGTH_LONG).show();
                     // Check for error node in json
                     if (!error) {
-
+                        Toast.makeText(getActivity(),
+                                "Sucesful Submit", Toast.LENGTH_LONG).show();
+                        ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,new BookingFragment()).commit();
 
 
                     } else {
@@ -339,11 +347,15 @@ public class BookingFragment extends DialogFragment {
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
+
+
     private class UserAsyncTask extends AsyncTask<Void,Void,Void> {
 
         public UserAsyncTask() {
 
     }
+
+
 
         @Override
         protected Void doInBackground(Void... Voids) {
@@ -352,5 +364,24 @@ public class BookingFragment extends DialogFragment {
             defaddress=allUsers.get(0).getAddress();
             return null;
         }
+    }
+
+    private void Submit(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Wow Recycle");
+        builder.setMessage("Sumbit Request?")
+                .setCancelable(false)
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
+                                ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
+                    }
+                })
+                .setNegativeButton("No",  new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.show();
     }
 }
