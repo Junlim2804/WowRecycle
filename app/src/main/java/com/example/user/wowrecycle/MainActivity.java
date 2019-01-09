@@ -98,15 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else {
 
-                // No explanation needed, we can request the permission.
 
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         }
 
@@ -116,12 +108,21 @@ public class MainActivity extends AppCompatActivity {
         Attempt = (TextView) findViewById(R.id.tvattempt);
         Login = (Button) findViewById(R.id.btnLogin);
 
+
         Attempt.setText("Number of attempt remaining: 5");
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validate(Username.getText().toString(), Password.getText().toString());
+                String in_username=Username.getText().toString();
+                String in_password=Password.getText().toString();
+                if(in_username.equals("")||in_username==null||in_password==null||in_password.equals(""))
+                { Toast.makeText(getApplicationContext(),"Usename and Password cannot be blank", Toast.LENGTH_SHORT ).show();
+                    return;
+                }
+
+
+                validate(in_username, in_password);
 
             }
         });
@@ -134,10 +135,14 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
         });
-        // SQLite database handler
-        //db = new SQLiteHandler(getApplicationContext());
 
-        // Session manager
+        FPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         session = new SessionManager(getApplicationContext());
 
         if (session.isLoggedIn()) {
@@ -147,7 +152,28 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Login.setEnabled(true);
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+                    Toast.makeText(getApplicationContext(),"Please Allow Permission",Toast.LENGTH_SHORT).show();
+                    Login.setEnabled(false);
+                }
+                return;
+            }
 
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }
     private void validate(final String userName, final String userPassword){
 
         String tag_string_req = "req_login";

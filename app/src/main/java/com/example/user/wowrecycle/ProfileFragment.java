@@ -100,6 +100,7 @@ public class ProfileFragment extends Fragment {
         btnRefresh=(Button)v.findViewById(R.id.refreshBookDetail);
         txtDateProfile=(TextView)v.findViewById(R.id.txtDateProfile);
         imageViewPhoto=(ImageView)v.findViewById(R.id.imgBookProfile);
+        //TODO show pending booking detail
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

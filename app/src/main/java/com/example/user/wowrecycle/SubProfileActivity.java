@@ -59,6 +59,7 @@ public class SubProfileActivity extends AppCompatActivity {
     private Bitmap currentImage;
     private String imageString,uid;
     private ImageView profilePic;
+    //TODO Interace column need add header
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_profile);
@@ -92,6 +93,8 @@ public class SubProfileActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO check all column not null all empty except image
+
                 UpdateUser();
                 Intent i=new Intent(SubProfileActivity.this,SecondActivity.class);
             }

@@ -45,11 +45,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
     Context mContext;
     List<History> mData;
+    private HistoryAdapter adapter;
 
 
     public HistoryAdapter(Context mContext, List<History> data) {
         this.mContext = mContext;
         this.mData = data;
+        this.adapter = this;
     }
 
     @Override
@@ -94,7 +96,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             @Override
             public void onClick(View v) {
 
-                cancelDetail(mData.get(position).getUname(),mData.get(position).getTime(),mData.get(position).getDate());
+                cancelDetail(position);
 
 
 
@@ -105,11 +107,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         });
     }
 
-
-    private void cancelDetail(final String bookname, final String bookTime,final String bookdate){
+   // private void cancelDetail(final String bookname, final String bookTime,final String bookdate)
+    private void cancelDetail(final int position){
 
         String tag_string_req = "req_bookname";
         final ProgressDialog pDialog;
+        final String bookname=mData.get(position).getUname();
+        final String bookTime=mData.get(position).getTime();
+        final String bookdate=mData.get(position).getDate();
         pDialog=new ProgressDialog(mContext);
         pDialog.setCancelable(false);
         pDialog.setMessage("Canceling");
@@ -133,7 +138,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
 
                         Toast.makeText(mContext, "sucecesful Cancel", Toast.LENGTH_LONG).show();
+
                         pDialog.dismiss();
+                        mData.remove(position);
+                        adapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
 

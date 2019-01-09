@@ -69,7 +69,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class BookingFragment extends DialogFragment {
     private EditText setLocation,timeData,dateData,editTextWeight;
-
+    //TODO column size change after request should clear all input
     private static String uname,defaddress;
     private Button btnSubmitBook;
     private static int RESULT_LOAD_IMG = 4;
@@ -248,8 +248,7 @@ public class BookingFragment extends DialogFragment {
                     Toast.makeText(getActivity(), "Please fill in the time", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    Toast.makeText(getActivity(),
-                          "Request Submitted", Toast.LENGTH_LONG).show();
+
                     uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
                     ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
                 }
@@ -284,14 +283,13 @@ public class BookingFragment extends DialogFragment {
 
             @Override
             public void onResponse(String response) {
-                Log.d(AppController.TAG, "Login Response: " + response.toString());
+                Log.d(AppController.TAG, "Booking Response: " + response.toString());
 
 
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
-                    Toast.makeText(getActivity(),
-                            response.toString(), Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getActivity(),esponse.toString(), Toast.LENGTH_LONG).show();
                     // Check for error node in json
                     if (!error) {
 
@@ -301,7 +299,7 @@ public class BookingFragment extends DialogFragment {
 
                         String errorMsg = jObj.getString("error_msg");
                         Toast.makeText(getActivity(),
-                                errorMsg+"1", Toast.LENGTH_LONG).show();
+                                errorMsg, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     // JSON error

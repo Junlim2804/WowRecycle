@@ -1,6 +1,7 @@
 package com.example.user.wowrecycle.Entity;
 
 
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.arch.persistence.room.Entity;
@@ -18,7 +19,7 @@ public class User {
     private int bonus;
     private String address;
     private String imageString;
-
+  
     public User() {
     }
 
