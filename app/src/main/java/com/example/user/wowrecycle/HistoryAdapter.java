@@ -137,7 +137,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
 
 
-                        Toast.makeText(mContext, "sucecesful Cancel", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "successful Cancel", Toast.LENGTH_LONG).show();
                         pDialog.dismiss();
                         mData.remove(position);
                         adapter.notifyDataSetChanged();

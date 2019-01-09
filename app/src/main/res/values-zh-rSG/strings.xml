@@ -72,7 +72,7 @@
     <string name="lblPhone">电话号码</string>
     <string name="lblAddress">住家地址</string>
     <string name="lblUsername">用户名</string>
-
+    <string name="labelBooking">Booking Details</string>
 
 
 </resources>

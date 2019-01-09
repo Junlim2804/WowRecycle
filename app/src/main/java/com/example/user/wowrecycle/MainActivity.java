@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 String in_username=Username.getText().toString();
                 String in_password=Password.getText().toString();
                 if(in_username.equals("")||in_username==null||in_password==null||in_password.equals(""))
-                { Toast.makeText(getApplicationContext(),"Usename and Password cannot be blank", Toast.LENGTH_SHORT ).show();
+                { Toast.makeText(getApplicationContext(),"Username and Password cannot be blank", Toast.LENGTH_SHORT ).show();
                     return;
                 }
 

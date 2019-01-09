@@ -53,6 +53,7 @@ public class ProfileFragment extends Fragment {
     private Button btnRefresh;
     private TextView txtDateProfile;
     private TextView profileBookDetial;
+    private TextView bookingStatus;
     private static List<BookDetail> BookArrayList=new ArrayList<>();
 
     private AppDatabase wowDatabase;
@@ -95,6 +96,7 @@ public class ProfileFragment extends Fragment {
         //View root = inflater.inflate(R.layout.fragment_profile, null);
 
         profileBookDetial=(TextView)v.findViewById(R.id.profileBookDetail);
+        bookingStatus=(TextView)v.findViewById(R.id.tvStatus);
         downloadBookDetail(getActivity(),AppConfig.URL_GETBOOKDETAIL);
 
         btnRefresh=(Button)v.findViewById(R.id.refreshBookDetail);
@@ -108,6 +110,8 @@ public class ProfileFragment extends Fragment {
                 if(BookArrayList.size()!=0) {
                     profileBookDetial.setText(BookArrayList.get(0).getAddress());
                     txtDateProfile.setText(BookArrayList.get(0).getDate());
+                    //if(bookingStatus.getText(BookArrayList.get(0).)
+                    bookingStatus.setText("Pending");
                     byte[] decodedString = Base64.decode(BookArrayList.get(0).getImage(),Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,
                             0, decodedString.length);
@@ -153,6 +157,7 @@ public class ProfileFragment extends Fragment {
                                 String address = imageResponse.getString("address");
                                 String image = imageResponse.getString("image");
                                 String remark = imageResponse.getString("remark");
+                                
                                 BookDetail bk=new BookDetail(name,address,image,date,remark);
 
 

@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/iv_header"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="261dp"
 
         android:contentDescription="@string/app_name"
