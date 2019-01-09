@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,7 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="30dp">
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewProfilePic"
@@ -23,7 +25,8 @@
             android:layout_height="118dp"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@mipmap/ic_launcher_round"
+           />
 
         <TextView
             android:id="@+id/change_profile"
@@ -31,7 +34,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/change_pro_pic"
-            android:textColor="@color/hyperlink" />
+            android:textColor="@color/hyperlink"
+            android:padding="10dp"/>
+
+        <TextView
+            android:id="@+id/Username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lblUsername" />
 
         <TextView
             android:id="@+id/txtUsername"
@@ -46,7 +56,13 @@
             android:inputType="text|textAutoComplete"
             android:padding="10dp"
             android:textColor="#000000"
-            android:textColorHint="#000000" />
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lblEmail" />
 
         <EditText
             android:id="@+id/txtEmail"
@@ -61,14 +77,13 @@
             android:inputType="text|textEmailAddress"
             android:padding="10dp"
             android:textColor="#000000"
-            android:textColorHint="#000000" />
+             />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/private_info"
-            android:textStyle="bold" />
+            android:text="@string/lblName" />
 
         <EditText
             android:id="@+id/txtName"
@@ -83,7 +98,13 @@
             android:inputType="text"
             android:padding="10dp"
             android:textColor="#000000"
-            android:textColorHint="#000000" />
+             />
+
+        <TextView
+            android:id="@+id/lblIcPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lblIcPass" />
 
         <EditText
             android:id="@+id/et_icno"
@@ -91,7 +112,15 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="IC Number/Passport"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="12"
+            />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lblPhone" />
 
         <EditText
             android:id="@+id/txtPhone"
@@ -106,22 +135,28 @@
             android:inputType="text|phone"
             android:padding="10dp"
             android:textColor="#000000"
-            android:textColorHint="#000000" />
+            />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lblAddress" />
 
         <EditText
             android:id="@+id/txtAddress"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="86dp"
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:alpha="0.7"
             android:background="@drawable/edittext"
             android:ems="10"
             android:hint="Address"
-            android:inputType="text|textPostalAddress"
+            android:inputType="textMultiLine|textPostalAddress"
             android:padding="10dp"
             android:textColor="#000000"
-            android:textColorHint="#000000" />
+            android:maxLength="12"/>
 
         <Button
             android:id="@+id/btnUpdateDetail"
@@ -132,8 +167,15 @@
             android:text="@string/upload"
             android:textColor="#000" />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+
     </LinearLayout>
 
+    </ScrollView>
 
-</RelativeLayout>
 

@@ -375,6 +375,8 @@ public class BookingFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
                                 ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
+
+
                     }
                 })
                 .setNegativeButton("No",  new DialogInterface.OnClickListener() {

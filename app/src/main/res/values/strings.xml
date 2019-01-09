@@ -82,4 +82,13 @@
     <string name="btn_cancel">Cancel</string>
 
 
+    <string name="lblEmail">E-mail</string>
+    <string name="lblName">Name</string>
+    <string name="lblIcPass">IC/Passport Number</string>
+    <string name="lblPhone">Phone Number</string>
+    <string name="lblAddress">Address</string>
+    <string name="lblUsername">Username</string>
+    <string name="btn_view">View</string>
+
+
 </resources>

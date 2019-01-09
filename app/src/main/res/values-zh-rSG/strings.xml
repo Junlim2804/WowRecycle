@@ -62,6 +62,17 @@
     <string name="textViewType">种类</string>
     <string name="btn_back">返回</string>
     <string name="redeemReward">兑换</string>
+    <string name="btn_cancel">取消</string>
+
+
+
+    <string name="lblEmail">邮件</string>
+    <string name="lblName">名字</string>
+    <string name="lblIcPass">证件号码</string>
+    <string name="lblPhone">电话号码</string>
+    <string name="lblAddress">住家地址</string>
+    <string name="lblUsername">用户名</string>
+
 
 
 </resources>
