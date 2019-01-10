@@ -43,6 +43,11 @@
             android:name=".HistoryActivity"
             android:label="@string/title_activity_second"
             android:parentActivityName=".SecondActivity"/>
+
+        <activity
+            android:name=".HistoryDetails"
+            android:label="@string/title_activity_second"
+            android:parentActivityName=".HistoryActivity"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

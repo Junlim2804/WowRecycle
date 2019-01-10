@@ -73,6 +73,10 @@
     <string name="lblAddress">住家地址</string>
     <string name="lblUsername">用户名</string>
 
+    <string name="txtTime">时间</string>
+
+    <string name="txtStatus">状态</string>
+    <string name="record_status">Status</string>
 
 
 </resources>

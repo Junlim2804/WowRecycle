@@ -48,6 +48,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     private HistoryAdapter adapter;
 
 
+
     public HistoryAdapter(Context mContext, List<History> data) {
         this.mContext = mContext;
         this.mData = data;
@@ -65,140 +66,43 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     public static final String FILE_NAME="com.example.user.wowrecycle";
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-
+        final String status;
         holder.tv_location.setText(mData.get(position).getLocation());
         holder.tv_date.setText(mData.get(position).getDate());
-        holder.tv_weight.setText(mData.get(position).getWeight()+"");
-        holder.tv_remarks.setText(mData.get(position).getRemarks());
-
-        //holder.iv_item.setImageResource(mData.get(position).getPhoto());
-        byte[] decodedString = Base64.decode(mData.get(position).getPhoto(),Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,
-                0, decodedString.length);
-        if (decodedByte != null) {
-            holder.iv_item.setImageBitmap(decodedByte);
-        }
-
         holder.tv_type.setText(mData.get(position).getType());
-
-        //holder.btn_cancel.setText(mData.get(position).getType());
         if(mData.get(position).getDone())
         {
-            holder.btn_cancel.setVisibility(View.GONE);
-            holder.tv_status.setText("WOW RECYCLED");
-        }
-        else
-        {
-            holder.tv_status.setText("WAITING TO WOW");
-        }
+            status="Completed";
 
-        holder.btn_cancel.setOnClickListener(new View.OnClickListener() {
+        }
+        else {
+            status="Incomplete";
+
+        }
+        holder.tv_status.setText(status);
+        //holder.btn_cancel.setText(mData.get(position).getType());
+        holder.btn_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                cancelDetail(position);
-
-
-
-
-
-
+                SharedPreferences pref = v.getContext().getSharedPreferences(FILE_NAME,0);
+                SharedPreferences.Editor editor=pref.edit();
+                editor.putString("location",mData.get(position).getLocation());
+                editor.putString("date",mData.get(position).getDate());
+                editor.putString("time",mData.get(position).getTime());
+                editor.putString("weight",mData.get(position).getWeight()+"");
+                editor.putString("remarks",mData.get(position).getRemarks());
+                editor.putString("type",mData.get(position).getType());
+                editor.putString("image",mData.get(position).getPhoto());
+                editor.putString("status",status);
+                editor.putString("uname", mData.get(position).getUname());
+                editor.commit();
+                Intent intent = new Intent(v.getContext(), HistoryDetails.class);
+                v.getContext().startActivity(intent);
             }
         });
+
     }
-
-   // private void cancelDetail(final String bookname, final String bookTime,final String bookdate)
-    private void cancelDetail(final int position){
-
-        String tag_string_req = "req_bookname";
-        final ProgressDialog pDialog;
-        final String bookname=mData.get(position).getUname();
-        final String bookTime=mData.get(position).getTime();
-        final String bookdate=mData.get(position).getDate();
-        pDialog=new ProgressDialog(mContext);
-        pDialog.setCancelable(false);
-        pDialog.setMessage("Canceling");
-        pDialog.show();
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_CANCEL, new Response.Listener<String>() {
-
-
-            @Override
-            public void onResponse(String response) {
-
-
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-
-
-                    if (!error) {
-
-
-
-                        Toast.makeText(mContext, "sucecesful Cancel", Toast.LENGTH_LONG).show();
-                        pDialog.dismiss();
-                        mData.remove(position);
-                        adapter.notifyDataSetChanged();
-                    }
-                } catch (JSONException e) {
-
-                    e.printStackTrace();
-                    Toast.makeText(mContext, "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    pDialog.dismiss();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(AppController.TAG, "Login Error: " + error.getMessage());
-                Toast.makeText(mContext,
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                pDialog.hide();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("name", bookname);
-                params.put("time",bookTime);
-                params.put("date",bookdate);
-
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-   // public void open(View view){
-     //   AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-     //   alertDialogBuilder.setMessage("Are you sure, You wanted to make decision");
-       //         alertDialogBuilder.setPositiveButton("yes",
-         //               new DialogInterface.OnClickListener() {
-           //                 @Override
-             //               public void onClick(DialogInterface arg0, int arg1) {
-               //                 Toast.makeText(MainActivity.this,"You clicked yes
-                 //                       button",Toast.LENGTH_LONG).show();
-                   //         }
-                     //   });
-
-      //  alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-        //    @Override
-          //  public void onClick(DialogInterface dialog, int which) {
-            //    finish();
-          //}
-        //});
-
-       // AlertDialog alertDialog = alertDialogBuilder.create();
-        //alertDialog.show();
-   // }
 
 
     @Override
@@ -211,23 +115,20 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
         private TextView tv_location;
         private TextView tv_date;
-        private TextView tv_weight;
-        private TextView tv_remarks;
-        private ImageView iv_item;
+
         private TextView tv_type;
-        private TextView btn_cancel;
         private TextView tv_status;
+
+        private TextView btn_view;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_location = (TextView)itemView.findViewById(R.id.record_location);
             tv_date = (TextView)itemView.findViewById(R.id.record_date);
-            tv_weight = (TextView)itemView.findViewById(R.id.record_weight);
-            tv_remarks = (TextView)itemView.findViewById(R.id.record_remarks);
-            iv_item = (ImageView)itemView.findViewById(R.id.record_image);
             tv_type = (TextView)itemView.findViewById(R.id.record_type);
-            btn_cancel = (TextView)itemView.findViewById(R.id.record_cancel);
-            tv_status=(TextView)itemView.findViewById(R.id.txtStatus);
+            tv_status=(TextView)itemView.findViewById(R.id.record_status);
+            btn_view = (TextView)itemView.findViewById(R.id.record_view);
+
 
         }
     }

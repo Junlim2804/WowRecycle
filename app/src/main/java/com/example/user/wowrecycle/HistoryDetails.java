@@ -1,0 +1,189 @@
+package com.example.user.wowrecycle;
+
+import android.app.ProgressDialog;
+import android.arch.persistence.room.Room;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.user.wowrecycle.DataSource.AppDatabase;
+import com.example.user.wowrecycle.Entity.User;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
+import static com.example.user.wowrecycle.AppController.TAG;
+
+public class HistoryDetails extends AppCompatActivity {
+
+    private List<History> mData;
+
+    private HistoryAdapter adapter;
+
+    RequestQueue queue;
+    private AppDatabase wowDatabase;
+    ProgressDialog progressDialog;
+    private TextView txtDate;
+    private TextView txtTime;
+    private TextView txtStatus;
+    private TextView txtLocation;
+    private TextView txtWeight;
+    private TextView txtRemarks;
+    private ImageView imgPhoto;
+    private TextView txtType;
+    private TextView txtUname;
+
+    SharedPreferences sharedPref;
+    public static final String FILE_NAME = "com.example.user.wowrecycle";
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_history_details);
+        sharedPref = getApplicationContext().getSharedPreferences(FILE_NAME, 0);
+        txtDate=(TextView)findViewById(R.id.tv_date);
+        txtTime=(TextView)findViewById(R.id.tv_time);
+        txtStatus=(TextView)findViewById(R.id.tv_status);
+        txtLocation=(TextView)findViewById(R.id.tv_location);
+        txtWeight=(TextView)findViewById(R.id.tv_weight);
+        imgPhoto=(ImageView)findViewById(R.id.iv_photo);
+        txtRemarks=(TextView)findViewById(R.id.tv_remarks);
+        txtType=(TextView)findViewById(R.id.tv_type);
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences(HistoryAdapter.FILE_NAME, 0);
+        final String location=sharedPreferences.getString("location","no detail");
+        final String date =sharedPreferences.getString("date", "no detail");
+        final String time=sharedPreferences.getString("time", "no detail");
+        final String weight =sharedPreferences.getString("weight", "no detail");
+        final String remarks=sharedPreferences.getString("remarks","no detail");
+        final String type =sharedPreferences.getString("type", "no detail");
+        final String status =sharedPreferences.getString("status", "no detail");
+        final String image=sharedPreferences.getString("image", "no detail");
+        final String uname =sharedPreferences.getString("uname", "no detail");
+
+        txtLocation.setText(location);
+        txtDate.setText(date);
+        txtTime.setText(time);
+        txtWeight.setText(weight);
+        txtRemarks.setText(remarks);
+        txtType.setText(type);
+        txtStatus.setText(status);
+
+        byte[] decodedString = Base64.decode(image,Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,
+                0, decodedString.length);
+        if (decodedByte != null) {
+            imgPhoto.setImageBitmap(decodedByte);
+        }
+        imgPhoto.setImageBitmap(decodedByte);
+
+        Button button = (Button)findViewById(R.id.record_cancel);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                cancelDetail(uname, time, date );
+
+            }});
+
+
+
+
+    }
+
+    private void cancelDetail(final String bookname, final String bookTime, final String bookdate){
+
+        String tag_string_req = "req_bookname";
+        final ProgressDialog pDialog;
+        pDialog=new ProgressDialog(HistoryDetails.this);
+        pDialog.setCancelable(false);
+        pDialog.setMessage("Canceling");
+        pDialog.show();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_CANCEL, new Response.Listener<String>() {
+
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    if (!error) {
+
+                        Toast.makeText(getApplicationContext(), "sucecesful Cancel", Toast.LENGTH_LONG).show();
+                        pDialog.dismiss();
+
+                    }
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    //pDialog.dismiss();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(AppController.TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                //pDialog.hide();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", bookname);
+                params.put("time",bookTime);
+                params.put("date",bookdate);
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+
+
+
+}

@@ -88,7 +88,10 @@
     <string name="lblPhone">Phone Number</string>
     <string name="lblAddress">Address</string>
     <string name="lblUsername">Username</string>
-    <string name="btn_view">View</string>
+
+    <string name="txtTime">Time</string>
+    <string name="txtStatus">Status</string>
+    <string name="record_status">Status</string>
 
 
 </resources>
