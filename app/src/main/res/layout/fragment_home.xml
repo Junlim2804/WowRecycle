@@ -33,6 +33,17 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="269dp" />
 
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/btn_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="183dp"
+        android:layout_marginEnd="45dp"
+        android:text="@string/btn_booknow" />
+
 
 </RelativeLayout>
 

@@ -62,8 +62,10 @@ import org.json.JSONObject;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -155,6 +157,13 @@ public class BookingFragment extends DialogFragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         dateData=(EditText)v.findViewById(R.id.dateData);
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = df.format(c);
+
+        dateData.setText(formattedDate);
         dateData.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 Calendar c = Calendar.getInstance();
@@ -162,6 +171,8 @@ public class BookingFragment extends DialogFragment {
                 int month = c.get(Calendar.MONTH);
                 int day = c.get(Calendar.DAY_OF_MONTH);
                 DatePickerDialog dialog=new DatePickerDialog(getActivity(),mDataSetListener,year,month,day);
+                dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+
                 dialog.show();
             }
         });
@@ -171,13 +182,21 @@ public class BookingFragment extends DialogFragment {
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
-                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT,new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+
+                        if(selectedHour<9||selectedHour>21)
+                        {
+                            timeData.setText(" ");
+                            Toast.makeText(getActivity(),"Out of service Time",Toast.LENGTH_SHORT).show();
+                        }
+                        else
                         timeData.setText( String.format("%02d:%02d",selectedHour, selectedMinute));
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
+
                 mTimePicker.show();
             }
         });

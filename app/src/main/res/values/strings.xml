@@ -103,6 +103,7 @@
     <string name="lblRemarks">Remarks</string>
     <string name="lblType">Type</string>
     <string name="lblTime">Time</string>
+    <string name="btn_booknow">Book Now</string>
 
 
 </resources>
