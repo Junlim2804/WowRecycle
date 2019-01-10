@@ -97,6 +97,12 @@
     <string name="labelBooking">Booking</string>
     <string name="txtDate">Date</string>
     <string name="lblLocation">Location</string>
+    <string name="lblWeight">Weight</string>
+    <string name="lblStatus">Status</string>
+    <string name="lblImage">Image</string>
+    <string name="lblRemarks">Remarks</string>
+    <string name="lblType">Type</string>
+    <string name="lblTime">Time</string>
 
 
 </resources>

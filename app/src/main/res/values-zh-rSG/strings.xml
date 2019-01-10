@@ -76,10 +76,16 @@
     <string name="txtTime">时间</string>
 
     <string name="txtStatus">状态</string>
-    <string name="record_status">Status</string>
+    <string name="record_status">状态</string>
     <string name="labelBooking">回收</string>
-    <string name="txtDate">Date</string>
-    <string name="lblLocation">Location</string>
+    <string name="txtDate">日期</string>
+    <string name="lblLocation">地点</string>
+    <string name="lblWeight">重量（公斤）</string>
+    <string name="lblStatus">状态</string>
+    <string name="lblImage">照片</string>
+    <string name="lblRemarks">备注</string>
+    <string name="lblType">种类</string>
+    <string name="lblTime">时间</string>
 
 
 </resources>
