@@ -79,6 +79,7 @@
     <string name="record_status">Status</string>
     <string name="labelBooking">回收</string>
     <string name="txtDate">Date</string>
+    <string name="lblLocation">Location</string>
 
 
 </resources>

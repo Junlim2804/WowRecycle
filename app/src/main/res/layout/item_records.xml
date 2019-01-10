@@ -81,7 +81,7 @@
                     android:layout_gravity="left"
                     android:layout_marginBottom="8dp"
                     android:gravity="left"
-                   android:hint="Remarks"
+                    android:hint="@string/txtRemarks"
                     android:textColor="#000"
                     android:textSize="18sp" />
 
