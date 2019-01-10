@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v4.app.DialogFragment;
 import android.app.Dialog;
@@ -88,8 +89,11 @@ public class BookingFragment extends DialogFragment {
     private Spinner spinner;
     private ArrayAdapter<CharSequence> adapter;
     int PLACE_PICKER_REQUEST =1;
+    int photoUploaded = 0;
+    private TextView labelBook;
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data,getActivity());
@@ -122,7 +126,6 @@ public class BookingFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.fragment_booking,container,false);
-
         if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(),
@@ -216,7 +219,7 @@ public class BookingFragment extends DialogFragment {
         uploader=(ImageView)v.findViewById(R.id.item_image);
         uploader.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-
+                photoUploaded = photoUploaded + 1;
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -253,6 +256,10 @@ public class BookingFragment extends DialogFragment {
                 }
                 else if (timeData.getText().toString().matches("")) {
                     Toast.makeText(getActivity(), "Please fill in the time", Toast.LENGTH_LONG).show();
+                }
+                else if (photoUploaded == 0)
+                {
+                    Toast.makeText(getActivity(), "Please insert a picture for convenient pick up", Toast.LENGTH_LONG).show();
                 }
                 else {
 
@@ -373,8 +380,10 @@ public class BookingFragment extends DialogFragment {
                 .setCancelable(false)
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
-                                ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
+                        //uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
+                                //,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
+                        Toast.makeText(getActivity(), "Request has been submitted", Toast.LENGTH_LONG).show();
+                        clearForm();
 
 
                     }
@@ -385,5 +394,15 @@ public class BookingFragment extends DialogFragment {
                     }
                 });
         builder.show();
+    }
+
+    private void clearForm()
+    {
+        setLocation.setText(null);
+        spinner.setSelection(0);
+        editTextWeight.setText(null);
+        dateData.setText(null);
+        timeData.setText(null);
+        uploader.setImageResource(R.drawable.ic_photo_camera_black_24dp);
     }
 }

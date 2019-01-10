@@ -94,9 +94,13 @@ public class SubProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO check all column not null all empty except image
-
-                UpdateUser();
-                Intent i=new Intent(SubProfileActivity.this,SecondActivity.class);
+                if (email.getText().toString().matches("") || fullname.getText().toString().matches("") ||
+                        phoneno.getText().toString().matches("") || ic.getText().toString().matches("") || address.getText().toString().matches("")) {
+                    Toast.makeText(getApplicationContext(), "Please do not leave blank in any field", Toast.LENGTH_LONG).show();
+                } else {
+                    UpdateUser();
+                    Intent i = new Intent(SubProfileActivity.this, SecondActivity.class);
+                }
             }
         });
 
@@ -153,7 +157,7 @@ public class SubProfileActivity extends AppCompatActivity {
                         pDialog.show();
                         new UpdateUserAsyncTask(curUser).execute().get();
                         pDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "Succesful update", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Successfully Updated", Toast.LENGTH_LONG).show();
 
                         // Launch login activity
                         finish();

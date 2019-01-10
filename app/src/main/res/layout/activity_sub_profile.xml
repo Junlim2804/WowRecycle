@@ -113,8 +113,7 @@
             android:ems="10"
             android:hint="IC Number/Passport"
             android:inputType="number"
-            android:maxLength="12"
-            />
+            android:maxLength="12" />
 
         <TextView
             android:id="@+id/textView13"
@@ -163,7 +162,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/loginbutton"
+            android:background="#aed581"
             android:text="@string/upload"
             android:textColor="#000" />
 
