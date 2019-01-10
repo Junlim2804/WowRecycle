@@ -380,8 +380,8 @@ public class BookingFragment extends DialogFragment {
                 .setCancelable(false)
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
-                                //,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
+                        uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
+                                ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
                         Toast.makeText(getActivity(), "Request has been submitted", Toast.LENGTH_LONG).show();
                         clearForm();
 
@@ -403,6 +403,7 @@ public class BookingFragment extends DialogFragment {
         editTextWeight.setText(null);
         dateData.setText(null);
         timeData.setText(null);
+        edtxtRemark.setText(null);
         uploader.setImageResource(R.drawable.ic_photo_camera_black_24dp);
     }
 }

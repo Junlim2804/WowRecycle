@@ -44,7 +44,7 @@
     <string name="lblBookingDetails">Booking Details</string>
     <string name="btn_view">View</string>
     <string name="lblDate">Date</string>
-    <string name="txtDate">Date</string>
+
     <string name="txtLocation">Location</string>
     <string name="txtWeight">Weight</string>
     <string name="txtRemarks">Remarks</string>
@@ -90,8 +90,12 @@
     <string name="lblUsername">Username</string>
 
     <string name="txtTime">Time</string>
+
     <string name="txtStatus">Status</string>
+
     <string name="record_status">Status</string>
+    <string name="labelBooking">Booking</string>
+    <string name="txtDate">Date</string>
 
 
 </resources>

@@ -31,7 +31,7 @@
     <string name="title_editprofile">更新个人资料</string>
     <string name="lblBookingDetails">预定细节</string>
     <string name="lblDate">日期</string>
-    <string name="txtDate">日期</string>
+
     <string name="txtLocation">地点</string>
     <string name="txtWeight">重量</string>
     <string name="txtRemarks">备注</string>
@@ -77,6 +77,8 @@
 
     <string name="txtStatus">状态</string>
     <string name="record_status">Status</string>
+    <string name="labelBooking">回收</string>
+    <string name="txtDate">Date</string>
 
 
 </resources>
