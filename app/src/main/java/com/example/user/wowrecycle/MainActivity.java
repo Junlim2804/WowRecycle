@@ -9,9 +9,11 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.IpSecManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,12 +58,26 @@ public class MainActivity extends AppCompatActivity {
     int PERMISSION_ALL = 1;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL = 2;
     private ProgressDialog pDialog;
+    RelativeLayout relative;
+
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            relative.setVisibility(View.VISIBLE);
+
+        }
+    };
 
     private AppDatabase wowDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        relative = (RelativeLayout) findViewById(R.id.relative);
+
+        handler.postDelayed(runnable, 2000);
 
         wowDatabase = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, getString(R.string.DATABASENAME)).build();
@@ -197,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (!error) {
 
-                        session.setLogin(true);
+                       //session.setLogin(true);
 
                         String uid = jObj.getString("uid");
 
