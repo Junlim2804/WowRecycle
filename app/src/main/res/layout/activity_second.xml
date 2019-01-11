@@ -44,8 +44,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/color1"
-        app:itemIconTint="@color/color3"
-        app:itemTextColor="@color/color4"
+        app:itemIconTint="@color/color5"
+        app:itemTextColor="@color/color6"
         app:menu="@menu/drawermenu">
 
     </android.support.design.widget.NavigationView>

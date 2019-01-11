@@ -5,11 +5,13 @@
     <item
         android:id="@+id/snav_profile"
         android:title="Profile"
-        />
+        android:icon="@drawable/ic_person_black_24dp"/>
     <item
         android:id="@+id/snav_history"
-        android:title="Booking" />
+        android:title="Booking"
+        android:icon="@drawable/ic_location_on_black_24dp"/>
     <item
         android:id="@+id/snav_logout"
-        android:title="Logout" />
+        android:title="Logout"
+        android:icon="@drawable/ic_https_black_24dp"/>
 </menu>
