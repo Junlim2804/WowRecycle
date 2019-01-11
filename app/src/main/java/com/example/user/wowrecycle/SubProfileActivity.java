@@ -141,7 +141,10 @@ public class SubProfileActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
-
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] imageBytes = baos.toByteArray();
+                    imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
                     ((ImageView)findViewById(R.id.imageViewProfilePic)).setImageBitmap(bitmap);
 
                 } catch (IOException e) {
@@ -219,14 +222,15 @@ public class SubProfileActivity extends AppCompatActivity {
                         // Error occurred in registration. Get the error
                         // message
                         String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
+                        Toast.makeText(getApplicationContext(),"error:"+
                                 errorMsg, Toast.LENGTH_LONG).show();
                         //new UserAsyncTask().execute();
 
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(getApplicationContext(), "error:"+e.getMessage(), Toast.LENGTH_LONG).show();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
