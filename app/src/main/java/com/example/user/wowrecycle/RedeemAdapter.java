@@ -52,8 +52,7 @@ public class RedeemAdapter extends RecyclerView.Adapter<RedeemAdapter.MyViewHold
         if (decodedByte != null) {
             holder.rdImage.setImageBitmap(decodedByte);
         }
-        holder.pointDesc.setText("100");
-        //holder.pointDesc.setText(mData.get(position).getPoint());
+        holder.pointDesc.setText(mData.get(position).getPoint()+ " points");
 
     }
 

@@ -115,6 +115,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
+                android:background="#aed581"
+                android:textColor="#000"
                 android:text="@string/btn_view" />
 
 

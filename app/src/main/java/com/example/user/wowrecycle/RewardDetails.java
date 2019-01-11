@@ -1,8 +1,10 @@
 package com.example.user.wowrecycle;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -92,33 +94,8 @@ public class RewardDetails extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //SharedPreferences sharedPref = getActivity().getSharedPreferences(FILE_NAME, 0);
-
-                //uname=sharedPref.getString("uname","anonymous");
-                int pointHave = sharedPref.getInt("pointAvailable",0);
-                int pointNeed = Integer.valueOf(txtPoints.getText().toString());
-                String message = "";
-                if(db_point >= pointNeed)
-                {
-                    pointHave = db_point - pointNeed;
-                    db_point=pointHave;
-                    message = String.format("Reward claimed. You have %d left", pointHave);
-                    new UserAsyncTask().execute();
-                    redeem(getActivity(),AppConfig.URL_REDEEM);
-                    //update point left to database
-                    //redirect to my rewards page
-                    //if redeem rewards table exists then insert table (reward id)
-                }
-                else
-                {
-                    message = "Reward failed to claim. You only have "+db_point+" points.";
-
-                }
-                Toast.makeText(getActivity(),message, Toast.LENGTH_LONG).show();
-               // getFragmentManager().beginTransaction().replace(android.R.id.content,new FragmentBrowse()).commit();
-                ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,new RewardFragment()).commit();
-            }
+                confirm();
+                    }
         });
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(RecyclerViewAdapter.FILE_NAME, 0);
@@ -273,6 +250,56 @@ public class RewardDetails extends Fragment {
             wowDatabase.userDao().updateUser(allUsers.get(0));
             return null;
         }
+    }
+
+    private void confirm()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Wow Recycle");
+        builder.setMessage("Are you sure to claim this reward ??")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        claim();
+
+                    }
+                })
+                .setNegativeButton("No",  new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.show();
+    }
+
+    private void claim()
+    {
+        //SharedPreferences sharedPref = getActivity().getSharedPreferences(FILE_NAME, 0);
+
+        //uname=sharedPref.getString("uname","anonymous");
+        int pointHave = sharedPref.getInt("pointAvailable",0);
+        int pointNeed = Integer.valueOf(txtPoints.getText().toString());
+        String message = "";
+        if(db_point >= pointNeed)
+        {
+            pointHave = db_point - pointNeed;
+            db_point=pointHave;
+            message = String.format("Reward claimed. You have %d left", pointHave);
+            new UserAsyncTask().execute();
+            redeem(getActivity(),AppConfig.URL_REDEEM);
+            //update point left to database
+            //redirect to my rewards page
+            //if redeem rewards table exists then insert table (reward id)
+        }
+        else
+        {
+            message = "Reward failed to claim. You only have "+db_point+" points.";
+
+        }
+        Toast.makeText(getActivity(),message, Toast.LENGTH_LONG).show();
+        // getFragmentManager().beginTransaction().replace(android.R.id.content,new FragmentBrowse()).commit();
+        ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,new RewardFragment()).commit();
+
     }
 
 }

@@ -61,7 +61,7 @@
 
 
     <string name="lblPoints">Points Available</string>
-    <string name="upload">upload</string>
+    <string name="upload">Update</string>
     <string name="DATABASENAME" translatable="false">wow_db</string>
     <string name="Location">Location</string>
     <string name="weightAppx">Weight</string>
@@ -77,9 +77,9 @@
     <string name="tv_tnc">Terms and Conditions</string>
     <string name="record_type">Record Type</string>
     <string name="btn_back">Back</string>
-    <string name="redeemReward">My Reward</string>
+    <string name="redeemReward">Claimed Reward(s)</string>
     <string name="textViewType">Type</string>
-    <string name="btn_cancel">Cancel</string>
+    <string name="btn_cancel">Cancel Booking</string>
 
 
     <string name="lblEmail">E-mail</string>

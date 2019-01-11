@@ -7,7 +7,7 @@
         android:title="Profile" />
     <item
         android:id="@+id/snav_history"
-        android:title="History" />
+        android:title="Booking" />
     <item
         android:id="@+id/snav_logout"
         android:title="Logout" />

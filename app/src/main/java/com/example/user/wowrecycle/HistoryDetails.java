@@ -136,7 +136,7 @@ public class HistoryDetails extends AppCompatActivity {
 
                     if (!error) {
 
-                        Toast.makeText(getApplicationContext(), "sucecesful Cancel", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "sucecesful Cancel", Toast.LENGTH_LONG).show();
                         pDialog.dismiss();
 
                     }
