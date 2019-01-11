@@ -105,7 +105,7 @@
     <string name="lblTime">Time</string>
     <string name="btn_booknow">Book Now</string>
     <string name="nav_profile">Profile</string>
-    <string name="nav_booking">Booking</string>
+    <string name="nav_booking">Booking Details</string>
     <string name="nav_logout">Logout</string>
     <string name="pointAvailable">Points Available</string>
     <string name="lblCategory">Category</string>
