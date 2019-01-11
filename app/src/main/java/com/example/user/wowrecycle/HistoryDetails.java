@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -185,6 +186,8 @@ public class HistoryDetails extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         cancelDetail(bookname, bookTime, bookdate);
+
+                        //Snackbar.make(getCurrentFocus(), "Record had been deleted.",Snackbar.LENGTH_LONG).setAction("Action", null).show();
                         Toast.makeText(HistoryDetails.this, "Record had been deleted.", Toast.LENGTH_SHORT).show();
                         Intent myIntent = new Intent(HistoryDetails.this, HistoryActivity.class);
                         HistoryDetails.this.startActivity(myIntent);

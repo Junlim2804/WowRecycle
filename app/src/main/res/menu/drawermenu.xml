@@ -4,7 +4,8 @@
 
     <item
         android:id="@+id/snav_profile"
-        android:title="Profile" />
+        android:title="Profile"
+        />
     <item
         android:id="@+id/snav_history"
         android:title="Booking" />
