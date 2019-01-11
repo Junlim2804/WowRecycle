@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,13 +39,36 @@ public class HistoryActivity extends AppCompatActivity {
     private AppDatabase wowDatabase;
     ProgressDialog progressDialog;
     private String uname;
+    private SwipeRefreshLayout swipeContainer;
+
+
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_history);
+
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                downloadHistory(getApplication(), AppConfig.URL_HISTORY);
+            }
+        });
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
+
+
         myRecyclerView = findViewById(R.id.record_rv);
         listHistory = new ArrayList<>();
         wowDatabase = Room.databaseBuilder(this,
@@ -56,12 +80,14 @@ public class HistoryActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        downloadHistory(this, AppConfig.URL_HISTORY);
+        //downloadHistory(this, AppConfig.URL_HISTORY);
 
         //listHistory.add(new History("abc","abc",1,"lala","R.drawable.reward2","lala"));
         //listHistory.add(new History("abc","abc",2,"lala","R.drawable.reward2","lala");
         // listHistory.add(new History("abc","abc",3,"lala","R.drawable.reward2","lala");
         // listHistory.add(new History("abc","abc",4,"lala","R.drawable.reward2","lala");
+
+
 
 
     }
@@ -102,6 +128,8 @@ public class HistoryActivity extends AppCompatActivity {
 
                                 History history = new History(uname,location, date,time, weight, remarks, photo, type, null,done);
                                 listHistory.add(history);
+                                swipeContainer.setRefreshing(false);
+
 
                             }
                             loadHistory(listHistory);

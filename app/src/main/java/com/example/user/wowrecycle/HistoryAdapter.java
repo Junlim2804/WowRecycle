@@ -55,6 +55,18 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         this.adapter = this;
     }
 
+    // Clean all elements of the recycler
+    public void clear() {
+        mData.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<History> historyList) {
+        mData.addAll(historyList);
+        notifyDataSetChanged();
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
