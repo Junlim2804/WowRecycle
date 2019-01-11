@@ -91,6 +91,7 @@
     <string name="nav_logout">登出</string>
     <string name="pointAvailable">存有积分</string>
     <string name="lblCategory">Category</string>
+    <string name="lblNews">新闻</string>
 
 
 </resources>

@@ -102,16 +102,24 @@ public class HistoryDetails extends AppCompatActivity {
         }
         imgPhoto.setImageBitmap(decodedByte);
 
-        Button button = (Button)findViewById(R.id.record_cancel);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Submit(uname,time,date);
-
-            }});
+        if(status.equals("Completed")){
 
 
+            Button button = (Button)findViewById(R.id.record_cancel);
+            button.setVisibility(View.GONE);
+
+        }
+        else {
+            Button button = (Button)findViewById(R.id.record_cancel);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Submit(uname,time,date);
+
+                }});
+        }
 
 
     }
