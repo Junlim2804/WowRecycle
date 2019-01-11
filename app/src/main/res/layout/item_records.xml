@@ -17,7 +17,7 @@
 
 
         <LinearLayout
-            android:layout_width="390dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="10dp">
@@ -41,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/record_status"
-                    android:layout_width="198dp"
+                    android:layout_width="166dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginBottom="8dp"
@@ -88,7 +88,6 @@
                 android:layout_gravity="left"
                 android:layout_marginBottom="8dp"
                 android:gravity="left"
-                android:hint="@string/txtRemarks"
                 android:textColor="#000"
                 android:textSize="18sp" />
 
@@ -116,8 +115,8 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:background="#aed581"
-                android:textColor="#000"
-                android:text="@string/btn_view" />
+                android:text="@string/btn_view"
+                android:textColor="#000" />
 
 
         </LinearLayout>

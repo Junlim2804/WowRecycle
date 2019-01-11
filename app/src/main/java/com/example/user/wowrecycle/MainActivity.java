@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (!error) {
 
-                       //session.setLogin(true);
+                       session.setLogin(true);
 
                         String uid = jObj.getString("uid");
 

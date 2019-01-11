@@ -109,6 +109,7 @@
     <string name="nav_logout">Logout</string>
     <string name="pointAvailable">Points Available</string>
     <string name="lblCategory">Category</string>
+    <string name="lblNews">News</string>
 
 
 </resources>
