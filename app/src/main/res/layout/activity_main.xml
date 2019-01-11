@@ -16,18 +16,16 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/lblHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal"
-            android:padding="20dp"
-            android:text="Wow Recycle Login"
-            android:textColor="#fff"
-            android:textSize="36sp"
-            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="338dp"
+            android:layout_height="102dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="43dp"
+            app:srcCompat="@drawable/title"
+            android:layout_gravity="center"/>
 
         <EditText
             android:id="@+id/eUsername"
@@ -90,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text=" Sign up here!"
                 android:textColor="#fff"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
 
@@ -121,6 +119,8 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
 
 
 </RelativeLayout>
