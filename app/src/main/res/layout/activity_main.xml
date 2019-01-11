@@ -37,12 +37,12 @@
             android:adjustViewBounds="true"
             android:alpha="0.7"
             android:background="@drawable/edittext"
-            android:hint="Email"
+            android:ems="10"
+            android:hint="Email or Username"
+            android:inputType="text|textEmailAddress"
             android:padding="10dp"
             android:textColor="#fff"
-            android:textColorHint="#fff"
-            android:inputType="text|textEmailAddress"
-            android:ems="10"/>
+            android:textColorHint="#fff" />
 
         <EditText
             android:id="@+id/txtPassword"

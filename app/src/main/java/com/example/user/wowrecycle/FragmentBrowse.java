@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,18 +23,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.user.wowrecycle.DataSource.AppDatabase;
+import com.example.user.wowrecycle.Entity.Reward;
 import com.example.user.wowrecycle.Entity.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.example.user.wowrecycle.AppController.TAG;
 
 public class FragmentBrowse extends Fragment {
@@ -115,6 +112,7 @@ public class FragmentBrowse extends Fragment {
                                 int points = rewardResponse.getInt("points");
                                 String detail = rewardResponse.getString("detail");
                                 String tnc = rewardResponse.getString("tnc");
+                                //int rID = rewardResponse.getInt("rID");
                                 Reward reward = new Reward(photo , points, detail, tnc);
                                 listReward.add(reward);
 

@@ -81,7 +81,7 @@ public class RewardDetails extends Fragment {
                 AppDatabase.class,"wow_db" ).build();
         sharedPref = getActivity().getSharedPreferences(FILE_NAME, 0);
         uname=sharedPref.getString("uname","anonymous");
-        rewardIndex = sharedPref.getInt("rewardIndex",0);
+        //rewardIndex = sharedPref.getInt("rewardIndex",0);
         rid=sharedPref.getInt("id",0);
         txttnc=(TextView)v.findViewById(R.id.tv_tnc);
         txtdetail=(TextView)v.findViewById(R.id.tv_details);
@@ -126,6 +126,8 @@ public class RewardDetails extends Fragment {
         String detail=sharedPreferences.getString("detail", "no detail");
         String points=sharedPreferences.getString("points", "no detail");
         String photo =sharedPreferences.getString("photo", "no detail");
+        rewardIndex=sharedPreferences.getInt("rid",0);
+
         txttnc.setText(tnc);
         txtdetail.setText(detail);
         txtPoints.setText(points);
@@ -200,7 +202,7 @@ public class RewardDetails extends Fragment {
 
                 params.put("name", uname);
                 params.put("point", db_point+"");
-                params.put("rid",(rewardIndex+1)+"");
+                params.put("rid",(rewardIndex)+"");
 
                 return params;
             }

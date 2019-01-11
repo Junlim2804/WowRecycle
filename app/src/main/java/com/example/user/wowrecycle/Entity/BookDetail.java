@@ -1,4 +1,4 @@
-package com.example.user.wowrecycle;
+package com.example.user.wowrecycle.Entity;
 
 public class BookDetail {
     private String name;

@@ -1,18 +1,14 @@
 package com.example.user.wowrecycle;
 
-import android.app.ProgressDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.user.wowrecycle.DataSource.AppDatabase;
+import com.example.user.wowrecycle.Entity.BookDetail;
 import com.example.user.wowrecycle.Entity.User;
 
 import org.json.JSONArray;
@@ -37,9 +34,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -96,7 +91,6 @@ public class ProfileFragment extends Fragment {
         //View root = inflater.inflate(R.layout.fragment_profile, null);
 
         profileBookDetial=(TextView)v.findViewById(R.id.profileBookDetail);
-        bookingStatus=(TextView)v.findViewById(R.id.tvStatus);
         downloadBookDetail(getActivity(),AppConfig.URL_GETBOOKDETAIL);
 
         btnRefresh=(Button)v.findViewById(R.id.refreshBookDetail);
@@ -111,7 +105,7 @@ public class ProfileFragment extends Fragment {
                     profileBookDetial.setText(BookArrayList.get(0).getAddress());
                     txtDateProfile.setText(BookArrayList.get(0).getDate());
                     //if(bookingStatus.getText(BookArrayList.get(0).)
-                    bookingStatus.setText("Pending");
+                    //bookingStatus.setText("Pending");
                     byte[] decodedString = Base64.decode(BookArrayList.get(0).getImage(),Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,
                             0, decodedString.length);

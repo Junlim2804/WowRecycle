@@ -92,6 +92,7 @@
     <string name="txtTime">Time</string>
     <string name="txtStatus">Status</string>
     <string name="record_status">Status</string>
+    <string name="labelBooking">Booking Details</string>
 
 
 </resources>

@@ -133,15 +133,9 @@
                         <TextView
                             android:id="@+id/profileBookDetail"
                             android:layout_width="138dp"
-                            android:layout_height="56dp"
+                            android:layout_height="72dp"
                             android:text="@string/booking_details"
                             android:textColor="#555" />
-
-                        <TextView
-                            android:id="@+id/tvStatus"
-                            android:layout_width="227dp"
-                            android:layout_height="20dp"
-                            android:text="TextView" />
 
                     </LinearLayout>
 

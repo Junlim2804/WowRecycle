@@ -61,7 +61,7 @@
     <string name="record_type">资料种类</string>
     <string name="textViewType">种类</string>
     <string name="btn_back">返回</string>
-    <string name="redeemReward">兑换</string>
+    <string name="redeemReward">已兑换奖励</string>
     <string name="btn_cancel">取消</string>
 
 
@@ -76,7 +76,8 @@
     <string name="txtTime">时间</string>
 
     <string name="txtStatus">状态</string>
-    <string name="record_status">Status</string>
+    <string name="record_status">状态</string>
+    <string name="labelBooking">预约详情</string>
 
 
 </resources>
