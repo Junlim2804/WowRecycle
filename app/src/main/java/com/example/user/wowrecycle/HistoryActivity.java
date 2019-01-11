@@ -54,9 +54,7 @@ public class HistoryActivity extends AppCompatActivity {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
+
                 downloadHistory(getApplication(), AppConfig.URL_HISTORY);
             }
         });
@@ -80,7 +78,9 @@ public class HistoryActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //downloadHistory(this, AppConfig.URL_HISTORY);
+        //swipeContainer.setRefreshing(false);
+        //swipeContainer.setEnabled(false);
+        downloadHistory(this, AppConfig.URL_HISTORY);
 
         //listHistory.add(new History("abc","abc",1,"lala","R.drawable.reward2","lala"));
         //listHistory.add(new History("abc","abc",2,"lala","R.drawable.reward2","lala");
@@ -93,7 +93,7 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void downloadHistory(Context context, String url) {
-        progressDialog = ProgressDialog.show(this, "Loading...", "Please wait...", true);
+        //progressDialog = ProgressDialog.show(this, "Loading...", "Please wait...", true);
         // Instantiate the RequestQueue
         queue = Volley.newRequestQueue(context);
         //progressDialog = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", true);
@@ -133,12 +133,17 @@ public class HistoryActivity extends AppCompatActivity {
 
                             }
                             loadHistory(listHistory);
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            //if (progressDialog.isShowing())
+                                //progressDialog.dismiss();
+                            swipeContainer.setRefreshing(false);
+
                         } catch (Exception e) {
-                            // Toast.makeText(getContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            //Toast.makeText(context, "Error" + e.Message(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(get, "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                            //if (progressDialog.isShowing())
+                                //progressDialog.dismiss();
+                            swipeContainer.setRefreshing(false);
+
                         }
                     }
                 },
@@ -146,8 +151,11 @@ public class HistoryActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         //Toast.makeText(getContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
-                        if (progressDialog.isShowing())
-                            progressDialog.dismiss();
+                       // if (progressDialog.isShowing())
+                            //progressDialog.dismiss();
+                        swipeContainer.setRefreshing(false);
+
+
                     }
                 });
 
