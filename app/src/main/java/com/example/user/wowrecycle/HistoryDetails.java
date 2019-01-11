@@ -181,14 +181,14 @@ public class HistoryDetails extends AppCompatActivity {
     private void Submit(final String bookname, final String bookTime, final String bookdate){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Wow Recycle");
-        builder.setMessage("Delete Record??")
+        builder.setMessage("Delete Booking??")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         cancelDetail(bookname, bookTime, bookdate);
 
                         //Snackbar.make(getCurrentFocus(), "Record had been deleted.",Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                        Toast.makeText(HistoryDetails.this, "Record had been deleted.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HistoryDetails.this, "Booking has been deleted.", Toast.LENGTH_SHORT).show();
                         Intent myIntent = new Intent(HistoryDetails.this, HistoryActivity.class);
                         HistoryDetails.this.startActivity(myIntent);
 
