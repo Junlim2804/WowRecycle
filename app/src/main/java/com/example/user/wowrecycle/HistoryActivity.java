@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,13 +38,34 @@ public class HistoryActivity extends AppCompatActivity {
     private AppDatabase wowDatabase;
     ProgressDialog progressDialog;
     private String uname;
+    private SwipeRefreshLayout swipeContainer;
+
+
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_history);
+
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                downloadHistory(getApplication(), AppConfig.URL_HISTORY);
+            }
+        });
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
+
+
         myRecyclerView = findViewById(R.id.record_rv);
         listHistory = new ArrayList<>();
         wowDatabase = Room.databaseBuilder(this,
@@ -55,6 +77,8 @@ public class HistoryActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        //swipeContainer.setRefreshing(false);
+        //swipeContainer.setEnabled(false);
         downloadHistory(this, AppConfig.URL_HISTORY);
 
         //listHistory.add(new History("abc","abc",1,"lala","R.drawable.reward2","lala"));
@@ -63,10 +87,12 @@ public class HistoryActivity extends AppCompatActivity {
         // listHistory.add(new History("abc","abc",4,"lala","R.drawable.reward2","lala");
 
 
+
+
     }
 
     private void downloadHistory(Context context, String url) {
-        progressDialog = ProgressDialog.show(this, "Loading...", "Please wait...", true);
+        //progressDialog = ProgressDialog.show(this, "Loading...", "Please wait...", true);
         // Instantiate the RequestQueue
         queue = Volley.newRequestQueue(context);
         //progressDialog = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", true);
@@ -101,15 +127,22 @@ public class HistoryActivity extends AppCompatActivity {
 
                                 History history = new History(uname,location, date,time, weight, remarks, photo, type, null,done);
                                 listHistory.add(history);
+                                swipeContainer.setRefreshing(false);
+
 
                             }
                             loadHistory(listHistory);
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            //if (progressDialog.isShowing())
+                                //progressDialog.dismiss();
+                            swipeContainer.setRefreshing(false);
+
                         } catch (Exception e) {
-                            // Toast.makeText(getContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            //Toast.makeText(context, "Error" + e.Message(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(get, "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                            //if (progressDialog.isShowing())
+                                //progressDialog.dismiss();
+                            swipeContainer.setRefreshing(false);
+
                         }
                     }
                 },
@@ -117,8 +150,11 @@ public class HistoryActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         //Toast.makeText(getContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
-                        if (progressDialog.isShowing())
-                            progressDialog.dismiss();
+                       // if (progressDialog.isShowing())
+                            //progressDialog.dismiss();
+                        swipeContainer.setRefreshing(false);
+
+
                     }
                 });
 

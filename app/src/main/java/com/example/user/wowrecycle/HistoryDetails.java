@@ -1,6 +1,11 @@
 package com.example.user.wowrecycle;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.arch.persistence.room.Room;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -101,7 +106,7 @@ public class HistoryDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                cancelDetail(uname, time, date );
+                Submit(uname,time,date);
 
             }});
 
@@ -172,6 +177,27 @@ public class HistoryDetails extends AppCompatActivity {
     }
 
 
+    private void Submit(final String bookname, final String bookTime, final String bookdate){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Wow Recycle");
+        builder.setMessage("Delete Record??")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        cancelDetail(bookname, bookTime, bookdate);
+                        Toast.makeText(HistoryDetails.this, "Record had been deleted.", Toast.LENGTH_SHORT).show();
+                        Intent myIntent = new Intent(HistoryDetails.this, HistoryActivity.class);
+                        HistoryDetails.this.startActivity(myIntent);
+
+                    }
+                })
+                .setNegativeButton("No",  new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.show();
+    }
 
 
 }

@@ -28,6 +28,18 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         this.adapter = this;
     }
 
+    // Clean all elements of the recycler
+    public void clear() {
+        mData.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<History> historyList) {
+        mData.addAll(historyList);
+        notifyDataSetChanged();
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
@@ -43,6 +55,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         holder.tv_location.setText(mData.get(position).getLocation());
         holder.tv_date.setText(mData.get(position).getDate());
         holder.tv_type.setText(mData.get(position).getType());
+        holder.tv_remarks.setText(mData.get(position).getRemarks());
+
         if(mData.get(position).getDone())
         {
             status="Completed";
@@ -88,7 +102,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
         private TextView tv_location;
         private TextView tv_date;
-
+        private TextView tv_remarks;
         private TextView tv_type;
         private TextView tv_status;
 
@@ -97,6 +111,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_location = (TextView)itemView.findViewById(R.id.record_location);
+            tv_remarks = (TextView)itemView.findViewById(R.id.record_remarks);
             tv_date = (TextView)itemView.findViewById(R.id.record_date);
             tv_type = (TextView)itemView.findViewById(R.id.record_type);
             tv_status=(TextView)itemView.findViewById(R.id.record_status);
