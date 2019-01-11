@@ -21,4 +21,6 @@
 
     <style name="btn_back">Back</style>
 
+    <style name="btn_view">View</style>
+
 </resources>

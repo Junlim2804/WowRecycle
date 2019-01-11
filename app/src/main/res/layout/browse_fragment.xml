@@ -17,9 +17,8 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Points Available"
             android:gravity="center"
-            />
+            android:text="@string/pointAvailable" />
 
         <TextView
             android:id="@+id/tmp_point"

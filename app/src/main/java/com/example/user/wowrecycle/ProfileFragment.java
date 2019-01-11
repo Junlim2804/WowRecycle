@@ -50,11 +50,13 @@ public class ProfileFragment extends Fragment {
     private TextView profileBookDetial;
     private TextView bookingStatus;
     private static List<BookDetail> BookArrayList=new ArrayList<>();
-
+    private static int currentPoint=0;
     private AppDatabase wowDatabase;
     private final static int RESULT_LOAD_IMAGE=1;
     private EditText email,ic,phoneno,address;
-    private TextView username,changephoto,fullname;
+    private TextView username,changephoto,fullname, showCat;
+    private TextView showPoint;
+    private String point;
     private Button btnSubmit;
     private static User curUser;
     private static String uname;
@@ -79,6 +81,11 @@ public class ProfileFragment extends Fragment {
         username = v.findViewById(R.id.profile_username);
         profilePic = v.findViewById(R.id.profile_picture);
 
+        showPoint = v.findViewById(R.id.p_points);
+        showCat = v.findViewById(R.id.p_category);
+        //point = showPoint.getText().toString();
+
+
         wowDatabase = Room.databaseBuilder(getActivity(),
                 AppDatabase.class, getString(R.string.DATABASENAME)).build();
         try {
@@ -90,12 +97,13 @@ public class ProfileFragment extends Fragment {
         }
         //View root = inflater.inflate(R.layout.fragment_profile, null);
 
-        profileBookDetial=(TextView)v.findViewById(R.id.profileBookDetail);
-        downloadBookDetail(getActivity(),AppConfig.URL_GETBOOKDETAIL);
+        //profileBookDetial=(TextView)v.findViewById(R.id.profileBookDetail);
+        //downloadBookDetail(getActivity(),AppConfig.URL_GETBOOKDETAIL);
 
-        btnRefresh=(Button)v.findViewById(R.id.refreshBookDetail);
-        txtDateProfile=(TextView)v.findViewById(R.id.txtDateProfile);
-        imageViewPhoto=(ImageView)v.findViewById(R.id.imgBookProfile);
+        /*btnRefresh=(Button)v.findViewById(R.id.refreshBookDetail);
+        //txtDateProfile=(TextView)v.findViewById(R.id.txtDateProfile);
+        //imageViewPhoto=(ImageView)v.findViewById(R.id.imgBookProfile);
+
         //TODO show pending booking detail
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,14 +127,14 @@ public class ProfileFragment extends Fragment {
 
 
             }
-        });
+        });*/
 
         return v;
 
     }
 
    // private ProgressDialog progressDialog=new ProgressDialog(getActivity());;
-    private void downloadBookDetail(Context context, String url) {
+    /*private void downloadBookDetail(Context context, String url) {
         //mPostCommentResponse.requestStarted();
         RequestQueue queue = Volley.newRequestQueue(context);
         url=url+"?name="+uname;
@@ -151,7 +159,7 @@ public class ProfileFragment extends Fragment {
                                 String address = imageResponse.getString("address");
                                 String image = imageResponse.getString("image");
                                 String remark = imageResponse.getString("remark");
-                                
+
                                 BookDetail bk=new BookDetail(name,address,image,date,remark);
 
 
@@ -177,7 +185,7 @@ public class ProfileFragment extends Fragment {
                 });
 
         queue.add(jsonObjectRequest);
-    }
+    }*/
     public void onViewCreated(View view, Bundle saveInstanceState){
         //imageViewPhoto = view.findViewById(R.layout.fragment_profile);
 
@@ -194,11 +202,24 @@ public class ProfileFragment extends Fragment {
         protected Void doInBackground(Void... Voids) {
             List<User> allUsers=wowDatabase.userDao().loadAllUsers();
             curUser=allUsers.get(0);
-
             uname=allUsers.get(0).getName();
-
+            currentPoint=allUsers.get(0).getBonus();
+            if(currentPoint >= 0 && currentPoint< 1000)
+            {
+                showCat.setText("Plastic");
+            }
+            else if(currentPoint >= 1001 && currentPoint < 2000)
+            {
+                showCat.setText("Paper");
+            }
+            else if(currentPoint >= 2001)
+            {
+                showCat.setText("Metal");
+            }
             fullname.setText(allUsers.get(0).getFullname());
             username.setText(allUsers.get(0).getName());
+            showPoint.setText(allUsers.get(0).getBonus()+"");
+
             imageString=allUsers.get(0).getImageString();
             Bitmap bitmap;
             try{
@@ -213,9 +234,20 @@ public class ProfileFragment extends Fragment {
 
             }
             profilePic.setImageBitmap(bitmap);
-            return null;
-
+             /*if(currentPoint >= 0 && Integer.parseInt(point) < 1000)
+            {
+                showCat.setText("Plastic");
             }
+            else if(currentPoint >= 1001 && Integer.parseInt(point) < 2000)
+            {
+                showCat.setText("Paper");
+            }
+            else if(currentPoint >= 2001)
+            {
+                showCat.setText("Metal");
+            }*/
+                return null;
+             }
 
         }
 

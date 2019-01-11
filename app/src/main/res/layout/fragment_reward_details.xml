@@ -51,7 +51,7 @@
             android:id="@+id/lblTnc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Terms and Conditions"
+            android:text="@string/lbltnc"
             android:textStyle="bold" />
 
         <TextView

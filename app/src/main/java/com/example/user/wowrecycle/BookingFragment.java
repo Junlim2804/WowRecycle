@@ -324,8 +324,8 @@ public class BookingFragment extends DialogFragment {
                    // Toast.makeText(getActivity(),esponse.toString(), Toast.LENGTH_LONG).show();
                     // Check for error node in json
                     if (!error) {
-                        Toast.makeText(getActivity(),
-                                "Sucesful Submit", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(),
+                                //"Sucesful Submit", Toast.LENGTH_LONG).show();
                         ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,new BookingFragment()).commit();
 
 
