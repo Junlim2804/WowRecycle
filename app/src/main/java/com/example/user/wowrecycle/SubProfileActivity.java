@@ -1,8 +1,11 @@
 package com.example.user.wowrecycle;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomNavigationView;
@@ -33,12 +37,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.user.wowrecycle.DataSource.AppDatabase;
 import com.example.user.wowrecycle.Entity.User;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -76,8 +83,7 @@ public class SubProfileActivity extends AppCompatActivity {
         changephoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
+                pickImage();
             }
         });
         wowDatabase = Room.databaseBuilder(getApplicationContext(),
@@ -107,6 +113,49 @@ public class SubProfileActivity extends AppCompatActivity {
 
     }
     private ProgressDialog pDialog;
+                                            //Crop image
+
+    //PICK IMAGE METHOD
+    public void pickImage() {
+        CropImage.startPickImageActivity(this);
+    }
+
+    private void croprequest(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setMultiTouchEnabled(true)
+                .start(this);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        //RESULT FROM SELECTED IMAGE
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Uri imageUri = CropImage.getPickImageResultUri(this, data);
+            croprequest(imageUri);
+        }
+
+        //RESULT FROM CROPING ACTIVITY
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
+
+                    ((ImageView)findViewById(R.id.imageViewProfilePic)).setImageBitmap(bitmap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 555 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            pickImage();
+        }
+    }
+                                    //Crop image
     private void UpdateUser() {
 
         String tag_string_req = "req_update";
@@ -217,27 +266,27 @@ public class SubProfileActivity extends AppCompatActivity {
     }
 
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK
-                && null != data) {
-            Uri selectedImage = data.getData();
-            if (selectedImage != null) {
-                try {
-                    currentImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(),selectedImage);
-                    profilePic.setImageBitmap(currentImage);
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                   currentImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] imageBytes = baos.toByteArray();
-                    imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-
-    }
+//    public void onActivityResult(int requestCode, int resultCode, Intent data)
+//    {
+//        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK
+//                && null != data) {
+//            Uri selectedImage = data.getData();
+//            if (selectedImage != null) {
+//                try {
+//                    currentImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(),selectedImage);
+//                    profilePic.setImageBitmap(currentImage);
+//                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                   currentImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//                    byte[] imageBytes = baos.toByteArray();
+//                    imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//
+//
+//    }
 
     private class UserAsyncTask extends AsyncTask<Void,Void,Void> {
 

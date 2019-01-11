@@ -86,6 +86,7 @@ public class ProfileFragment extends Fragment {
         //point = showPoint.getText().toString();
 
 
+
         wowDatabase = Room.databaseBuilder(getActivity(),
                 AppDatabase.class, getString(R.string.DATABASENAME)).build();
         try {
