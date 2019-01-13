@@ -218,7 +218,7 @@ public class ProfileFragment extends Fragment {
                 showCat.setText("Metal");
             }
             fullname.setText(allUsers.get(0).getFullname());
-            username.setText(allUsers.get(0).getName());
+            username.setText("@"+allUsers.get(0).getName());
             showPoint.setText(allUsers.get(0).getBonus()+"");
 
             imageString=allUsers.get(0).getImageString();
