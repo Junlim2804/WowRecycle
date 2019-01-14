@@ -155,7 +155,7 @@
             android:inputType="textMultiLine|textPostalAddress"
             android:padding="10dp"
             android:textColor="#000000"
-            android:maxLength="12"/>
+            />
 
         <Button
             android:id="@+id/btnUpdateDetail"
