@@ -59,6 +59,7 @@ public class EventFragment extends Fragment {
 
     private void downloadEvent(Context context, String url) {
         progressDialog = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", true);
+        progressDialog.setCancelable(true);
         // Instantiate the RequestQueue
         queue = Volley.newRequestQueue(context);
         //progressDialog = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", true);

@@ -70,6 +70,7 @@ public class FragmentMyRewards extends Fragment {
         rdImage = view.findViewById(R.id.rdImage);
         myRecyclerView = (RecyclerView)view.findViewById(R.id.rv_myredeem);
         listRedeem = new ArrayList<>();
+
         wowDatabase = Room.databaseBuilder(view.getContext(),
                 AppDatabase.class, getString(R.string.DATABASENAME)).build();
 
@@ -80,14 +81,14 @@ public class FragmentMyRewards extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        downloadReward(getActivity(),AppConfig.URL_GETREWARD);
+        //downloadReward(getActivity(),AppConfig.URL_GETREWARD);
         return view;
     }
 
     private void downloadReward(Context context, String url) {
         // Instantiate the RequestQueue
         queue = Volley.newRequestQueue(context);
-        progressDialog = ProgressDialog.show(getActivity(), "Checking Reward", "Please wait...", true);
+        //progressDialog = ProgressDialog.show(getActivity(), "Checking Reward", "Please wait...", true);
         url=url+"?name="+curUser;
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
                 url,
@@ -107,8 +108,8 @@ public class FragmentMyRewards extends Fragment {
 
                             }
                             loadAllRedeem(listRedeem);
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                           // if (progressDialog.isShowing())
+                           //     progressDialog.dismiss();
                         } catch (Exception e) {
                             Toast.makeText(getContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
                             if (progressDialog.isShowing())
@@ -119,9 +120,9 @@ public class FragmentMyRewards extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(getContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
-                        if (progressDialog.isShowing())
-                            progressDialog.dismiss();
+                       // Toast.makeText(getContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                        //if (progressDialog.isShowing())
+                         //   progressDialog.dismiss();
                     }
                 });
 
@@ -148,6 +149,7 @@ public class FragmentMyRewards extends Fragment {
         protected Void doInBackground(Void... Voids) {
             List<User> allUsers=wowDatabase.userDao().loadAllUsers();
             curUser=allUsers.get(0).getName();
+            downloadReward(getActivity(),AppConfig.URL_GETREWARD);
 
             return null;
         }

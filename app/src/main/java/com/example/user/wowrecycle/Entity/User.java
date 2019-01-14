@@ -19,7 +19,7 @@ public class User {
     private int bonus;
     private String address;
     private String imageString;
-  
+
     public User() {
     }
 

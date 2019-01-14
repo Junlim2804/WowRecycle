@@ -63,7 +63,9 @@ public class FragmentBrowse extends Fragment {
         myRecyclerView = (RecyclerView)view.findViewById(R.id.reward_rv);
         listReward = new ArrayList<>();
 
-        downloadReward(getActivity(), AppConfig.URL_REWARD);
+        listReward.add(new Reward("", 100, "detail", "empty"));
+        loadReward(listReward);
+        //downloadReward(getActivity(), AppConfig.URL_REWARD);
         wowDatabase = Room.databaseBuilder(getActivity(),
                 AppDatabase.class, getString(R.string.DATABASENAME)).build();
         try {
@@ -93,7 +95,7 @@ public class FragmentBrowse extends Fragment {
     private void downloadReward(Context context, String url) {
         // Instantiate the RequestQueue
         queue = Volley.newRequestQueue(context);
-        progressDialog = ProgressDialog.show(getActivity(), "Checking Reward", "Please wait...", true);
+        //progressDialog = ProgressDialog.show(getActivity(), "Checking Reward", "Please wait...", true);
         //if (!progressDialog.isShowing())
          //   progressDialog.setMessage("Syn with server...");
         //progressDialog.show();
@@ -117,22 +119,22 @@ public class FragmentBrowse extends Fragment {
                                 listReward.add(reward);
 
                             }
-                            loadReward(listReward);
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            recyclerAdapter.notifyDataSetChanged();
+                          //  if (progressDialog.isShowing())
+                          //          progressDialog.dismiss();
                         } catch (Exception e) {
-                            Toast.makeText(getContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            //Toast.makeText(getContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                          //  if (progressDialog.isShowing())
+                           //     progressDialog.dismiss();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(getContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
-                        if (progressDialog.isShowing())
-                            progressDialog.dismiss();
+                       // Toast.makeText(getContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                       // if (progressDialog.isShowing())
+                       //     progressDialog.dismiss();
                     }
                 });
 
@@ -176,6 +178,7 @@ public class FragmentBrowse extends Fragment {
             List<User> allUsers=wowDatabase.userDao().loadAllUsers();
             uname=allUsers.get(0).getName();
             currentPoint=allUsers.get(0).getBonus();
+            downloadReward(getActivity(), AppConfig.URL_REWARD);
             return null;
         }
     }
