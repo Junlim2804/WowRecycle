@@ -142,7 +142,7 @@ public class SubProfileActivity extends AppCompatActivity {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), result.getUri());
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 60, baos);
                     byte[] imageBytes = baos.toByteArray();
                     imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
                     ((ImageView)findViewById(R.id.imageViewProfilePic)).setImageBitmap(bitmap);

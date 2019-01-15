@@ -63,7 +63,10 @@ public class FragmentBrowse extends Fragment {
         myRecyclerView = (RecyclerView)view.findViewById(R.id.reward_rv);
         listReward = new ArrayList<>();
 
-        listReward.add(new Reward("", 100, "detail", "empty"));
+        listReward.add(new Reward(" ", 100, "detail", "empty"));
+        listReward.add(new Reward(" ", 100, "detail", "empty"));
+        listReward.add(new Reward(" ", 100, "detail", "empty"));
+        listReward.add(new Reward(" ", 100, "detail", "empty"));
         loadReward(listReward);
         //downloadReward(getActivity(), AppConfig.URL_REWARD);
         wowDatabase = Room.databaseBuilder(getActivity(),
