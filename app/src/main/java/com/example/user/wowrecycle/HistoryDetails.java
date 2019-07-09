@@ -2,17 +2,16 @@ package com.example.user.wowrecycle;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.arch.persistence.room.Room;
-import android.content.Context;
+import androidx.room.Room;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;

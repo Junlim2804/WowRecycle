@@ -1,14 +1,14 @@
 package com.example.user.wowrecycle;
 
-import android.arch.persistence.room.Room;
-import android.content.Context;
+import androidx.room.Room;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.support.v4.app.Fragment;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.fragment.app.Fragment;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,19 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.user.wowrecycle.DataSource.AppDatabase;
 import com.example.user.wowrecycle.Entity.BookDetail;
 import com.example.user.wowrecycle.Entity.User;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

@@ -1,11 +1,10 @@
 package com.example.user.wowrecycle.DataSource;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 import android.content.Context;
 
-import com.example.user.wowrecycle.Entity.Redeem;
 import com.example.user.wowrecycle.Entity.User;
 
 @Database (entities = {User.class}, version = 1)
