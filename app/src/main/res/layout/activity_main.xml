@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:text="E-mail or Username"
             android:textColor="#fff"
-            android:textSize="12sp" />
+            android:textSize="20sp" />
 
 
         <EditText
@@ -57,7 +57,7 @@
             android:alpha="0.7"
             android:background="@drawable/edittext"
             android:ems="10"
-            android:hint="Email or Username"
+
             android:inputType="text|textEmailAddress"
             android:padding="10dp"
             android:textColor="#fff"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:text="Password"
             android:textColor="#fff"
-            android:textSize="12sp" />
+            android:textSize="20sp" />
 
 
         <EditText
@@ -79,7 +79,7 @@
             android:adjustViewBounds="true"
             android:alpha="0.7"
             android:background="@drawable/edittext"
-            android:hint="Password"
+
             android:inputType="textPassword"
             android:padding="10dp"
             android:textColor="#fff"
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:text="Forgot your password?"
                 android:textColor="#fff"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
 
 
