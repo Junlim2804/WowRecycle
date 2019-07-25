@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 
 import androidx.room.Room;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import androidx.fragment.app.DialogFragment;
 
@@ -21,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.core.content.ContextCompat;
 
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +33,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -68,7 +73,7 @@ public class BookingFragment extends DialogFragment {
     private Button btnSubmitBook;
     private static int RESULT_LOAD_IMG = 4;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL = 2;
-    private static int REQUEST_IMAGE_CAPTURE=3;
+
     private ImageView uploader;
     Bitmap bitmap;
     String imageString;
@@ -92,21 +97,7 @@ public class BookingFragment extends DialogFragment {
                 setLocation.setText(place.getAddress());
             }
         }
-        else if(requestCode==REQUEST_IMAGE_CAPTURE)
-        {
-            if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-                Bundle extras = data.getExtras();
-                bitmap = (Bitmap) extras.get("data");
-                uploader.setImageBitmap(bitmap);
 
-                //converting image to base64 string
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] imageBytes = baos.toByteArray();
-                imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-
-            }
-        }
 
     }
 
@@ -138,12 +129,65 @@ public class BookingFragment extends DialogFragment {
                 // result of the request.
             }
         }
-        editTextWeight=(EditText)v.findViewById(R.id.txtWeight);
+        //editTextWeight=(EditText)v.findViewById(R.id.txtWeight);
+        final TableLayout tableLayout;
+        tableLayout = v.findViewById(R.id.table_layout);
+        final TableRow tb1=new TableRow(getActivity());
 
-        spinner = (Spinner)v.findViewById(R.id.spinner);
+        //Adding 2 TextViews
+        /*for (int i = 1; i <= 2; i++) {
+            TextView textView = new TextView(getActivity());
+            textView.setText("TextView " + String.valueOf(i));
+            linearLayout.addView(textView);
+        }*/
+        Spinner s1=(Spinner)v.findViewById(R.id.spinner2);
+
         adapter = ArrayAdapter.createFromResource(getActivity(), R.array.type_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        s1.setAdapter(adapter);
+
+
+
+
+        tableLayout.addView(tb1);
+
+
+
+
+        //spinner = (Spinner)v.findViewById(R.id.spinner);
+        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.type_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //spinner.setAdapter(adapter);
+
+
+        Button add=(Button)v.findViewById(R.id.btn_addbook);
+        add.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Spinner s2=new Spinner(getActivity());
+                s2.setAdapter(adapter);
+                EditText kg=new EditText(getActivity());
+                kg.setInputType(InputType.TYPE_CLASS_NUMBER);
+                kg.setHint("Enter weight(kg)");
+                final TableRow tb2=new TableRow(getActivity());
+                Button btn_del=new Button(getActivity());
+                btn_del.setText("X");
+                btn_del.setBackgroundColor(Color.TRANSPARENT);
+                btn_del.setOnClickListener(new View.OnClickListener(){
+                    public void onClick(View view) {
+                        tableLayout.removeView(tb2);
+
+
+                    }
+                });
+                tb2.addView(s2);
+                tb2.addView(kg);
+                tb2.addView(btn_del);
+                tableLayout.addView(tb2,1);
+
+
+            }
+        });
+
         dateData=(EditText)v.findViewById(R.id.dateData);
         Date c = Calendar.getInstance().getTime();
         System.out.println("Current time => " + c);
@@ -180,7 +224,7 @@ public class BookingFragment extends DialogFragment {
                             Toast.makeText(getActivity(),"Out of service Time",Toast.LENGTH_SHORT).show();
                         }
                         else
-                        timeData.setText( String.format("%02d:%02d",selectedHour, selectedMinute));
+                            timeData.setText( String.format("%02d:%02d",selectedHour, selectedMinute));
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -223,18 +267,7 @@ public class BookingFragment extends DialogFragment {
 
 
 
-        uploader=(ImageView)v.findViewById(R.id.item_image);
-        uploader.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                photoUploaded = photoUploaded + 1;
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-
-                }
-
-            }
-        });
+        //uploader=(ImageView)v.findViewById(R.id.item_image);
 
 
 
@@ -245,9 +278,9 @@ public class BookingFragment extends DialogFragment {
         btnSubmitBook.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 //SQLiteHandler db = new SQLiteHandler(getActivity());
-               // HashMap<String, String> user=db.getUserDetails();
-               // String uname=user.get("name");
-               // new UserAsyncTask().execute();
+                // HashMap<String, String> user=db.getUserDetails();
+                // String uname=user.get("name");
+                // new UserAsyncTask().execute();
 
                 if(setLocation.getText().toString().matches("")){
                     Toast.makeText(getActivity(), "Please fill in the location", Toast.LENGTH_LONG).show();
@@ -309,11 +342,11 @@ public class BookingFragment extends DialogFragment {
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
-                   // Toast.makeText(getActivity(),esponse.toString(), Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getActivity(),esponse.toString(), Toast.LENGTH_LONG).show();
                     // Check for error node in json
                     if (!error) {
                         //Toast.makeText(getActivity(),
-                                //"Sucesful Submit", Toast.LENGTH_LONG).show();
+                        //"Sucesful Submit", Toast.LENGTH_LONG).show();
                         ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,new BookingFragment()).commit();
 
 
@@ -367,7 +400,7 @@ public class BookingFragment extends DialogFragment {
 
         public UserAsyncTask() {
 
-    }
+        }
 
 
 
@@ -391,6 +424,8 @@ public class BookingFragment extends DialogFragment {
                                 ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
                         Toast.makeText(getActivity(), "Request has been submitted", Toast.LENGTH_LONG).show();
                         clearForm();
+                        Intent intent = new Intent(getActivity(), ConfirmActivity.class);
+                        startActivity(intent);
 
 
                     }

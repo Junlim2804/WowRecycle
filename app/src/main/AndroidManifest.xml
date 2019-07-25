@@ -54,6 +54,13 @@
             android:label="@string/title_activity_second"
             android:parentActivityName=".HistoryActivity"/>
 
+        <activity
+            android:name=".ConfirmActivity"
+            android:label="@string/title_activity_second"
+            android:parentActivityName=".SecondActivity"/>
+
+
+
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:screenOrientation="portrait" />
         <!--

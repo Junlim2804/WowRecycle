@@ -88,7 +88,8 @@
     <string name="lblPhone">Phone Number</string>
     <string name="lblAddress">Address</string>
     <string name="lblUsername">Username</string>
-
+    <string name="lblPassword">Password</string>
+    <string name="lblCfmPassword">Confirm Password</string>
     <string name="txtTime">Time</string>
 
     <string name="txtStatus">Status</string>
@@ -110,6 +111,16 @@
     <string name="pointAvailable">Points Available</string>
     <string name="lblCategory">Category</string>
     <string name="lblNews">News</string>
+
+    <string name="thanksMsg">Thank you for recycling with us !!</string>
+    <string name="receiveMsg">You may receive</string>
+    <string name="pointsReceived">1000 POINTS</string>
+    <string name="lblColAddress">Collection Address</string>
+    <string name="lblColDate">Collection Date</string>
+    <string name="lblColTime">Collection Time</string>
+    <string name="btn_okay">Okay</string>
+    <string name="BookingSummary">Booking Summary</string>
+
 
 
 </resources>

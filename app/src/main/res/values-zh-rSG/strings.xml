@@ -93,5 +93,15 @@
     <string name="lblCategory">Category</string>
     <string name="lblNews">新闻</string>
 
+    <string name="thanksMsg">感谢您的支持!!</string>
+    <string name="receiveMsg">您将获得</string>
+    <string name="pointsReceived">1000积分</string>
+    <string name="lblColAddress">收集地址</string>
+    <string name="lblColDate">收集日期</string>
+    <string name="lblColTime">收集时间</string>
+    <string name="btn_okay">好的</string>
+    <string name="BookingSummary">收集详情</string>
+
+
 
 </resources>
