@@ -41,31 +41,36 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/lblUsername" />
+                android:text="@string/lblUsername"
+                android:textSize="16dp"
+              />
 
             <EditText
                 android:id="@+id/eUsername"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
+
                 android:adjustViewBounds="true"
                 android:alpha="0.7"
                 android:background="@drawable/edittext"
                 android:ems="10"
                 android:padding="10dp"
-                android:textColor="#fff"
+                android:textColor="#000000"
                 android:textColorHint="#fff"
                 android:hint="karenkho"/>
 
 
             <TextView
+
                 android:id="@+id/lbl_email"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/lblEmail" />
+                android:text="@string/lblEmail"
+                android:textSize="16dp"
+                />
 
             <EditText
                 android:id="@+id/eemail"
@@ -80,19 +85,22 @@
 
                 android:inputType="text|textEmailAddress"
                 android:padding="10dp"
-                android:textColor="#fff"
+                android:textColor="#000000"
                 android:textColorHint="#fff"
                 android:hint="xxx@gmail.com"/>
 
 
             <TextView
+
                 android:id="@+id/lbl_password"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/lblPassword" />
+                android:text="@string/lblPassword"
+                android:textSize="16dp"
+               />
 
             <EditText
                 android:id="@+id/txtPassword"
@@ -121,7 +129,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/lblCfmPassword" />
+                android:text="@string/lblCfmPassword"
+                android:textSize="16dp"
+                />
 
             <EditText
                 android:id="@+id/txtCfmPassword"
@@ -136,39 +146,41 @@
 
                 android:inputType="textPassword"
                 android:padding="10dp"
-                android:textColor="#fff"
+                android:textColor="#000000"
                 android:textColorHint="#fff" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+
+                    android:id="@+id/btn_signup"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/loginbutton"
+                    android:text="SIGN UP"
+                    android:layout_alignParentLeft="true"/>
+                android:textColor="#000" />
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/loginbutton"
+                    android:text="Cancel"
+                    android:textColor="#000" />
+            </RelativeLayout>
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <Button
-
-                android:id="@+id/btn_signup"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="60dp"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/loginbutton"
-                android:text="SIGN UP"
-                android:layout_alignParentLeft="true"/>
-            android:textColor="#000" />
-
-            <Button
-                android:id="@+id/btn_cancel"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="60dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/loginbutton"
-                android:text="Cancel"
-                android:textColor="#000" />
-        </RelativeLayout>
 
     </LinearLayout>
 

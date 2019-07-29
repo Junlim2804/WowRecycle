@@ -6,6 +6,7 @@ import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
         Username = (EditText) findViewById(R.id.eUsername);
         Password = (EditText) findViewById(R.id.txtPassword);
-        FPassword = (TextView) findViewById(R.id.tvfpasswaord);
+        //FPassword = (TextView) findViewById(R.id.tvfpasswaord);
 
         Login = (Button) findViewById(R.id.btnLogin);
 
@@ -130,7 +131,18 @@ public class MainActivity extends AppCompatActivity {
                 String in_username=Username.getText().toString();
                 String in_password=Password.getText().toString();
                 if(in_username.equals("")||in_username==null||in_password==null||in_password.equals(""))
-                { Toast.makeText(getApplicationContext(),"Username and Password cannot be blank", Toast.LENGTH_SHORT ).show();
+                { //Toast.makeText(getApplicationContext(),"Username and Password cannot be blank", Toast.LENGTH_SHORT ).show();
+
+
+                    Toast toast = Toast.makeText(getApplicationContext(),"Username and Password cannot be blank", Toast.LENGTH_SHORT );
+                    View view = toast.getView();
+                   // view.setBackgroundResource(R.drawable.card_gradient);
+                    TextView text = (TextView) view.findViewById(android.R.id.message);
+                    text.setTextColor(Color.parseColor("#FF0000"));
+
+                    /*Here you can do anything with above textview like text.setTextColor(Color.parseColor("#000000"));*/
+                    toast.show();
+
                     return;
                 }
 
@@ -149,12 +161,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        FPassword.setOnClickListener(new View.OnClickListener() {
+  //          @Override
+    //        public void onClick(View v) {
 
-            }
-        });
+      //      }
+       // });
 
         session = new SessionManager(getApplicationContext());
 
