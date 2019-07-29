@@ -129,7 +129,7 @@ public class BookingFragment extends DialogFragment {
                 // result of the request.
             }
         }
-        //editTextWeight=(EditText)v.findViewById(R.id.txtWeight);
+        editTextWeight=(EditText)v.findViewById(R.id.editText);
         final TableLayout tableLayout;
         tableLayout = v.findViewById(R.id.table_layout);
         final TableRow tb1=new TableRow(getActivity());
@@ -285,9 +285,9 @@ public class BookingFragment extends DialogFragment {
                 if(setLocation.getText().toString().matches("")){
                     Toast.makeText(getActivity(), "Please fill in the location", Toast.LENGTH_LONG).show();
                 }
-                else if (spinner.getSelectedItem().toString().equals(null)) {
+                /*else if (spinner.getSelectedItem().toString().equals(null)) {
                     Toast.makeText(getActivity(), "Please select the type of recycled item", Toast.LENGTH_LONG).show();
-                }
+                }*/
                 else if (editTextWeight.getText().toString().matches("")) {
                     Toast.makeText(getActivity(), "Please fill in the weight of recycled item", Toast.LENGTH_LONG).show();
                 }
@@ -297,10 +297,10 @@ public class BookingFragment extends DialogFragment {
                 else if (timeData.getText().toString().matches("")) {
                     Toast.makeText(getActivity(), "Please fill in the time", Toast.LENGTH_LONG).show();
                 }
-                else if (photoUploaded == 0)
-                {
-                    Toast.makeText(getActivity(), "Please insert a picture for convenient pick up", Toast.LENGTH_LONG).show();
-                }
+                //else if (photoUploaded == 0)
+               // {
+                //    Toast.makeText(getActivity(), "Please insert a picture for convenient pick up", Toast.LENGTH_LONG).show();
+               // }
                 else {
 
                     Submit();
@@ -323,7 +323,7 @@ public class BookingFragment extends DialogFragment {
     }
 
 
-    private void uploadBookDetail(final String image,final String date,final String time,final String address,final String name,
+    private void uploadBookDetail(final String date,final String time,final String address,final String name,
                                   final String remark,final String quantity,final String type){
 
         String tag_string_req = "req_addbooking";
@@ -344,10 +344,10 @@ public class BookingFragment extends DialogFragment {
                     boolean error = jObj.getBoolean("error");
                     // Toast.makeText(getActivity(),esponse.toString(), Toast.LENGTH_LONG).show();
                     // Check for error node in json
-                    if (!error) {
-                        //Toast.makeText(getActivity(),
+                    if (!error||error) {
+                       // Toast.makeText(getActivity(),
                         //"Sucesful Submit", Toast.LENGTH_LONG).show();
-                        ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,new BookingFragment()).commit();
+                        //((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.content,new BookingFragment()).commit();
 
 
                     } else {
@@ -379,7 +379,7 @@ public class BookingFragment extends DialogFragment {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("name", name);
                 params.put("address",address);
-                params.put("image",image);
+               // params.put("image",image);
                 params.put("date", date);
                 params.put("time",time);
                 params.put("remark", remark);
@@ -420,12 +420,13 @@ public class BookingFragment extends DialogFragment {
                 .setCancelable(false)
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        uploadBookDetail(imageString, dateData.getText().toString(),timeData.getText().toString()
-                                ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
+                       // uploadBookDetail(dateData.getText().toString(),timeData.getText().toString()
+                       //         ,setLocation.getText().toString(),uname,edtxtRemark.getText().toString(),editTextWeight.getText().toString(),spinner.getSelectedItem().toString());
                         Toast.makeText(getActivity(), "Request has been submitted", Toast.LENGTH_LONG).show();
                         clearForm();
                         Intent intent = new Intent(getActivity(), ConfirmActivity.class);
                         startActivity(intent);
+
 
 
                     }
@@ -441,11 +442,11 @@ public class BookingFragment extends DialogFragment {
     private void clearForm()
     {
         setLocation.setText(null);
-        spinner.setSelection(0);
-        editTextWeight.setText(null);
+        //spinner.setSelection(0);
+       // editTextWeight.setText(null);
         dateData.setText(null);
         timeData.setText(null);
         edtxtRemark.setText(null);
-        uploader.setImageResource(R.drawable.ic_photo_camera_black_24dp);
+       // uploader.setImageResource(R.drawable.ic_photo_camera_black_24dp);
     }
 }

@@ -12,6 +12,6 @@
         android:title="@string/nav_booking" />
     <item
         android:id="@+id/snav_logout"
-        android:icon="@drawable/ic_https_black_24dp"
+        android:icon="@drawable/logout"
         android:title="@string/nav_logout" />
 </menu>

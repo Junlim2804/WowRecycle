@@ -48,7 +48,7 @@ tools:context=".ConfirmActivity">
         android:fontFamily="cursive"
         android:text="@string/pointsReceived"
         android:textColor="@color/design_default_color_primary_dark"
-        android:textSize="18sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -127,8 +127,7 @@ tools:context=".ConfirmActivity">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="1 July 2019"
-                    />
+                    android:text="30 July 2019" />
 
             </TableRow>
 
