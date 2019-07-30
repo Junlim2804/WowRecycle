@@ -3,6 +3,7 @@ package com.example.user.wowrecycle;
 import android.app.ProgressDialog;
 import androidx.room.Room;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -80,9 +82,18 @@ public class RegisterActivity extends AppCompatActivity {
                 if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
                     registerUser(name, email, password);
                 } else {
-                    Toast.makeText(getApplicationContext(),
-                            "Please enter your details!", Toast.LENGTH_LONG)
-                            .show();
+                    //Toast.makeText(getApplicationContext(),
+                            //"Please enter your details!", Toast.LENGTH_LONG)
+                            //.show();
+
+                    Toast toast = Toast.makeText(getApplicationContext(),"Please enter your details!", Toast.LENGTH_SHORT );
+                    View v = toast.getView();
+                    // view.setBackgroundResource(R.drawable.card_gradient);
+                    TextView text = (TextView) v.findViewById(android.R.id.message);
+                    text.setTextColor(Color.parseColor("#FF0000"));
+
+                    /*Here you can do anything with above textview like text.setTextColor(Color.parseColor("#000000"));*/
+                    toast.show();
 
                 }
             }

@@ -221,7 +221,15 @@ public class BookingFragment extends DialogFragment {
                         if(selectedHour<9||selectedHour>21)
                         {
                             timeData.setText(" ");
-                            Toast.makeText(getActivity(),"Out of service Time",Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(),"Out of service Time",Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(getActivity(),"Out of service Time", Toast.LENGTH_SHORT );
+                            View view = toast.getView();
+                            // view.setBackgroundResource(R.drawable.card_gradient);
+                            TextView text = (TextView) view.findViewById(android.R.id.message);
+                            text.setTextColor(Color.parseColor("#FF0000"));
+
+                            /*Here you can do anything with above textview like text.setTextColor(Color.parseColor("#000000"));*/
+                            toast.show();
                         }
                         else
                             timeData.setText( String.format("%02d:%02d",selectedHour, selectedMinute));

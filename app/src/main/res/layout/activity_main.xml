@@ -123,7 +123,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SIGN UP HERE"
-                android:textColor="#fff"
+                android:textColor="#000000"
+                android:textStyle="bold"
                 android:textSize="15sp" />
 
 
