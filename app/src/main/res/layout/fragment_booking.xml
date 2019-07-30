@@ -13,6 +13,7 @@
         android:id="@+id/labelBooking"
         android:layout_width="419dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
 
         android:padding="15dp"
         android:text="@string/labelBooking"
@@ -39,10 +40,11 @@
 
                 <TextView
                     android:id="@+id/lblLocation"
+                    android:layout_width="84dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:padding="10dp"
-                    android:text="@string/Location"
+                    android:text="Collection Address"
                     android:textStyle="bold" />
 
                 <EditText
@@ -69,11 +71,11 @@
 
                 <TextView
                     android:id="@+id/lblDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="84dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:padding="10dp"
-                    android:text="@string/lblDate"
+                    android:text="Collection\nDate"
                     android:textStyle="bold" />
 
                 <EditText
@@ -95,10 +97,10 @@
                 <TextView
                     android:id="@+id/lblTime"
 
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:padding="10dp"
-                    android:text="@string/Time"
+                    android:text="Collection\nTime"
                     android:textStyle="bold" />
 
                 <EditText
