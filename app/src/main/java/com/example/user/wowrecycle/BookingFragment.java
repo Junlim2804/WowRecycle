@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -222,13 +223,11 @@ public class BookingFragment extends DialogFragment {
                         {
                             timeData.setText(" ");
                             //Toast.makeText(getActivity(),"Out of service Time",Toast.LENGTH_SHORT).show();
-                            Toast toast = Toast.makeText(getActivity(),"Out of service Time", Toast.LENGTH_SHORT );
+                            Toast toast = Toast.makeText(getActivity(),"           Out of service Time\nService time is from 0900 - 2100", Toast.LENGTH_SHORT );
                             View view = toast.getView();
-                            // view.setBackgroundResource(R.drawable.card_gradient);
                             TextView text = (TextView) view.findViewById(android.R.id.message);
                             text.setTextColor(Color.parseColor("#FF0000"));
 
-                            /*Here you can do anything with above textview like text.setTextColor(Color.parseColor("#000000"));*/
                             toast.show();
                         }
                         else
@@ -291,19 +290,43 @@ public class BookingFragment extends DialogFragment {
                 // new UserAsyncTask().execute();
 
                 if(setLocation.getText().toString().matches("")){
-                    Toast.makeText(getActivity(), "Please fill in the location", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "Please fill in the location", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(getActivity(),"Please fill in the location", Toast.LENGTH_SHORT );
+                    View v = toast.getView();
+                    TextView text = (TextView) v.findViewById(android.R.id.message);
+                    text.setTextColor(Color.parseColor("#FF0000"));
+
+                    toast.show();
                 }
                 /*else if (spinner.getSelectedItem().toString().equals(null)) {
                     Toast.makeText(getActivity(), "Please select the type of recycled item", Toast.LENGTH_LONG).show();
                 }*/
                 else if (editTextWeight.getText().toString().matches("")) {
-                    Toast.makeText(getActivity(), "Please fill in the weight of recycled item", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getActivity(), "Please fill in the weight of recycled item", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(getActivity(),"Please fill in the weight of recycled item", Toast.LENGTH_SHORT );
+                    View v = toast.getView();
+                    TextView text = (TextView) v.findViewById(android.R.id.message);
+                    text.setTextColor(Color.parseColor("#FF0000"));
+
+                    toast.show();
                 }
                 else if (dateData.getText().toString().matches("")) {
-                    Toast.makeText(getActivity(), "Please fill in the date", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "Please fill in the date", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(getActivity(),"Please fill in the date", Toast.LENGTH_SHORT );
+                    View v = toast.getView();
+                    TextView text = (TextView) v.findViewById(android.R.id.message);
+                    text.setTextColor(Color.parseColor("#FF0000"));
+
+                    toast.show();
+
                 }
                 else if (timeData.getText().toString().matches("")) {
-                    Toast.makeText(getActivity(), "Please fill in the time", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "Please fill in the time", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(getActivity(),"Please fill in the time", Toast.LENGTH_SHORT );
+                    View v = toast.getView();
+                    TextView text = (TextView) v.findViewById(android.R.id.message);
+                    text.setTextColor(Color.parseColor("#FF0000"));
+
                 }
                 //else if (photoUploaded == 0)
                // {

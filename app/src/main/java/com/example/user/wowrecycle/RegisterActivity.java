@@ -147,7 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
                         // Launch login activity
                         Intent intent = new Intent(
                                 RegisterActivity.this,
-                                SubProfileActivity.class);
+                                MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
