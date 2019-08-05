@@ -251,13 +251,22 @@ public class MainActivity extends AppCompatActivity {
                         // Error in login. Get the error message
 
                         String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+
+                        Toast toast = Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG);
+                        View view = toast.getView();
+                        // view.setBackgroundResource(R.drawable.card_gradient);
+                        TextView text = (TextView) view.findViewById(android.R.id.message);
+                        text.setTextColor(Color.parseColor("#FF0000"));
+
+                        /*Here you can do anything with above textview like text.setTextColor(Color.parseColor("#000000"));*/
+                        toast.show();
+
                     }
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+
                 }
 
             }
